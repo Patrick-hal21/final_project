@@ -10,12 +10,12 @@
 </head>
 <body class="bg-[#328BB1]">
     <header class="bg-[#328BB1] border-b-2 border-[#005275]">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-0.5 lg:px-12" aria-label="Global">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between lg:px-12" aria-label="Global">
           <div class="flex lg:flex-1">
             <a href="#" class="-m-1.5 p-1.5"> <!--  pl-5-->
               <span class="sr-only">Our School</span>
               <!-- <img class="h-8 w-auto" src="{% static 'logo (4).png' %}" alt=""> -->
-              <img class="h-[67px] w-auto" src="C:\Users\DELL\OneDrive\Desktop\Django(practice)\my_std_attendance\my_static_files\logo (4).png" alt="">
+              <img class="h-[67px] w-auto" src="./static/logo (4).png" alt="">
             </a>
           </div>
 
@@ -78,19 +78,79 @@
 
     <!-- body part -->
 
-    <div class="mx-auto flex justify-between h-[370px] bg-[#ECF7FF] lg:px-12">
-      <div class="flex lg:flex-1 m-12 pt-10">
-        <p class="text-[#888888] font-[Lato] font-bold">Federal School</p>
+    <div class="mx-auto flex justify-between h-[390px] bg-[#ECF7FF] lg:px-12">
+      <div class="flex flex-col lg:flex-1 mt-11 pt-5 lg:px-12">
+        <p class="text-5xl font-[Lato] font-bold mb-4">Federal School</p>
+        <p class="w-[230px] text-[#888888] font-[Lato] mt-12"> Basic Education High School (from kindergarden to Grade-12)</p>
 
-        <p class="font-[Lato]"></p>
+        <button type="button" class="mt-6 pb-1 text-white font-bold flex items-center justify-center
+         shadow-[0px_4px_10px_rgba(0,0,0,0.25)] w-[165px] h-[50px] rounded-[5px] bg-[#328BB1] hover:bg-[#23B2CF] group">
+
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="white" class="size-6 -ml-1 group-hover:stroke-black">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          <span class="ml-2 group-hover:text-black">Get started</span>
+        </button>
+
       </div>
-        
-    <!-- <div class="h-[350px] bg-[#ECF7FF]"> -->
 
       <div class="flex lg:flex-1 lg:justify-end items-center">
-        <img class="h-[212px] w-auto mr-16" src="C:\Users\DELL\OneDrive\Desktop\Django(practice)\my_std_attendance\my_static_files\school.png" alt="">
+        <img class="h-[212px] w-[450px] mr-16" src="./static/school.png" alt="">
       </div>
     </div>
+
+    <div class="mx-auto flex justify-between h-[500px] bg-[#328BB1]">
+
+    </div>
+
+    <div class="mx-auto flex justify-between h-[700px] bg-[#ECF7FF]">
+
+    </div>
+
+    <!-- footer -->
+     <footer class="flex flex-col h-[200px]">
+      <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
+      <div class="mx-auto w-full flex lg:flex-1 justify-between h-[170px] bg-[#005275] lg:px-12">
+        
+        <div class="w-[100px] flex flex-col lg:flex-1 justify-start pt-5 pl-3 ml-3 lg:px-12 lg:mr-10">
+          <p class="pt-3.5 text-2xl text-white font-bold">About Braniacs.eg</p>
+          <p class="pt-2 text-[13px] text-white ">The dedicated team....</p>
+          <p class="pt-4 text-white">DCS Final Project</p>
+        </div>
+
+        <div class="w-[100px] flex-col lg:flex-1 justify-between pt-5 lg:pl-12 lg:ml-10">
+          <p class="pt-3.5 text-2xl text-white font-bold">More Info</p>
+          <p class="pt-2 text-[13px] text-white ">Text</p>
+          <p class="pt-0.5 text-[13px] text-white">Technical Support</p>
+        </div>
+
+        <div class="w-[100px] flex-col lg:flex-1 justify-end pt-5 pl-3 lg:ml-10">
+          <p class="pt-3.5 text-2xl text-white font-bold">More Info</p>
+          <p class="pt-2 text-[13px] text-white ">The dedicated team....</p>
+          <p class="pt-4 text-white">DCS Final Project</p>
+        </div>
+
+      </div>
+
+      <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p>All Rights Reserved.</p>
+        <div class="w-[35px] h-[35px] bg-white flex lg:flex-1 justify-end"></div>
+      </div> -->
+
+      <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p>All Rights Reserved.</p>
+        <div class="w-[35px] h-[35px] bg-white flex justify-end m-[200px]"></div>
+      </div> -->
+
+      <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p class="w-[800px] text-center flex-grow ml-[150px] mr-[150px] text-white">All Rights Reserved.</p>
+        <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
+          <img src="./static/Up.png" alt="">
+        </div>
+      </div>
+     </footer>
+
+     
 
 </body>
 </html>
