@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <header id="navbar" class="border-b-2 border-gray-300 h-[53px] sm:h-[70px] overflow-hidden">
+        <nav class="mx-auto px-4 flex max-w-7xl items-center justify-center sm:px-12" aria-label="Global">
+            <div class="flex flex-2 justify-between overflow-hidden">
+                <a href="#" class="-m-1.5 p-1.5"> <!--  pl-5-->
+                  <span class="sr-only">Our School Logo</span>
+                  <img class="w-[50px] sm:w-[67px] rounded-[35px] sm:aspect-1/1 object-cover" src="./multimedia/images/logo (4).png" alt="">
+                </a>
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <h1 class="text-3xl lg:text-4xl mr-12 lg:pr-12 font-semibold">Federal School</h1>
+            </div>
+        </nav>
+    </header>
+
+    <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce]-->  
+    <div class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+        <div class="mx-auto max-w-7xl flex flex-col justify-between bg-white min-w-[294px] min-h-[266px] mx-12 sm:min-w-[396px] sm:min-h-[366px] lg:min-w-[434px] lg:min-h-[406px] rounded-[12px]">
+            <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold mt-2 lg:mt-5">Welcome</h1> 
+
+            <!-- email showcase -->
+            <div class="flex flex-2 justify-center my-2 sm:my-4">
+                <div class="relative h-[24px] sm:h-[27px] lg:h-[30px] w-[65%]">
+                  <!-- using font-awesome -->
+                  <!-- <div class="relative">
+                    <i class="fa-solid fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="combobox" class="w-full pl-10 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+                      placeholder="exampleuser ">
+                  </div> -->
+                  <div tabindex="-1" id="combogroup" class="trying cursor-pointer flex px-1 overflow-hidden border border-gray-500 rounded-[12px] group focus-within:border-black ">
+                    <!-- outline -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 sm:size-5 lg:sm:size-6 mt-1 sm:mt-0.5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg> -->
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#434242" class="size-4 sm:size-5 lg:sm:size-6 mt-0.5 sm:mt-0.5 mr-1">
+                      <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                    </svg>                    
+
+                    <input type="email" id="combobox" class="flex-1 w-full text-gray-700 text-[12px] lg:text-[15px] items-center focus:outline-none cursor-pointer" maxlength="30" value="exampleuseraccount@gmail.com" readonly>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 sm:size-5 lg:sm:size-6 mt-0.5 sm:mt-0.5 togglecombo">
+                      <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd"/> <!-- pivot point is checked in "M12."-->
+                    </svg>
+                    
+                  </div>
+
+                  <!-- we can modify according to users' needs -->
+                  <ul id="dropdown" class="absolute flex flex-col hidden w-full bg-white border rounded-md mt-0.5 shadow-lg">
+                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">exampleuseraccount@gmail.com</li>
+                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">anotheruseraccount@gmail.com</li>
+                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">Change Account</li>
+                  </ul>
+                </div>
+            </div>
+
+            <!-- passcode form -->
+            <div class="flex flex-2 justify-start mx-8 py-2 my-1">
+                <p class="sm:text-2xl font-semibold">Passcode</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" fill="currentColor" class="size-4 ml-1.5 mt-1.5 sm:size-6 sm:m-1.5 sm:mt-[7px]">
+                  <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" transform="rotate(42 14 14)"/>
+                </svg>                                  
+            </div>
+            <form class="flex flex-col flex-1 w-full max-w-md mx-auto justify-start">
+              <div class="pc-slot-gp flex flex-2 justify-start mx-8">
+                <input type="password" class="pc-slot flex-1 w-10 border-2 border-black rounded-tl-[6px] rounded-bl-[6px] sm:rounded-tl-[8px] sm:rounded-bl-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 w-10 -ml-[3px] border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black rounded-tr-[6px] rounded-br-[6px] sm:rounded-tr-[8px] sm:rounded-br-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+              </div>
+              <div class="flex flex-2 justify-start mx-9 mt-2 sm:mt-3"> <!---mt-3 mb-3 sm:-mt-3.5-->
+                <div class="flex flex-1 justify-start items-center"> 
+                  <input type="checkbox" id="showPasscode" class="w-4 sm:w-5 mr-1 sm:mr-2 cursor-pointer aspect-square">
+                  <label for="showPasscode" class="text-[12px] sm:text-[15px] text-gray-700 cursor-pointer">ShowPasscode</label>
+                </div>
+
+                <!-- Error Message -->
+                <p id="passErrorMsg" class="flex flex-1 justify-end text-[12px] sm:text-[15px] text-red-500" id="errorMsg"></p>
+              </div>
+
+              <div class="flex flex-1 justify-start items-center mx-8 my-2 sm:my-3">
+                  <button type="submit" class="bg-[#328BB1] rounded-[6px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
+                      Next
+                  </button>
+              </div>
+            </form>
+            
+
+        </div>
+
+    </div>
+    
+    <!-- footer -->
+    <footer class="flex flex-col">
+        <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
+        <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between bg-[#005275] lg:px-12 sm:py-6 py-2">
+
+          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
+            <p class="text-white font-bold w-[150px]">About Braniacs.eg</p>
+            <p class="pt-2 text-[13px] text-white opacity-80">The dedicated team.... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet voluptas deserunt incidunt obcaecati molestiae labore facilis animi, ad aperiam nesciunt natus ducimus. Quisquam, repellendus voluptate suscipit sunt aperiam sit iure!</p>
+            <p class="pt-4 text-white opacity-80">DCS Final Project</p>
+          </div>
+  
+          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-5 lg:pl-12 sm:ml-10">
+            <p class="text-white font-bold">More Info</p>
+
+            <p class="pt-2 text-[13px] text-white opacity-80">Text</p>
+            <p class="pt-0.5 text-[13px] text-white opacity-80">Technical Support</p>
+          </div>
+  
+          <div class="lg:w-[50px] flex-col lg:flex-1 justify-between mr-5 lg:pl-10 lg:ml-12">
+            <p class="text-white font-bold">Social Media</p>
+  
+            <!--  w-[35px] h-[35px] bg-white  -->
+  
+            <div class="pt-4 ml-1.5 flex">
+              <a href="https://www.facebook.com" class="group lg:w-[35px] aspect-[1/1]">
+                <span class="sr-only">Facebook link</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="35"
+                  height="35"
+                  viewBox="0 0 25 35"
+                  fill="none"
+                  class="-m-1.5 w-[20px] lg:w-full group-hover:stroke-white aspect-[1/1]"
+                >
+                <!-- backgroud-white -->
+                  <path 
+                    d="M24.7424 13.8788C24.7424 20.3121 19.6942 35.5 13.5 35.5C7.30582 35.5 2.25757 20.3121 2.25757 13.8788C2.25757 7.44548 7.30582 2.25757 13.5 2.25757C19.6942 2.25757 24.7424 7.44548 24.7424 13.8788Z" 
+                    fill="white" stroke="#3046C2" 
+                    class="opacity-0 group-hover:opacity-100"/>
+  
+                  <path
+                    d="M25 17.6922C25 8.40685 19.4038 0.880005 12.5016 0.880005C5.59617 0.882093 0 8.40685 0 17.6943C0 26.0837 4.5713 33.0383 10.5456 34.2997V22.5521H7.37408V17.6943H10.5487V13.9872C10.5487 9.7748 12.4156 7.44824 15.27 7.44824C16.6385 7.44824 18.0681 7.77613 18.0681 7.77613V11.9113H16.4917C14.9403 11.9113 14.456 13.2082 14.456 14.5386V17.6922H17.9212L17.3681 22.55H14.4544V34.2976C20.4287 33.0362 25 26.0816 25 17.6922Z"
+                    class="opacity-80 group-hover:fill-[#3046C2] group-hover:opacity-100"
+                    fill="white"
+                  />
+                </svg>
+              </a>
+  
+              <a href="https://www.gmail.com" class="group ml-5 lg:w-[35px] aspect-[1/1]">
+                <span class="sr-only">Gmail link</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="35" 
+                  height="35" 
+                  viewBox="0 0 27 35" 
+                  fill="none"
+                  class="-m-1.5 w-[22px] lg:w-full group-hover:stroke-white aspect-[1/1]">
+  
+                  <path 
+                    d="M25.7784 14.4884C25.9273 15.6099 26.0014 16.7462 26 17.8846C26 22.9684 24.6132 27.2669 22.1999 30.1764H22.2031C20.0927 32.7308 17.1916 34.2096 13.7518 34.2096C10.3698 34.2096 7.12636 32.4492 4.73493 29.3156C2.34349 26.1819 1 21.9319 1 17.5003C1 13.0687 2.34349 8.81858 4.73493 5.68497C7.12636 2.55136 10.3698 0.790915 13.7518 0.790915C16.9171 0.744727 19.9735 2.30273 22.2828 5.13952L18.6422 9.91004C17.3259 8.26678 15.5697 7.3667 13.7518 7.40364C10.4252 7.40364 7.59908 10.3445 6.59168 14.3046C6.05849 16.3799 6.05849 18.6269 6.59168 20.7022H6.59646C7.60864 24.656 10.43 27.5969 13.7566 27.5969C15.4749 27.5969 16.951 27.0204 18.0954 26.0011H18.0907C18.7553 25.4244 19.3239 24.6772 19.7619 23.8044C20.2 22.9317 20.4985 21.9517 20.6394 20.9236H13.7518V14.4905L25.7784 14.4884Z" 
+                    fill="white" 
+                    stroke="white" 
+                    stroke-width="0.5"
+                    class="opacity-80 group-hover:fill-[#FF0000] group-hover:opacity-100"/>
+                </svg>
+              </a>
+            </div>
+          </div> 
+        </div>
+  
+        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p>All Rights Reserved.</p>
+          <div class="w-[35px] h-[35px] bg-white flex lg:flex-1 justify-end"></div>
+        </div> -->
+  
+        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p>All Rights Reserved.</p>
+          <div class="w-[35px] h-[35px] bg-white flex justify-end m-[200px]"></div>
+        </div> -->
+  
+        <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.</p>
+          <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
+            <img src="./static/Up.png" alt="" onclick="">
+          </div> -->
+          
+          <!-- <button id="to_nav_bar" type="button" class="flex w-[25px] mt-2 lg:w-[35px] bg-[#F6802F] rounded-[5px] mb-9 mr-6 lg:mr-12 transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square">
+            <span class="sr-only">To Top</span>
+            <img src="./static/Up.png" alt="" class="transition-transform">
+          </button> -->
+        </div>
+       </footer>
+
+
+       <script src="./static/pincode_script.js"></script>
+</body>
+</html>

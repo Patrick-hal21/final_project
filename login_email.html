@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <header id="navbar" class="border-b-2 border-gray-300 h-[53px] sm:h-[70px] overflow-hidden">
+        <nav class="mx-auto px-4 flex max-w-7xl items-center justify-center sm:px-12" aria-label="Global">
+            <div class="flex flex-2 justify-between overflow-hidden">
+                <a href="#" class="-m-1.5 p-1.5"> <!--  pl-5-->
+                  <span class="sr-only">Our School Logo</span>
+                  <img class="w-[50px] sm:w-[67px] rounded-[35px] sm:aspect-1/1 object-cover" src="./multimedia/images/logo (4).png" alt="">
+                </a>
+            </div>
+
+            <div class="flex flex-1 justify-center">
+                <h1 class="text-3xl lg:text-4xl mr-12 lg:pr-12 font-semibold">Federal School</h1>
+            </div>
+        </nav>
+    </header>
+
+    <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce]-->  
+    <div id="container" class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+        <div class="mx-auto max-w-7xl flex flex-col justify-between bg-white min-w-[294px] min-h-[266px] sm:min-w-[396px] sm:min-h-[366px] lg:min-w-[434px] lg:min-h-[406px] rounded-[12px]">
+            <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold my-2 sm:my-4 lg:my-5">Sign In</h1> 
+
+            <div class="flex flex-2 justify-start mx-8">
+                <label class="sm:text-2xl font-semibold">Email</p>
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 ml-1.5 mt-0.5 sm:size-7 sm:ml-2 sm:mt-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>                   -->
+            </div>
+
+            <!-- 
+              group-focus: utility applies styles when the grouped parent element itself is focused.
+               However, a <div> typically doesn’t receive focus unless it's explicitly set to be focusable (e.g., with tabindex="0")
+
+              to change the border when an input inside the div is focused,
+              focus-within: is the correct choice
+            -->
+              <!-- used custom svg's class= 'pointToInput' to set focus in input using class 'viaEmail' , tabindex="-1" can be focused using Tab key-->
+            <form id="emailForm" class="flex flex-col flex-1 w-full max-w-md mx-auto justify-start">
+
+              <div class="flex flex-col flex-2 mx-8">
+                <div tabindex="-1" class="groupToInput flex flex-grow items-center cursor-text  mt-1.5 lg:mt-2.5 px-1 sm:px-2 border-2 border-gray-300 rounded-[6px] sm:rounded-[8px] h-[33px] sm:h-[48px] lg:h-[52px] overflow-hidden group focus-within:border-[#328BB1]">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="pointToInput cursor-text size-5 sm:size-7 opacity-50">
+                    <path class="px-1 sm:px-2" stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+                  </svg>
+                  <!-- <div tabindex="0" class="pointToInput cursor-text flex justify-center items-center h-full w-[10%]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" 
+                        class="w-full h-full opacity-50">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+                    </svg>
+                  </div> -->
+                  <input id="email" name="email" class="viaEmail flex-1 text-[13px] sm:text-[17px] lg:text-[21px] px-1 sm:px-2 items-center focus:outline-none focus:border-none" maxlength="30" placeholder="Enter your email" onin>  <!--autocomplete="off" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"-->
+                </div>
+                <p id="error-message" class="text-red-500 text-right text-[11px] sm:text-sm opacity-0">Error Message</p>               
+              </div>
+
+              
+              <div class="flex flex-1 justify-start items-center mx-12 -mt-1 -lg:mt-2">
+                  <div class="overflow-hidden h-[50px] sm:h-[65px] lg:h-[80px] w-full">
+                      <img src="./static/cloudflare_eg.png" alt="" class="w-full h-full object-cover">
+                  </div>
+              </div>
+              <div class="flex flex-1 justify-start items-center mx-8 mb-3">
+                  <button id="submitBtn" type="submit" class="bg-[#328BB1] rounded-[6px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
+                      Next
+                  </button>
+              </div>
+            </form>
+        </div>
+
+    </div>
+    
+    <!-- footer -->
+    <footer class="flex flex-col">
+        <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
+        <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between bg-[#005275] lg:px-12 sm:py-6 py-2">
+
+          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
+            <p class="text-white font-bold w-[150px]">About Braniacs.eg</p>
+            <p class="pt-2 text-[13px] text-white opacity-80">The dedicated team.... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet voluptas deserunt incidunt obcaecati molestiae labore facilis animi, ad aperiam nesciunt natus ducimus. Quisquam, repellendus voluptate suscipit sunt aperiam sit iure!</p>
+            <p class="pt-4 text-white opacity-80">DCS Final Project</p>
+          </div>
+  
+          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-5 lg:pl-12 sm:ml-10">
+            <p class="text-white font-bold">More Info</p>
+
+            <p class="pt-2 text-[13px] text-white opacity-80">Text</p>
+            <p class="pt-0.5 text-[13px] text-white opacity-80">Technical Support</p>
+          </div>
+  
+          <div class="lg:w-[50px] flex-col lg:flex-1 justify-between mr-5 lg:pl-10 lg:ml-12">
+            <p class="text-white font-bold">Social Media</p>
+  
+            <!--  w-[35px] h-[35px] bg-white  -->
+  
+            <div class="pt-4 ml-1.5 flex">
+              <a href="https://www.facebook.com" class="group lg:w-[35px] aspect-[1/1]">
+                <span class="sr-only">Facebook link</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="35"
+                  height="35"
+                  viewBox="0 0 25 35"
+                  fill="none"
+                  class="-m-1.5 w-[20px] lg:w-full group-hover:stroke-white aspect-[1/1]"
+                >
+                <!-- backgroud-white -->
+                  <path 
+                    d="M24.7424 13.8788C24.7424 20.3121 19.6942 35.5 13.5 35.5C7.30582 35.5 2.25757 20.3121 2.25757 13.8788C2.25757 7.44548 7.30582 2.25757 13.5 2.25757C19.6942 2.25757 24.7424 7.44548 24.7424 13.8788Z" 
+                    fill="white" stroke="#3046C2" 
+                    class="opacity-0 group-hover:opacity-100"/>
+  
+                  <path
+                    d="M25 17.6922C25 8.40685 19.4038 0.880005 12.5016 0.880005C5.59617 0.882093 0 8.40685 0 17.6943C0 26.0837 4.5713 33.0383 10.5456 34.2997V22.5521H7.37408V17.6943H10.5487V13.9872C10.5487 9.7748 12.4156 7.44824 15.27 7.44824C16.6385 7.44824 18.0681 7.77613 18.0681 7.77613V11.9113H16.4917C14.9403 11.9113 14.456 13.2082 14.456 14.5386V17.6922H17.9212L17.3681 22.55H14.4544V34.2976C20.4287 33.0362 25 26.0816 25 17.6922Z"
+                    class="opacity-80 group-hover:fill-[#3046C2] group-hover:opacity-100"
+                    fill="white"
+                  />
+                </svg>
+              </a>
+  
+              <a href="https://www.gmail.com" class="group ml-5 lg:w-[35px] aspect-[1/1]">
+                <span class="sr-only">Gmail link</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="35" 
+                  height="35" 
+                  viewBox="0 0 27 35" 
+                  fill="none"
+                  class="-m-1.5 w-[22px] lg:w-full group-hover:stroke-white aspect-[1/1]">
+  
+                  <path 
+                    d="M25.7784 14.4884C25.9273 15.6099 26.0014 16.7462 26 17.8846C26 22.9684 24.6132 27.2669 22.1999 30.1764H22.2031C20.0927 32.7308 17.1916 34.2096 13.7518 34.2096C10.3698 34.2096 7.12636 32.4492 4.73493 29.3156C2.34349 26.1819 1 21.9319 1 17.5003C1 13.0687 2.34349 8.81858 4.73493 5.68497C7.12636 2.55136 10.3698 0.790915 13.7518 0.790915C16.9171 0.744727 19.9735 2.30273 22.2828 5.13952L18.6422 9.91004C17.3259 8.26678 15.5697 7.3667 13.7518 7.40364C10.4252 7.40364 7.59908 10.3445 6.59168 14.3046C6.05849 16.3799 6.05849 18.6269 6.59168 20.7022H6.59646C7.60864 24.656 10.43 27.5969 13.7566 27.5969C15.4749 27.5969 16.951 27.0204 18.0954 26.0011H18.0907C18.7553 25.4244 19.3239 24.6772 19.7619 23.8044C20.2 22.9317 20.4985 21.9517 20.6394 20.9236H13.7518V14.4905L25.7784 14.4884Z" 
+                    fill="white" 
+                    stroke="white" 
+                    stroke-width="0.5"
+                    class="opacity-80 group-hover:fill-[#FF0000] group-hover:opacity-100"/>
+                </svg>
+              </a>
+            </div>
+          </div> 
+        </div>
+  
+        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p>All Rights Reserved.</p>
+          <div class="w-[35px] h-[35px] bg-white flex lg:flex-1 justify-end"></div>
+        </div> -->
+  
+        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p>All Rights Reserved.</p>
+          <div class="w-[35px] h-[35px] bg-white flex justify-end m-[200px]"></div>
+        </div> -->
+  
+        <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
+          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.</p>
+          <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
+            <img src="./static/Up.png" alt="" onclick="">
+          </div> -->
+          
+          <!-- <button id="to_nav_bar" type="button" class="flex w-[25px] mt-2 lg:w-[35px] bg-[#F6802F] rounded-[5px] mb-9 mr-6 lg:mr-12 transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square">
+            <span class="sr-only">To Top</span>
+            <img src="./static/Up.png" alt="" class="transition-transform">
+          </button> -->
+        </div>
+    </footer>
+
+    <script src="./static/email_script.js"></script>
+
+</body>
+</html>

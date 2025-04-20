@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Landing Page(eg-2)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
@@ -156,14 +156,15 @@
                 <p>Slide-4</p>
               </div>
             </div>
-            <button type="button" onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1">
+            <!-- as it is mobile, I think we shouldnt add hove -->
+            <button type="button" onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1 opacity-50 transition-opacity duration-300 hover:opacity-100 active:bg-gray-300">
               <span class="sr-only">Prev</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
               </svg>
-              
             </button>
-            <button type="button" onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1">
+
+            <button type="button" onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1 opacity-50 transition-opacity duration-300 hover:opacity-100 active:bg-gray-300">
               <span class="sr-only">Next</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -269,24 +270,24 @@
 
 
     <!-- footer -->
-     <footer class="flex flex-col h-[150px] lg:h-[200px]">
+     <footer class="flex flex-col">
       <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
-      <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between h-[170px] bg-[#005275] lg:px-12 sm:py-0">
+      <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between bg-[#005275] lg:px-12 sm:py-6 py-2">
         
-        <div class="w-[100px] flex flex-col lg:flex-1 justify-start lg:pt-5 pl-4 lg:ml-3 lg:px-12 lg:mr-10">
-          <p class="pt-3.5 text-white font-bold">About Braniacs.eg</p>
+        <div class="w-[150px] flex flex-col sm:flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
+          <p class="text-white font-bold w-[150px]">About Braniacs.eg</p>
           <p class="pt-2 text-[13px] text-white opacity-80">The dedicated team....</p>
           <p class="pt-4 text-white opacity-80">DCS Final Project</p>
         </div>
 
-        <div class="w-[100px] flex-col lg:flex-1 justify-between lg:pt-5 lg:pl-12 lg:ml-10">
-          <p class="pt-3.5 text-white font-bold">More Info</p>
+        <div class="w-[150px] flex-col sm:flex-1 justify-between pl-5 lg:pl-12 sm:ml-10">
+          <p class="text-white font-bold">More Info</p>
           <p class="pt-2 text-[13px] text-white opacity-80">Text</p>
           <p class="pt-0.5 text-[13px] text-white opacity-80">Technical Support</p>
         </div>
 
-        <div class="lg:w-[50px] flex-col lg:flex-1 justify-end mr-4 lg:pt-5 lg:ml-12">
-          <p class="pt-3.5 text-white font-bold">Social Media</p>
+        <div class="lg:w-[50px] flex-col lg:flex-1 justify-end mr-5 lg:pl-10 lg:ml-12">
+          <p class="text-white font-bold">Social Media</p>
 
           <!--  w-[35px] h-[35px] bg-white  -->
 
@@ -353,7 +354,7 @@
           <img src="./static/Up.png" alt="" onclick="">
         </div> -->
         
-        <button id="to_nav_bar" type="button" class="flex w-[20px] mt-2 lg:w-[35px] bg-[#F6802F] rounded-[5px] mb-9 mr-6 lg:mr-12 transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square">
+        <button id="to_nav_bar" type="button" class="flex w-[25px] mt-2 lg:w-[35px] bg-[#F6802F] rounded-[5px] mb-9 mr-6 lg:mr-12 transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square">
           <span class="sr-only">To Top</span>
           <img src="./static/Up.png" alt="" class="transition-transform">
         </button>
