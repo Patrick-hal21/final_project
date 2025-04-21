@@ -50,7 +50,7 @@ form.onsubmit = function validateForm() {
         //return true; // Allow form submission
         //window.location.href = "./login_pincode.html"; // Change to your desired HTML file
         form.action = "./login_pincode.html"; // Change to your desired HTML file
-        form.method = "POST"; // or "POST" depending on your needs
+        form.method = "GET"; // or "POST" depending on your needs
         /*
         action = "./login_pincode.html"; // Change to your desired HTML file
         method = "GET"; // or "POST" depending on your needs
