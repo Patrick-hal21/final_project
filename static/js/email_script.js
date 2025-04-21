@@ -16,7 +16,7 @@ document.querySelector('.groupToInput').addEventListener('focusin', () => {
 
 const form = document.getElementById("emailForm");
 
-form.onsubmit = function validateForm() {
+form.onsubmit = function validateForm(event) {
 //submitBtn.onclick = function validateForm() {
     var emailInput = document.getElementById("email").value;
     let atPos = emailInput.indexOf("@"); // Position of "@"
@@ -48,7 +48,9 @@ form.onsubmit = function validateForm() {
     } else {
         errorMessage.classList.remove("opacity-100");
         //return true; // Allow form submission
+        event.preventDefault(); // Prevent the default form submission
         window.location.href = "./login_pincode.html"; // Change to your desired HTML file
+        // return true;
         // form.action = "./login_pincode.html"; // Change to your desired HTML file
         // form.method = "GET"; // or "POST" depending on your needs
         /*
