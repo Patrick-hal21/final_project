@@ -27,11 +27,12 @@ toggle.addEventListener('click', (event) => {
 });
 */
 
-group.addEventListener("focusin", () => {
+group.addEventListener("click", () => {
     //dropdown.classList.remove("hidden");
 
     // Dropdown action or other focusin logic
     pathToggleAction();
+
 });
 
 /*
@@ -86,8 +87,8 @@ document.querySelectorAll("#dropdown li").forEach(item => {
 
 
 
-// for passcode //
 
+// for passcode //
 const otpSlots = document.querySelectorAll(".pc-slot");
 
 function moveFocus(current) {
@@ -116,7 +117,10 @@ function moveFocusToFirstEmpty() {
         } 
     }
 }
-document.querySelector(".pc-slot-gp").addEventListener("focusin", ()=> {
+
+var prevFocusSlot; //to be refocus on visibility toggle
+document.querySelector(".pc-slot-gp").addEventListener("focusin", (event)=> {
+    prevFocusSlot = document.activeElement; // Store the currently focused slot
     moveFocusToFirstEmpty(); // Focus on the first empty slot when the group is focused
 });
 
@@ -184,9 +188,19 @@ function toggleVisbile() {
     }
 }
 
-document.getElementById("showPasscode").addEventListener("click", () => {
+document.getElementById("showPasscode").addEventListener("click", (event) => {
     toggleVisbile(); // Call the function to toggle visibility
-    moveFocusToFirstEmpty(); // Focus on the first empty slot when the group is focused
+
+    if ([...otpSlots].every(slot => slot.value === "")) {
+        if (prevFocusSlot === otpSlots[0]) { //prevFocusSlot is the last focused slot before visibility toggle , which is created above
+            otpSlots[0].focus(); // Focus on the first empty slot
+        }
+        // Perform the action when all slots are free
+        return; // Do nothing if all slots are empty
+        // Replace this with your desired action
+    } else {
+        moveFocusToFirstEmpty(); // Keep focus on ongoing slot(Focus on the first empty slot when the group is focused)
+    }
 });
 
 

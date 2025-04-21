@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
@@ -15,19 +15,19 @@
             <div class="flex flex-2 justify-between overflow-hidden">
                 <a href="#" class="-m-1.5 p-1.5"> <!--  pl-5-->
                   <span class="sr-only">Our School Logo</span>
-                  <img class="w-[50px] sm:w-[67px] rounded-[35px] sm:aspect-1/1 object-cover" src="./multimedia/images/logo (4).png" alt="">
+                  <img class="w-[50px] sm:w-[67px] rounded-[35px] sm:aspect-1/1 object-cover" src="./static/images/logo (4).png" alt="">
                 </a>
             </div>
 
             <div class="flex flex-1 justify-center">
-                <h1 class="text-3xl lg:text-4xl mr-12 lg:pr-12 font-semibold">Federal School</h1>
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl text-center sm:mr-12 lg:pr-12 font-semibold">Federal School</h1>
             </div>
         </nav>
     </header>
 
     <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce]-->  
     <div class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
-        <div class="mx-auto max-w-7xl flex flex-col justify-between bg-white min-w-[294px] min-h-[266px] mx-12 sm:min-w-[396px] sm:min-h-[366px] lg:min-w-[434px] lg:min-h-[406px] rounded-[12px]">
+        <div class="mx-12 sm:mx-auto max-w-7xl flex flex-col justify-between bg-white min-w-[194px] min-h-[176px] mx-12 sm:min-w-[396px] sm:min-h-[366px] lg:min-w-[434px] lg:min-h-[406px] rounded-[4px] sm:rounded-[12px]">
             <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold mt-2 lg:mt-5">Welcome</h1> 
 
             <!-- email showcase -->
@@ -49,7 +49,7 @@
                       <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
                     </svg>                    
 
-                    <input type="email" id="combobox" class="flex-1 w-full text-gray-700 text-[12px] lg:text-[15px] items-center focus:outline-none cursor-pointer" maxlength="30" value="exampleuseraccount@gmail.com" readonly>
+                    <input type="email" id="combobox" class="flex-1 w-full text-gray-700 text-[10px] sm:text-[14px] lg:text-[15px] items-center focus:outline-none cursor-pointer" maxlength="30" value="exampleuseraccount@gmail.com" readonly>
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 sm:size-5 lg:sm:size-6 mt-0.5 sm:mt-0.5 togglecombo">
                       <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd"/> <!-- pivot point is checked in "M12."-->
@@ -58,42 +58,42 @@
                   </div>
 
                   <!-- we can modify according to users' needs -->
-                  <ul id="dropdown" class="absolute flex flex-col hidden w-full bg-white border rounded-md mt-0.5 shadow-lg">
-                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">exampleuseraccount@gmail.com</li>
-                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">anotheruseraccount@gmail.com</li>
-                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px]">Change Account</li>
+                  <ul id="dropdown" class="absolute flex flex-col hidden w-full bg-gray-100 border rounded-md mt-0.5 shadow-lg">
+                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">exampleuseraccount@gmail.com</li>
+                      <!-- <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">anotheruseraccount@gmail.com</li> -->
+                      <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">Change Account</li>
                   </ul>
                 </div>
             </div>
 
             <!-- passcode form -->
-            <div class="flex flex-2 justify-start mx-8 py-2 my-1">
+            <div class="flex flex-2 justify-start mx-5 sm:mx-8 py-2 sm:my-1">
                 <p class="sm:text-2xl font-semibold">Passcode</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" fill="currentColor" class="size-4 ml-1.5 mt-1.5 sm:size-6 sm:m-1.5 sm:mt-[7px]">
                   <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" transform="rotate(42 14 14)"/>
                 </svg>                                  
             </div>
             <form class="flex flex-col flex-1 w-full max-w-md mx-auto justify-start">
-              <div class="pc-slot-gp flex flex-2 justify-start mx-8">
-                <input type="password" class="pc-slot flex-1 w-10 border-2 border-black rounded-tl-[6px] rounded-bl-[6px] sm:rounded-tl-[8px] sm:rounded-bl-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-10 -ml-[3px] border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-10 -ml-0.5 border-2 border-black rounded-tr-[6px] rounded-br-[6px] sm:rounded-tr-[8px] sm:rounded-br-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+              <div class="pc-slot-gp flex flex-2 justify-start items-center mx-5 sm:mx-8">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 border-2 border-black rounded-tl-[6px] rounded-bl-[6px] sm:rounded-tl-[8px] sm:rounded-bl-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 -ml-[3px] border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="password" class="pc-slot flex-1 min-w-5 w-10 -ml-0.5 border-2 border-black rounded-tr-[6px] rounded-br-[6px] sm:rounded-tr-[8px] sm:rounded-br-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
               </div>
-              <div class="flex flex-2 justify-start mx-9 mt-2 sm:mt-3"> <!---mt-3 mb-3 sm:-mt-3.5-->
+              <div class="flex flex-2 justify-start mx-6 sm:mx-9 mt-2 sm:mt-3"> <!---mt-3 mb-3 sm:-mt-3.5-->
                 <div class="flex flex-1 justify-start items-center"> 
                   <input type="checkbox" id="showPasscode" class="w-4 sm:w-5 mr-1 sm:mr-2 cursor-pointer aspect-square">
-                  <label for="showPasscode" class="text-[12px] sm:text-[15px] text-gray-700 cursor-pointer">ShowPasscode</label>
+                  <label for="showPasscode" class="text-[9px] sm:text-[15px] text-gray-700 cursor-pointer">ShowPasscode</label>
                 </div>
 
                 <!-- Error Message -->
                 <p id="passErrorMsg" class="flex flex-1 justify-end text-[12px] sm:text-[15px] text-red-500" id="errorMsg"></p>
               </div>
 
-              <div class="flex flex-1 justify-start items-center mx-8 my-2 sm:my-3">
-                  <button type="submit" class="bg-[#328BB1] rounded-[6px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
+              <div class="flex flex-1 justify-start items-center mx-5 sm:mx-8 my-6 sm:my-3">
+                  <button type="submit" class="bg-[#328BB1] rounded-[4px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
                       Next
                   </button>
               </div>
@@ -109,20 +109,20 @@
         <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
         <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between bg-[#005275] lg:px-12 sm:py-6 py-2">
 
-          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
-            <p class="text-white font-bold w-[150px]">About Braniacs.eg</p>
+          <div class="w-[150px] flex-col flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
+            <p class="text-white font-bold">About Braniacs.eg</p>
             <p class="pt-2 text-[13px] text-white opacity-80">The dedicated team.... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet voluptas deserunt incidunt obcaecati molestiae labore facilis animi, ad aperiam nesciunt natus ducimus. Quisquam, repellendus voluptate suscipit sunt aperiam sit iure!</p>
             <p class="pt-4 text-white opacity-80">DCS Final Project</p>
           </div>
   
-          <div class="w-[150px] flex-col sm:flex-1 justify-between pl-5 lg:pl-12 sm:ml-10">
+          <div class="w-[150px] flex-col flex-1 justify-between pl-7 lg:pl-12 mr-4 sm:mr-0 sm:ml-10">
             <p class="text-white font-bold">More Info</p>
 
             <p class="pt-2 text-[13px] text-white opacity-80">Text</p>
             <p class="pt-0.5 text-[13px] text-white opacity-80">Technical Support</p>
           </div>
   
-          <div class="lg:w-[50px] flex-col lg:flex-1 justify-between mr-5 lg:pl-10 lg:ml-12">
+          <div class="w-[50px] flex-col lg:flex-1 justify-between mr-4 lg:mr-5 lg:pl-10 lg:ml-12">
             <p class="text-white font-bold">Social Media</p>
   
             <!--  w-[35px] h-[35px] bg-white  -->
@@ -198,6 +198,6 @@
        </footer>
 
 
-       <script src="./static/pincode_script.js"></script>
+       <script src="./static/js/pincode_script.js"></script>
 </body>
 </html>
