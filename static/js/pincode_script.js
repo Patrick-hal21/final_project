@@ -160,9 +160,14 @@ otpSlots.forEach((slot) => {
                 console.log("form submitted");
                 const form = document.querySelector("form");
                 if (form) {
-                    form.action = "#"; // Set action URL
-                    form.method = "POST"; // Set method
-                    form.submit(); // Explicitly submit the form
+
+                    // this must be remove for further useages
+                    event.preventDefault(); // Prevent default form submission
+                    window.location.reload(); // load current page
+
+                    // form.action = "#"; // Set action URL
+                    // form.method = "POST"; // Set method
+                    // form.submit(); // Explicitly submit the form
                 } 
             }
 
