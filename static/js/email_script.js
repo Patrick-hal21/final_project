@@ -48,9 +48,9 @@ form.onsubmit = function validateForm() {
     } else {
         errorMessage.classList.remove("opacity-100");
         //return true; // Allow form submission
-        //window.location.href = "./login_pincode.html"; // Change to your desired HTML file
-        form.action = "./login_pincode.html"; // Change to your desired HTML file
-        form.method = "GET"; // or "POST" depending on your needs
+        window.location.href = "./login_pincode.html"; // Change to your desired HTML file
+        // form.action = "./login_pincode.html"; // Change to your desired HTML file
+        // form.method = "GET"; // or "POST" depending on your needs
         /*
         action = "./login_pincode.html"; // Change to your desired HTML file
         method = "GET"; // or "POST" depending on your needs
