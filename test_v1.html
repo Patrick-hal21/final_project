@@ -3,35 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Attendance Management System(eg-2)</title>
+    <title>Student Attendance Management System(eg-1)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     
 </head>
 <body class="relative"> <!-- class="bg-[#328BB1]"-->
-    <header id="navbar" class="bg-[#328BB1] border-b-2 border-[#005275] h-[52px] sm:h-[70px] overflow-hidden">
+    <header id="navbar" class="bg-[#328BB1] border-b-2 border-[#005275]">
         <nav class="mx-auto px-2 flex max-w-7xl items-center justify-between sm:px-12" aria-label="Global">
-          
-          <div class="flex sm:hidden">
-            <button id="humburger-btn" type="button" class="ml-2.5 w-auto">
-              <span class="sr-only">Menu</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke-width="1.8" stroke="white" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>              
-            </button>
-          </div>
-
-          <div class="flex flex-1 sm:flex sm:flex-1 lg:ml-3 justify-center sm:justify-between overflow-hidden">
+          <div class="flex sm:flex-1">
             <a href="#" class="-m-1.5 p-1.5"> <!--  pl-5-->
               <span class="sr-only">Our School Logo</span>
-              <img class="w-[50px] sm:w-[67px] sm:aspect-1/1 object-cover" src="./static/images/logo (4).png" alt="">
+              <img class="h-[67px] w-auto" src="./static/images/logo (4).png" alt="">
             </a>
           </div>
 
           <!-- <div class="hidden lg:flex lg:gap-x-3"> -->
             
-          <div class="hidden sm:flex sm:flex-1 sm:gap-x-2 lg:gap-x-3">
+          <div class="flex sm:flex sm:flex-1 sm:gap-x-2 lg:gap-x-3">
           <!-- <div class="lg:flex lg:gap-x-3 max-auto"> -->
             <a href="#" class="w-[62px] text-sm/6 font-semibold text-white opacity-80 hover:opacity-100 hover:underline underline-offset-4">Home</a>
             <a href="#" class="w-[85px] text-sm/6 font-semibold text-white opacity-80 hover:opacity-100 hover:underline underline-offset-4">About Us</a>
@@ -42,7 +32,7 @@
           <div class="flex sm:flex-1 sm:justify-end">
           <!-- <div class="hidden lg:flex lg:flex-1 lg:justify-end"> -->
             <!-- <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a> -->
-            <button type="button" class="ml-0 mr-2.5 pb-1 shadow-[0px_4px_10px_rgba(0,0,0,0.25)] w-[80px] h-[30px] sm:w-[100px] sm:h-[39px] rounded-[5px] bg-white text-black font-semibold lg:hover:bg-[#23B2CF] lg:hover:text-white active:bg-[#09668E]"> Log In</button>
+            <button type="button" class="toLogin ml-0 mr-2.5 pb-1 shadow-[0px_4px_10px_rgba(0,0,0,0.25)] w-[100px] h-[39px] rounded-[5px] bg-white text-black font-semibold sm:hover:bg-[#23B2CF] sm:hover:text-white sm:active:bg-[#09668E] active:bg-[#09668E]"> Log In</button>
           </div>
           
 
@@ -54,15 +44,14 @@
         </nav>
 
         
-        
-        <!-- mobile view nav -->
-        <!-- <div id="sidebar" class="transform transition-all duration-200 ease-in-out opacity-0 translate-x-[-100%] pointer-events-none" role="dialog" aria-modal="true"> -->
-          <!-- Background backdrop, show/hide based on slide-over state.  -->
-          <!-- <div class="fixed inset-0 z-10"></div> -->
-          <!-- <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"> -->
-          <div id="sidebar" class="fixed inset-y-0 left-0 z-10 w-[30%] overflow-y-auto bg-white px-6 py-6 transform transition-all duration-200 ease-in-out opacity-0 translate-x-[-100%] pointer-events-none" role="dialog" aria-modal="true">
+        <!--
+        mobile view
+        <div class="lg:hidden" role="dialog" aria-modal="true">
+          Background backdrop, show/hide based on slide-over state. 
+          <div class="fixed inset-0 z-10"></div>
+          <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
-              <button id="close-sidebar" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+              <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
                 <span class="sr-only">Close menu</span>
                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -82,22 +71,23 @@
               </div>
             </div>
           </div>
-      
+        </div>
+      -->
     </header>
 
     <!-- body part  -->
     <div class="mx-auto bg-[#ECF7FF]">
-      <div class="mx-auto px-4 py-4 flex sm:flex-1 lg:flex-row lg:py-12 bg-[#ECF7FF] lg:px-12 sm:px-12">
-        <div class="flex flex-col sm:flex-1 lg:py-6 lg:px-12">
+      <div class="mx-auto px-4 py-4 flex lg:flex-row lg:py-12 bg-[#ECF7FF] md:px-12 lg:px-12">
+        <div class="flex flex-col lg:flex-1 lg:py-6 lg:px-12 md:px-12">
           <p class="text-5xl font-[Lato] font-bold mb-4">Federal School</p>
           <p class="w-[230px] text-[#888888] font-[Lato] mt-12"> Basic Education High School (from kindergarden to Grade-12)</p>
-          <button type="button" class="mt-6 pb-1 text-white font-bold flex items-center justify-center
-          shadow-[0px_4px_10px_rgba(0,0,0,0.25)] w-[135px] aspect-[3/0.9] sm:w-[165px] sm:h-[50px] rounded-[5px] bg-[#328BB1] lg:hover:bg-[#23B2CF] group active:bg-[#09668E]">
+          <button type="button" class="toLogin mt-6 pb-1 text-white font-bold flex items-center justify-center
+          shadow-[0px_4px_10px_rgba(0,0,0,0.25)] w-[165px] h-[50px] rounded-[5px] bg-[#328BB1] sm:hover:bg-[#23B2CF] sm:active:bg-[#09668E] active:bg-[#09668E] group">
 
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="size-6 -ml-1 lg:group-hover:stroke-black">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="white" class="size-6 -ml-1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H1" />
             </svg>
-            <span class="ml-2 lg:group-hover:text-black font-bold">Get started</span>
+            <span class="ml-2 font-bold">Get started</span>
           </button>
         </div>
 
@@ -112,86 +102,28 @@
     <!-- <div class="mx-auto bg-[#328BB1] max-w-7xl px-4 sm:px-6 lg:px-12">
       <div class="mx-auto max-w-7xl px-4 py-5 sm:py-24 lg:max-w-none lg:py-10 lg:px-12"> -->
     <div class="mx-auto bg-[#328BB1]">
-      <div class="mx-auto max-w-7xl lg:px-12 sm:px-10">
-        <!-- for slide show py-4, for scroll - pt-5 -->
-        <div class="mx-auto max-w-2xl py-2 sm:py-4 lg:max-w-none lg:py-10 lg:px-3">
-          <h2 class="text-2xl font-semibold text-white px-4">Priorities</h2>
+      <div class="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-12">
+        <div class="mx-auto max-w-2xl py-5 sm:py-12 md:py-6 lg:max-w-none lg:py-10 lg:px-3">
+          <h2 class="text-2xl font-semibold text-white">Priorities</h2>
 
-          <div class="hidden md:grid md:grid-cols-2 md:mt-0 md:gap-x-6 md:space-y-6 lg:grid-cols-4 lg:space-y-0 lg:gap-x-6 lg:pt-4">
+          <div class="mt-6 lg:pt-4 space-y-6 md:grid md:grid-cols-2 md:mt-0 md:gap-x-6 lg:grid lg:grid-cols-4 lg:space-y-0 lg:gap-x-6">
 
-            <div class="relative sm:w-full md:mt-6 lg:mt-0 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-md:h-40 md:aspect-[2/0.9] lg:aspect-[3/4]">
+            <div class="relative w-full mt-6 lg:mt-0 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-sm:h-40 sm:aspect-2/1 md:aspect-[2/0.9] lg:aspect-[3/4]">
               <!-- <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="w-full rounded-lg bg-white object-cover group-hover:opacity-75 max-sm:h-80 sm:aspect-2/1 lg:aspect-square"> -->
             </div>
 
-            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-md:h-40 md:aspect-[2/0.9] lg:aspect-[3/4]">
+            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-sm:h-40 sm:aspect-2/1 md:aspect-[2/0.9] lg:aspect-[3/4]">
               <!-- <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="w-full rounded-lg bg-white object-cover group-hover:opacity-75 max-sm:h-80 sm:aspect-2/1 lg:aspect-square"> -->
             </div>
 
-            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-md:h-40 md:aspect-[2/0.9] lg:aspect-[3/4]">
+            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-sm:h-40 sm:aspect-2/1 md:aspect-[2/0.9] lg:aspect-[3/4]">
               <!-- <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="w-full rounded-lg bg-white object-cover group-hover:opacity-75 max-sm:h-80 sm:aspect-2/1 lg:aspect-square"> -->
             </div>
 
-            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-md:h-40 md:aspect-[2/0.9] lg:aspect-[3/4]">
+            <div class="relative w-full lg:mt-5 lg:mb-5 rounded-[5px] lg:rounded-[10px] bg-white transform transition-transform hover:scale-105 duration-300 max-sm:h-40 sm:aspect-2/1 md:aspect-[2/0.9] lg:aspect-[3/4]">
               <!-- <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="w-full rounded-lg bg-white object-cover group-hover:opacity-75 max-sm:h-80 sm:aspect-2/1 lg:aspect-square"> -->
             </div>
           </div>
-
-          <!-- mobile-view (Slideshow)-->   
-          <div class="relative block md:hidden bg-[#328BB1] overflow-hidden my-6 px-4">
-            <div id="carousel" class="flex bg-gray-200 rounded-[5px] space-x-4 transition-transform duration-500 ease-in-out w-full h-40 aspect-2/1">
-              <div class="min-w-full rounded-[5px] bg-white">
-                <p>Slide-1</p>
-              </div>
-  
-              <div class="w-full flex-shrink-0 rounded-[5px] bg-white aspect-2/1">
-                <p>Slide-2</p>
-              </div>
-  
-              <div class="w-full flex-shrink-0 rounded-[5px] bg-white aspect-2/1">
-                <p>Slide-3</p>
-              </div>
-  
-              <div class="w-full flex-shrink-0 rounded-[5px] bg-white aspect-2/1">
-                <p>Slide-4</p>
-              </div>
-            </div>
-            <!-- as it is mobile, I think we shouldnt add hove -->
-            <button type="button" onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1 opacity-50 transition-opacity duration-300 hover:opacity-100 active:bg-gray-300">
-              <span class="sr-only">Prev</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-              </svg>
-            </button>
-
-            <button type="button" onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-200 py-1 rounded shadow border-2 border-gray-300 w-[28px] aspect-1/1 opacity-50 transition-opacity duration-300 hover:opacity-100 active:bg-gray-300">
-              <span class="sr-only">Next</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-              </svg>              
-            </button>
-          </div>
-          
-
-          <!-- Mobile view(Scroll)
-          <div class="relative block sm:hidden bg-[#328BB1] overflow-x-auto whitespace-nowrap snap-x px-4 mt-4 h-40 aspect-2/1">
-            
-              <div class="inline-block min-w-full min-h-full rounded-[5px] bg-white mr-4 snap-center">
-                <p>Slide-1</p>
-              </div>
-  
-              <div class="inline-block min-w-full rounded-[5px] bg-white mr-4 snap-center">
-                <p>Slide-2</p>
-              </div>
-  
-              <div class="inline-block min-w-full rounded-[5px] bg-white mr-4 snap-center">
-                <p>Slide-3</p>
-              </div>
-  
-              <div class="inline-block min-w-full rounded-[5px] bg-white mr-4 snap-center">
-                <p>Slide-4</p>
-              </div>
-          </div>
-           -->
         </div>
       </div>
     </div>
@@ -221,7 +153,7 @@
                 <p class="flex">Click to continue.</p>
               </div>
               <div class=" relative overflow-hidden flex flex-1 justify-end bg-[#88BCD2]">
-                <img src="./static/images/debate_bg_removed.png" alt="" class="absolute inset-y-5 lg:inset-y-8 object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
+                <img src="./static/debate_bg_removed.png" alt="" class="absolute inset-y-8 flex flex-1 justify-end rounded-lg object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
               </div>
             </div>
             
@@ -233,7 +165,7 @@
                 <p class="flex">Click to continue.</p>
               </div>
               <div class=" relative overflow-hidden flex flex-1 justify-end"> <!-- bg-[#88BCD2]-->
-                <img src="./static/images/debate.jpg" alt="" class="absolute inset-y-5 lg:inset-y-8 object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
+                <img src="./static/images/debate.jpg" alt="" class="absolute inset-y-8 flex flex-1 justify-end rounded-lg object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
               </div>
             </div>
 
@@ -245,7 +177,7 @@
                 <p class="flex">Click to continue.</p>
               </div>
               <div class=" relative overflow-hidden flex flex-1 justify-end bg-[#88BCD2]">
-                <img src="./static/images/wp3191315.jpg" alt="" class="absolute inset-y-0 lg:inset-y-2 object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
+                <img src="./static/images/wp3191315.jpg" alt="" class="absolute inset-y-2 flex flex-1 justify-end rounded-lg object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
               </div>
             </div>
 
@@ -255,8 +187,8 @@
                 <p class="flex flex-1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus incidunt, necessitatibus vitae .....</p>
                 <p class="flex">Click to continue.</p>
               </div>
-              <div class="relative overflow-hidden flex flex-1 justify-end bg-[#88BCD2]">
-                <img src="./static/images/debate_bg_removed.png" alt="" class="absolute inset-y-5 lg:inset-y-8 object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
+              <div class=" relative overflow-hidden flex flex-1 justify-end bg-[#88BCD2]">
+                <img src="./static/images/debate_bg_removed.png" alt="" class="absolute inset-y-8 flex flex-1 justify-end rounded-lg object-cover transform transition-transform scale-105 group-hover:scale-125 duration-500">
               </div>
             </div>
 
@@ -269,7 +201,7 @@
 
 
     <!-- footer -->
-    <footer class="flex flex-col bg-[#005275]">
+     <footer class="flex flex-col bg-[#005275]">
 
       <div class="mx-4 md:mx-[90px] mt-5 sm:pb-2 border-b border-gray-500/50"></div>
 
@@ -370,80 +302,7 @@
      </button>
 
      
-     <script>
-        const button = document.getElementById("to_nav_bar");
-
-        window.addEventListener("scroll", () => {
-            const scrollPosition = window.scrollY;
-            const pageHeight = document.body.scrollHeight;
-            const oneThirdHeight = pageHeight / 3;
-        
-            // Show button after scrolling 1/3 of the page
-            if (scrollPosition > oneThirdHeight) {
-                button.classList.remove('opacity-0', "pointer-events-none");
-                button.classList.add('opacity-100');
-            } else {
-                button.classList.remove('opacity-100');
-                button.classList.add('opacity-0', "pointer-events-none");
-            }
-        });
-              
-        button.onclick = () => document.getElementById("navbar").scrollIntoView({ behavior: 'smooth' });
-
-        // slide show
-        let currentIndex = 0;
-        const carousel = document.getElementById("carousel");
-        const slides = carousel.children;
-        //console.log(slides);
-        const totalSlides = slides.length;
-        let autoScroll = setInterval(nextSlide, 3000); // initial interval
-        
-        function updateSlide() {
-          const extraOffset = 16;
-          carousel.style.transform = `translateX(calc(-${currentIndex * 100}% - ${currentIndex * extraOffset}px))`;
-            //carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-        }
-        
-        function resetInterval() {
-            clearInterval(autoScroll);
-            autoScroll = setInterval(nextSlide, 3000);
-          }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateSlide();
-            resetInterval();
-        }
-        
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateSlide();
-            resetInterval();
-        }
-
-        
-        const humburger_btn = document.getElementById("humburger-btn");
-        const close_sidebar = document.getElementById("close-sidebar");
-        const side_window = document.getElementById("sidebar");
-
-        humburger_btn.onclick = () => {
-          console.log("clicked");
-          if (side_window.classList.contains('opacity-0')) {
-            
-            sidebar.classList.remove('opacity-0', 'translate-x-[-100%]', 'pointer-events-none');
-            sidebar.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto');
-            document.body.style.overflow = "hidden"; // Disable scrolling on the body
-            console.log("hello");
-          }
-        };
-        
-        close_sidebar.onclick = () => {
-          sidebar.classList.remove('opacity-100', 'translate-x-0', 'pointer-events-auto');
-          sidebar.classList.add('opacity-0', 'translate-x-[-100%]', 'pointer-events-none');
-          document.body.style.overflow = "auto"; // Enable scrolling on the body
-        };
-     </script>
+     <script src="./static/js/landing_pg.js"></script>
 
 </body>
 </html>
