@@ -55,13 +55,12 @@ const close_sidebar = document.getElementById("close-sidebar");
 const side_window = document.getElementById("sidebar");
 
 humburger_btn.onclick = () => {
-  console.log("clicked");
+
   if (side_window.classList.contains('opacity-0')) {
     
     sidebar.classList.remove('opacity-0', 'translate-x-[-100%]', 'pointer-events-none');
     sidebar.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto');
     document.body.style.overflow = "hidden"; // Disable scrolling on the body
-    console.log("hello");
   }
 };
 
