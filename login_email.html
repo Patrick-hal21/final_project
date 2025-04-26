@@ -24,10 +24,8 @@
     </header>
 
     <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce] |  -->  
-    <div id="container" class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
-        <div class="mx-12 sm:mx-auto max-w-7xl flex flex-col justify-between bg-white min-w-[194px] min-h-[176px] sm:min-w-[396px] sm:min-h-[366px] lg:min-w-[434px] lg:min-h-[406px] rounded-[4px] sm:rounded-[12px]">
-            <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold my-2 sm:my-4 lg:my-5">Sign In</h1> 
-
+    <div id="container" class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[560px] lg:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+      <div class="mx-auto flex flex-col justify-between bg-white min-w-[240px] min-h-[250px] sm:min-w-[350px] sm:min-h-[360px] lg:min-w-[400px] lg:min-h-[380px] max-w-sm overflow-hidden rounded-[12px]">            <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold my-2 sm:my-4 lg:my-5">Sign In</h1> 
             <div class="flex flex-2 justify-start mx-5 sm:mx-8">
                 <label class="sm:text-2xl font-semibold">Email</p>
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 ml-1.5 mt-0.5 sm:size-7 sm:ml-2 sm:mt-1">
@@ -64,7 +62,7 @@
               </div>
 
               
-              <div class="flex flex-1 justify-start items-center mx-7 sm:mx-12 my-1 -lg:mt-2">
+              <div class="flex flex-1 justify-start items-center mx-7 sm:mx-12 -lg:mt-2">
                   <div class="overflow-hidden h-[50px] sm:h-[65px] lg:h-[80px] w-full">
                       <img src="./static/images/cloudflare_eg.png" alt="cloudFlare authentication" class="w-full h-full object-fit">
                   </div>
@@ -80,29 +78,34 @@
     </div>
     
     <!-- footer -->
-    <footer class="flex flex-col">
-        <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
-        <div class="mx-auto overflow-hidden w-full flex lg:flex-1 justify-between bg-[#005275] lg:px-12 sm:py-6 py-2">
+    <footer class="flex flex-col bg-[#005275]">
 
-          <div class="w-[150px] flex-col flex-1 justify-between pl-4 sm:ml-3 lg:px-12 sm:mr-10">
-            <p class="text-white font-bold">About Braniacs.eg</p>
-            <p class="pt-2 text-[13px] text-white opacity-80">The dedicated team.... Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet voluptas deserunt incidunt obcaecati molestiae labore facilis animi, ad aperiam nesciunt natus ducimus. Quisquam, repellendus voluptate suscipit sunt aperiam sit iure!</p>
-            <p class="pt-4 text-white opacity-80">DCS Final Project</p>
-          </div>
-  
-          <div class="w-[150px] flex-col flex-1 justify-between pl-7 lg:pl-12 mr-4 sm:mr-0 sm:ml-10">
-            <p class="text-white font-bold">More Info</p>
+      <div class="mx-4 md:mx-[90px] mt-5 sm:pb-2 border-b border-gray-500/50"></div>
 
-            <p class="pt-2 text-[13px] text-white opacity-80">Text</p>
-            <p class="pt-0.5 text-[13px] text-white opacity-80">Technical Support</p>
+      <!-- <footer class="mx-auto flex flex-col max-w-7xl items-center justify-between  h-[200px] lg:px-12" aria-label="Global"> -->
+      <div class="mx-auto overflow-hidden w-full divide-y divide-gray-500/30 sm:divide-none sm:flex justify-between bg-[#005275] px-4 sm:px-12 sm:pt-2 pb-10">
+        
+        <div class="sm:min-w-[100px] flex flex-col sm:flex-1 sm:justify-start pb-2 md:ml-12">
+          <p class="pt-3.5 text-white font-bold">About Braniacs.eg</p>
+          <p class="pt-2 text-[13px] text-white opacity-80 text-justify">The dedicated team.... Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae pariatur rem dicta aut, doloribus deleniti. Quisquam, laboriosam at? Blanditiis in sed corrupti culpa facere, ab illum consequatur quasi commodi exercitationem!</p>
+          <p class="pt-4 text-white text-[14px] opacity-80">DCS Final Project</p>
+        </div>
+
+        <div class="sm:min-w-[100px] flex sm:flex-1 sm:justify-center pb-2">
+          <div class="flex flex-col">
+            <p class="pt-2 sm:pt-3.5 text-white font-bold" alt="">More Info</p>
+            <a href="#" class="pt-2 text-[13px] text-white opacity-80" alt="">Text</a>
+            <a href="#" class="pt-0.5 text-[13px] text-white opacity-80" alt="">Technical Support</a>
           </div>
-  
-          <div class="w-[50px] flex-col flex-1 justify-between mr-2 lg:mr-5 lg:pl-10 lg:ml-12">
-            <p class="text-white font-bold">Social Media</p>
-  
+        </div>
+
+        <div class="lg:w-[50px] flex sm:flex-1 sm:justify-end md:mr-10">
+          <div class="flex-flex-col items-start text-end">
+            <p class="pt-3.5 text-white font-bold">Social Media</p>
+
             <!--  w-[35px] h-[35px] bg-white  -->
   
-            <div class="pt-4 ml-1.5 flex">
+            <div class="space-x-6 lg:space-x-3 ml-2 pt-4 flex items-start">
               <a href="https://www.facebook.com" class="group lg:w-[35px] aspect-[1/1]">
                 <span class="sr-only">Facebook link</span>
                 <svg
@@ -146,33 +149,37 @@
                 </svg>
               </a>
             </div>
-          </div> 
-        </div>
-  
-        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
-          <p>All Rights Reserved.</p>
-          <div class="w-[35px] h-[35px] bg-white flex lg:flex-1 justify-end"></div>
+          </div>
+        </div> 
+      </div>
+
+      <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p>All Rights Reserved.</p>
+        <div class="w-[35px] h-[35px] bg-white flex lg:flex-1 justify-end"></div>
+      </div> -->
+
+      <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p>All Rights Reserved.</p>
+        <div class="w-[35px] h-[35px] bg-white flex justify-end m-[200px]"></div>
+      </div> -->
+
+      <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
+        <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.</p>
+        <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
+          <img src="./static/Up.png" alt="" onclick="">
         </div> -->
-  
-        <!-- <div class="mx-auto flex items-center justify-between bg-[#328BB1] h-[30px]">
-          <p>All Rights Reserved.</p>
-          <div class="w-[35px] h-[35px] bg-white flex justify-end m-[200px]"></div>
-        </div> -->
-  
-        <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
-          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.</p>
-          <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
-            <img src="./static/Up.png" alt="" onclick="">
-          </div> -->
-          
-          <!-- <button id="to_nav_bar" type="button" class="flex w-[25px] mt-2 lg:w-[35px] bg-[#F6802F] rounded-[5px] mb-9 mr-6 lg:mr-12 transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square">
-            <span class="sr-only">To Top</span>
-            <img src="./static/Up.png" alt="" class="transition-transform">
-          </button> -->
-        </div>
-    </footer>
+        
+      </div>
+
+     </footer>
+
+     <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
+      <span class="sr-only">To Top</span>
+      <img src="./static/images/Up.png" alt="" class="transition-all">
+     </button>
 
     <script src="./static/js/email_script.js"></script>
+    <!-- <script src="./static/js/footer.js"></script> -->
 
 </body>
 </html>
