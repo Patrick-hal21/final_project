@@ -109,12 +109,18 @@ function moveFocus(current) {
 }
 
 // to focus on first empt slot
+// prevent selective focusing, only allows first (if all are empty) and last(if all are filled)
 function moveFocusToFirstEmpty() {
     for (let slot of otpSlots) {
         if (slot.value === "") {
-            slot.focus(); // Focus on the first empty slot
+            setTimeout(slot.focus(), 50); // Focus on the first empty slot
             break;
         } 
+    }
+
+    if ([...otpSlots].every(slot => slot.value != "")) {
+        // If all slots are empty, focus on the first slot
+        otpSlots[otpSlots.length-1].focus();
     }
 }
 
@@ -183,12 +189,15 @@ otpSlots.forEach((slot) => {
 function toggleVisbile() {
     //
     const otpSlots = document.querySelectorAll(".pc-slot");
+    const text = document.getElementsByClassName("placedText")[0];
 
     for (let i=0; i < otpSlots.length; i++) {
-        if (otpSlots[i].type=="password") {
-        otpSlots[i].type="text";
+        if (otpSlots[i].classList.contains("masked")) {
+            otpSlots[i].classList.remove("masked");
+            text.textContent = "Hide Passcode"; 
         } else {
-        otpSlots[i].type="password";
+            otpSlots[i].classList.add("masked");
+            text.textContent = "Show Passcode";
         }
     }
 }

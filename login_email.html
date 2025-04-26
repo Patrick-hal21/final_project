@@ -24,8 +24,9 @@
     </header>
 
     <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce] |  -->  
-    <div id="container" class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[560px] lg:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
-      <div class="mx-auto flex flex-col justify-between bg-white min-w-[240px] min-h-[250px] sm:min-w-[350px] sm:min-h-[360px] lg:min-w-[400px] lg:min-h-[380px] max-w-sm overflow-hidden rounded-[12px]">            <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold my-2 sm:my-4 lg:my-5">Sign In</h1> 
+    <div id="container" class="mx-auto flex flex-1 min-h-[450px] sm:min-h-[560px] lg:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+      <div class="mx-auto flex flex-col justify-between bg-white w-[90%] min-h-[280px] max-w-[300px] sm:min-w-[350px] sm:min-h-[360px] lg:min-w-[400px] lg:min-h-[380px] overflow-hidden rounded-[9px] rounded-[12px]">            
+        <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold my-2 sm:my-4 lg:my-5">Sign In</h1> 
             <div class="flex flex-2 justify-start mx-5 sm:mx-8">
                 <label class="sm:text-2xl font-semibold">Email</p>
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 ml-1.5 mt-0.5 sm:size-7 sm:ml-2 sm:mt-1">
@@ -44,7 +45,7 @@
             <form id="emailForm" class="flex flex-col flex-1 w-full max-w-md mx-auto justify-start">
 
               <div class="flex flex-col flex-2 mx-5 sm:mx-8">
-                <div tabindex="-1" class="groupToInput flex items-center cursor-text  mt-1.5 lg:mt-2.5 px-1 sm:px-2 border-2 border-gray-300 rounded-[4px] sm:rounded-[8px] h-[33px] sm:h-[48px] lg:h-[52px] overflow-hidden group focus-within:border-[#328BB1]">
+                <div tabindex="-1" class="groupToInput flex items-center cursor-text  mt-1.5 lg:mt-2.5 px-1 sm:px-2 border-2 border-gray-300 rounded-[4px] sm:rounded-[8px] h-[38px] sm:h-[48px] lg:h-[52px] overflow-hidden group focus-within:border-[#328BB1]">
                   <!-- mail svg -->
                   <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="pointToInput cursor-text flex-shrink min-w-[24px] size-5 mt-0.5 sm:size-7 opacity-50">
                     <path class="px-1 sm:px-2" stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
@@ -58,7 +59,7 @@
                   </div> -->
                   <input id="email" name="email" class="viaEmail flex-1 text-[13px] sm:text-[17px] lg:text-[21px] px-1 sm:px-2 items-center focus:outline-none focus:border-none" maxlength="30" placeholder="Enter your email">  <!--autocomplete="off" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"-->
                 </div>
-                <p id="error-message" class="text-red-500 text-right text-[9px] sm:text-sm opacity-0">Error Message</p>               
+                <p id="error-message" class="text-red-500 text-right text-[10px] sm:text-sm opacity-0">Error Message</p>               
               </div>
 
               
@@ -68,7 +69,7 @@
                   </div>
               </div>
               <div class="flex flex-1 justify-start items-center mx-5 sm:mx-8 mt-3 mb-3">
-                  <button id="submitBtn" type="submit" class="bg-[#328BB1] rounded-[4px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
+                  <button id="submitBtn" type="submit" class="bg-[#328BB1] rounded-[4px] sm:rounded-[8px] w-full h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
                       Next
                   </button>
               </div>
@@ -99,7 +100,7 @@
           </div>
         </div>
 
-        <div class="lg:w-[50px] flex sm:flex-1 sm:justify-end md:mr-10">
+        <div class="sm:min-w-[50px] flex sm:flex-1 sm:justify-end md:mr-10">
           <div class="flex-flex-col items-start text-end">
             <p class="pt-3.5 text-white font-bold">Social Media</p>
 

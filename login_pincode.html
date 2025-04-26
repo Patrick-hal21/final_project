@@ -7,7 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    
+    <!-- to use in tailwind.config.js -->
+    <style> 
+      .masked {
+        -webkit-text-security: disc;
+      }
+
+      .unmasked {
+        -webkit-text-security: none;
+      }
+    </style>
 </head>
 <body>
     <header id="navbar" class="border-b-2 border-gray-300 h-[53px] sm:h-[70px] overflow-hidden">
@@ -26,8 +35,8 @@
     </header>
 
     <!-- body part  bg-gradient-to-t from-[#DDEEFB] via-[#44a4ce] to-[#45a2ce]-->  
-    <div class="mx-auto flex flex-1 min-h-[400px] sm:min-h-[560px] lg:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
-      <div class="mx-auto flex flex-col justify-between bg-white min-w-[240px] min-h-[250px] sm:min-w-[350px] sm:min-h-[360px] lg:min-w-[400px] lg:min-h-[380px] max-w-sm overflow-hidden rounded-[12px]">
+    <div class="mx-auto flex flex-1 min-h-[450px] sm:min-h-[560px] lg:min-h-[600px] w-full sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+      <div class="mx-auto flex flex-col justify-between bg-white w-[90%] min-h-[280px] max-w-[300px] sm:min-w-[350px] sm:min-h-[360px] lg:min-w-[400px] lg:min-h-[380px] overflow-hidden rounded-[9px] sm:rounded-[12px]">
             <h1 class="flex justify-center text-2xl sm:text-3xl font-semibold mt-2 lg:mt-5">Welcome</h1> 
 
             <!-- email showcase -->
@@ -58,7 +67,7 @@
                   </div>
 
                   <!-- we can modify according to users' needs -->
-                  <ul id="dropdown" class="absolute flex flex-col hidden w-full bg-gray-100 border rounded-md mt-0.5 shadow-lg">
+                  <ul id="dropdown" class="absolute flex flex-col hidden overflow-hidden w-full bg-gray-100 border rounded-md mt-0.5 shadow-lg">
                       <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">exampleuseraccount@gmail.com</li>
                       <!-- <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">anotheruseraccount@gmail.com</li> -->
                       <li class="p-2 hover:bg-blue-200 cursor-pointer text-[10px] sm:text-[12px] lg:text-[16px]">Change Account</li>
@@ -74,26 +83,27 @@
                 </svg>                                  
             </div>
             <form class="flex flex-col flex-1 w-full max-w-sm mx-auto justify-start">
-              <div class="pc-slot-gp flex flex-2 justify-start items-center mx-5 sm:mx-8">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 border-2 border-black rounded-tl-[6px] rounded-bl-[6px] sm:rounded-tl-[8px] sm:rounded-bl-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 -ml-0.5 border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 -ml-[3px] border-2 border-black h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
-                <input type="password" class="pc-slot flex-1 w-[30px] sm:min-w-10 -ml-0.5 border-2 border-black rounded-tr-[6px] rounded-br-[6px] sm:rounded-tr-[8px] sm:rounded-br-[8px] h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+              <div class="pc-slot-gp flex flex-2 justify-between items-center mx-5 sm:mx-8">
+                <!-- appearance: none;	Tells the browser: "don't apply your weird default input style." -->
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 border-2 border-black rounded-tl-[6px] rounded-bl-[6px] sm:rounded-tl-[8px] sm:rounded-bl-[8px] h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform ease-in-out focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 sm:-ml-0.5 border-2 border-black h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 sm:-ml-0.5 border-2 border-black h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 sm:-ml-0.5 border-2 border-black h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 sm:-ml-0.5 border-2 border-black h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
+                <input type="tel" class="pc-slot masked appearance-none flex-1 w-[30px] sm:min-w-10 -ml-1 sm:-ml-0.5 border-2 border-black rounded-tr-[6px] rounded-br-[6px] sm:rounded-tr-[8px] sm:rounded-br-[8px] h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-center transition-transform focus:outline-none focus:border-[#328BB1] focus:scale-y-110 duration-200" maxlength="1">
               </div>
-              <div class="flex flex-2 justify-start mx-6 sm:mx-9 mt-2 sm:mt-3"> <!---mt-3 mb-3 sm:-mt-3.5-->
+              <div class=" relative flex flex-1 justify-start mx-6 sm:mx-9 mt-2 sm:mt-3"> <!---mt-3 mb-3 sm:-mt-3.5-->
                 <div class="flex flex-1 justify-start items-center"> 
                   <input type="checkbox" id="showPasscode" class="w-4 sm:w-5 mr-1 sm:mr-2 cursor-pointer aspect-square">
-                  <label for="showPasscode" class="text-[9px] sm:text-[15px] text-gray-700 cursor-pointer">ShowPasscode</label>
+                  <label for="showPasscode" class="placedText text-[12px] sm:text-[15px] text-gray-700 cursor-pointer">Show Passcode</label>
                 </div>
 
                 <!-- Error Message -->
-                <p id="passErrorMsg" class="flex flex-1 justify-end text-[12px] sm:text-[15px] text-red-500" id="errorMsg"></p>
+                <p id="passErrorMsg" class="absolute right-0 -top-2 lg:-top-3 text-[10px] sm:text-sm text-red-500"></p>
               </div>
 
               <div class="flex flex-1 justify-start items-center mx-5 sm:mx-8 my-2 sm:my-3">
-                  <button type="submit" class="bg-[#328BB1] rounded-[4px] sm:rounded-[8px] w-full h-[33px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
+                  <button type="submit" class="bg-[#328BB1] rounded-[4px] sm:rounded-[8px] w-full h-[38px] sm:h-[48px] lg:h-[52px] sm:pb-1 px-1.5 sm:px-4 text-[15px] sm:text-[20px] lg:text-[25px] text-white font-semibold active:bg-[#005275] sm:hover:bg-[#23B2CF] sm:active:bg-[#005275]">
                       Next
                   </button>
               </div>
