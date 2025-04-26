@@ -57,3 +57,5 @@ close_sidebar.onclick = () => {
 document.querySelectorAll(".toLogin").forEach(item => {
     item.onclick = () => window.location.href = "./login_email.html";
     });
+
+
