@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@layer components {
+    .dropdown-hidden {
+      @apply max-h-0 opacity-0 overflow-hidden transition-all duration-500;
+    }
+  
+    .dropdown-visible {
+      @apply max-h-[40px] opacity-100 border-b border-gray-300 transition-all duration-500;
+    }
+
+    .hover-linegrowth {
+      @apply relative after:absolute after:left-0 after:-bottom-5 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-200 hover:after:w-full
+    }
+
+    .profile-box {
+        @apply min-w-[90px] min-h-[100px] sm:min-w-[140px] sm:min-h-[150px] md:min-w-[170px] lg:min-w-[210px] lg:min-h-[170px];
+    }
+  }
