@@ -163,18 +163,23 @@ otpSlots.forEach((slot) => {
             if (/^\d$/.test(event.key)) { // Regular expression to match single digit (0-9)
                 slot.value = event.key; // Update only if it's a digit
             } else if (event.key === "Enter") {
+                //this is only for Enter press ( there is an submit button "Click" event above)
                 console.log("form submitted");
-                const form = document.querySelector("form");
-                if (form) {
+                event.preventDefault();
+                window.location.href = "./system_page_std.html";
 
-                    // this must be remove for further useages
-                    event.preventDefault(); // Prevent default form submission
-                    window.location.reload(); // load current page
+                // const form = document.querySelector("form");
+                // if (form) {
 
-                    // form.action = "#"; // Set action URL
-                    // form.method = "POST"; // Set method
-                    // form.submit(); // Explicitly submit the form
-                } 
+                //     // this must be remove for further useages
+                //     event.preventDefault(); // Prevent default form submission
+                //     window.location.reload(); // load current page
+                    
+
+                //     // form.action = "#"; // Set action URL
+                //     // form.method = "POST"; // Set method
+                //     // form.submit(); // Explicitly submit the form
+                // } 
             }
 
             /*else {
@@ -231,10 +236,13 @@ form.onsubmit = (event) => {
             return;
         }
     }
-    
-    if (form) {
-        form.action = "#"; // Set action URL
-        form.method = "POST"; // Set method
-        form.submit();
-    }
+    // this is for button click( there is an "Enter" event above)
+    console.log("form submitted");
+    event.preventDefault();
+    window.location.href = "./system_page_std.html";
+    // if (form) {
+    //     form.action = "#"; // Set action URL
+    //     form.method = "POST"; // Set method
+    //     form.submit();
+    // }
 };

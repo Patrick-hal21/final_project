@@ -29,10 +29,10 @@
                 </a>
             </div>
 
-            <div class="hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
-                <!-- hover-linegrowth- custom hover class in inpput.css -->
-                <a href="#" class="text-lg pr-3 active:text-[#041E9E] hover-linegrowth">Dashboard</a>
-                <a href="#" class="text-lg pl-3 active:text-[#041E9E] hover-linegrowth">Class</a>
+            <div class="navbar-tab hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
+                <!-- hover-linegrowth- custom hover class in inpput.css, gray for current page -->
+                <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth">Dashboard</a>
+                <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth">Class</a>
             </div>
 
             <!-- <div class="flex flex-1 justify-end">
@@ -50,12 +50,12 @@
                     <p class="absolute top-0 right-0 md:top-0.5 md:right-0.5 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">1</p>
                 </a>
 
-                <a href="#" id="profile" class="-mt-2 sm:-mt-3 p-1.5 pr-0.5 sm:pr-1 flex-1"> <!--  pl-5-->
+                <div id="profile" class="-mt-2 sm:-mt-3 p-1.5 pr-0.5 sm:pr-1 flex-1 cursor-pointer"> <!--  pl-5-->
                   <span class="sr-only">user profile</span>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 sm:size-13">
                     <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
                   </svg>
-                </a>
+                </div>
                 <!-- fetch role from the backend -->
                 <p class="absolute -bottom-1.5 right-0 sm:-bottom-3 text-sm sm:text-lg">Student</p>
             </div>
@@ -66,16 +66,95 @@
         
     </header>
     <!-- hover-linegrowth- custom hover class in inpput.css -->
-    <div id="dropElement" class="md:hidden flex items-center w-full space-x-2 dropdown-hidden">
-        <a href="#" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center">Dashboard</a>
+    <div id="dropElement" class="navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
+        <a href="#dashboard" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center text-gray-500">Dashboard</a>
         <p class="text-gray-500/50 -mt-0.5">|</p>
-        <a href="#" class="text-lg py-2 text-[13px] text-center">Class</a>
+        <a href="#class" class="text-lg py-2 text-[13px] text-center">Class</a>
     </div>
 
     <!-- body -->
-    <div class="relative mx-auto flex w-full min-h-screen sm:px-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center items-center">
+    <div class="relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50">
+            <!-- timetable, join class, leave form -->
+            <div class="flex flex-col flex-1 h-full py-5 sm:py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
+                <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
+                <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
+                    <!-- Add timetable here -->
+                     <img class="w-full h-full object-contain" src="./static/images/time-table-sample.jpg" alt="timetable">
+                </div>
+                
+                <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
+                    <button id="join_class" type="button" class="flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white">
+                        <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/seat.png" alt="seat">
+                        <span class="mt-[1px] text-[14px] md:text-base">Join Class</span>
+                    </button>
+
+                    <button id="leave_form" type="button" class="flex justify-center space-x-3 w-30 sm:w-35 md:w-60 ml-3 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white">
+                        <img class="w-7 h-7 object-contain hidden md:flex scale-130" src="./static/images/form.png" alt="form">
+                        <span class="text-[14px] md:text-base">Leave Form</span>
+                    </button>
+                </div>
+                
+            </div>
+
+            <!-- courses -->
+            <div class="flex max-w-7xl h-full px-4 py-5 sm:py-7 md:py-9 lg:py-12 mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden">
+                <div class="flex flex-col flex-1 w-full rounded-lg justify-center">
+                    <!-- Add join class here -->
+                     <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
+
+                     <div class="mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+                        <div class="flex flex-col w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Myanmar</p>
+                        </div>
+                        <div class="flex flex-col w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">English</p>
+                        </div>
+                        <div class="flex flex-col w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Mathematics</p>
+                        </div>
+
+                        <div class="flex flex-col w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Physics</p>
+                        </div>
+                        <div class="flex flex-col w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Chemistry</p>
+                        </div>
+                        <div class="w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                            <div class="flex w-full h-[85%]">
+                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
+                            </div>
+                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Biology</p>
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Class tab -->
+        <div id="class" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50 hidden">
+            Class Tab
+        </div>
     </div>
 
     <!-- footer -->
@@ -204,36 +283,11 @@
   
     <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
     <span class="sr-only">To Top</span>
-    <img src="./static/images/Up.png" alt="" class="transition-all">
+    <img src="./static/images/Up.png" alt="">
     </button>
 
     <script src="./static/js/footer.js"></script>
-    <script>
-        const humburgerBtn = document.getElementById("humburger-btn");
-        humburgerBtn.onclick = function() {
-            const dropElement = document.getElementById("dropElement");
-            dropElement.classList.toggle('dropdown-hidden');
-            dropElement.classList.toggle('dropdown-visible');
-        }
-
-        const profile_card = document.getElementById('profile_box');
-        const profile = document.getElementById('profile');
-
-        profile.addEventListener('click', function (event) {
-            event.stopPropagation(); // Prevent this click from bubbling to document
-            profile_card.classList.toggle('opacity-0');
-            profile_card.classList.toggle('opacity-100');
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!profile.contains(event.target) && !profile_card.contains(event.target)) {
-              if (profile_card.classList.contains('opacity-100')) {
-                profile_card.classList.remove('opacity-100');
-                profile_card.classList.add('opacity-0');
-              }
-            }
-        });
-    </script>
+    <script src="./static/js/std_page_navbar.js"></script>
     
 </body>
 </html>
