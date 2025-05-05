@@ -23,6 +23,7 @@ document.addEventListener('click', function (event) {
     }
 });
 
+
 const allTabSections = document.querySelectorAll(".navbar-tab");
 
 allTabSections.forEach(navTab => {
@@ -101,4 +102,18 @@ leave_form_btn.addEventListener('mouseenter', function (event) {
 leave_form_btn.addEventListener('mouseleave', function (event) {
   // event.stopPropagation(); // Prevent this click from bubbling to document
     leave_form.src = './static/images/form.png'; // second half of the gif which is placing seat
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const target = document.getElementById("slideInElement");
+  
+  const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+          target.classList.remove("opacity-0", "translate-x-10");
+          target.classList.add("opacity-100", "translate-x-0");
+      }
+  }, { threshold: window.innerWidth < 768 ? 0.08 : 0.1 });
+
+  observer.observe(target);
 });
