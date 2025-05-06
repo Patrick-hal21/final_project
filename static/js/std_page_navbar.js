@@ -36,6 +36,54 @@ const noti_box = document.getElementById('noti_box');
 toggle_dropdown(profile, profile_card);
 toggle_dropdown(noti, noti_box);
 
+// mark as all read on hover
+
+const mark_as_all_btn = document.getElementById("mark-as-all");
+const mark_read_p = mark_as_all_btn.querySelector("p");
+
+
+// btn = btn or any other element to add hover event
+// text - p or text element to show on hovering 
+function show_text_on_hover(btn, text_e) {
+  let timeoutId;
+  btn.addEventListener("mouseenter", () => {
+    // Start 1.5s delay to show tooltip
+    timeoutId = setTimeout(() => {
+      text_e.classList.remove("hidden");
+    }, 1500);
+  });
+  
+  btn.addEventListener("mouseleave", () => {
+    // Cancel the pending timeout
+    clearTimeout(timeoutId);
+    
+    // Optionally hide the tooltip immediately
+    text_e.classList.add("hidden");
+  });
+}
+
+show_text_on_hover(mark_as_all_btn, mark_read_p);
+
+
+// notifications
+let notifications = 1; //
+const noti_count_box = document.getElementById("noti_count");
+noti_count_box.innerHTML = notifications;
+
+if (notifications > 0) {
+  noti_count_box.classList.remove("hidden");
+} 
+
+
+// correct button to mark all as read
+const mark = mark_as_all_btn.querySelector("button");
+mark.onclick= ()=>{
+  notifications = 0;
+  if (!noti_count_box.classList.contains("hidden")) {
+    noti_count_box.classList.add("hidden");
+    // console.log(notifications);
+  }
+};
 
 
 // switch tab
@@ -126,31 +174,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// mark as all read on hover
-
-const mark_as_all_btn = document.getElementById("mark-as-all");
-const mark_read_p = mark_as_all_btn.querySelector("p");
-
-
-// btn = btn or any other element to add hover event
-// text - p or text element to show on hovering 
-function show_text_on_hover(btn, text_e) {
-  let timeoutId;
-  btn.addEventListener("mouseenter", () => {
-    // Start 1.5s delay to show tooltip
-    timeoutId = setTimeout(() => {
-      text_e.classList.remove("hidden");
-    }, 1500);
-  });
-  
-  btn.addEventListener("mouseleave", () => {
-    // Cancel the pending timeout
-    clearTimeout(timeoutId);
-    
-    // Optionally hide the tooltip immediately
-    text_e.classList.add("hidden");
-  });
-}
-
-show_text_on_hover(mark_as_all_btn, mark_read_p);
 

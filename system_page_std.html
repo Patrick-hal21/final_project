@@ -47,7 +47,7 @@
                     </svg>
 
                     <!-- notification count , bg-red-500 if count > 0-->
-                    <p class="absolute top-0 right-0 md:top-0.5 md:right-0.5 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">1</p>
+                    <p id="noti_count" class="absolute top-0 right-0 md:top-0.5 md:right-0.5 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center"></p>
                 </a>
 
                 <div id="profile" class="-mt-2 sm:-mt-3 p-1.5 pr-0.5 sm:pr-1 flex-1 cursor-pointer"> <!--  pl-5-->
@@ -79,10 +79,10 @@
             <!-- notification header -->
              <div class="relative flex items-center text-start px-1">
                 <p class="text-[13px] md:text-base">Notifications</p>
-                <div id="mark-as-all" class="flex flex-1 justify-end">
-                    <button type="button" class="w-4 aspect-square cursor-pointer">
+                <div id="mark-as-all" tabindex="-1" class="flex flex-1 justify-end">
+                    <button type="button" class="w-5 aspect-square cursor-pointer active:bg-gray-500/20">
                         <span class="sr-only">Mark as all read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" class="size-4 md:size-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 md:size-5">
                             <path fill-rule="evenodd" stroke="#10A37F" stroke-width="2" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
                         </svg>  
                     </button>
