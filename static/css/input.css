@@ -14,7 +14,15 @@
     }
 
     .profile-box {
-        @apply min-w-[90px] min-h-[100px] sm:min-w-[140px] sm:min-h-[150px] md:min-w-[170px] lg:min-w-[210px] lg:min-h-[170px];
+        @apply min-w-[90px] sm:min-w-[140px] md:min-w-[170px] lg:min-w-[210px] min-h-[100px] sm:min-h-[150px] lg:min-h-[170px] max-h-[150px] md:max-h-[250px];
+    }
+
+    .notifi-box {
+      @apply min-w-[120px] sm:min-w-[140px] md:min-w-[170px] lg:min-w-[210px] min-h-[150px] sm:min-h-[190px] lg:min-h-[250px] max-h-[200px] md:max-w-[300px];
+  }
+
+    .noti-right {
+      @apply  right-0 sm:right-[140px] md:right-[170px] lg:right-[210px]; /* for mobile - right-[90px]*/
     }
 
     .neon-white {

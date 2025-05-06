@@ -23,7 +23,7 @@
             </div>
 
             <div class="flex-1 flex md:flex-none justify-center">
-                <a href="#" class="p-1.5"> <!--  pl-5-->
+                <a href="#" class="p-1.5 ml-12"> <!--  pl-5-->
                   <span class="sr-only">Our School Logo</span>
                   <img class="max-w-[50px] sm:max-w-[67px] rounded-[35px] sm:aspect-1/1 object-contain" src="./static/images/logo (4).png" alt="">
                 </a>
@@ -39,7 +39,7 @@
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl text-end font-semibold">Federal School</h1>
             </div> -->
               
-            <div class="relative flex justify-end">
+            <div id="noti" class="relative flex justify-end">
                 <a href="#" class="relative mt-1 p-1.5 md:mr-6"> <!--  pl-5-->
                     <span class="sr-only">Notification</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-8 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
@@ -52,7 +52,7 @@
 
                 <div id="profile" class="-mt-2 sm:-mt-3 p-1.5 pr-0.5 sm:pr-1 flex-1 cursor-pointer"> <!--  pl-5-->
                   <span class="sr-only">user profile</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 sm:size-13">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 sm:size-13 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
                     <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
                   </svg>
                 </div>
@@ -63,13 +63,35 @@
 
         <!-- profile dropdown -->
         <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50">
-            <div class="flex flex-1 flex-col w-full">
-                <a href="#dashboard" class="w-full h-[20%] p-1 md:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
-                <a href="#class" class="w-full h-[20%] p-1 md:p-2 shadow-sm hover:bg-blue-200">Static</a>
+            <div class="flex flex-1 flex-col w-full h-[80%] overflow-auto">
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Static</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Tests</a>
+
             </div>
             <div class="flex items-end">
                 <a href="" class="w-full py-1 text-center hover:bg-red-400">Log Out</a>
             </div>
+        </div>
+
+        <!-- notification box dropdown -->
+        <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] transition-all duration-500 opacity-0 z-10 divide-y divide-gray-500/50">
+            <!-- notification header -->
+             <div class="relative flex items-center text-start px-1">
+                <p class="text-[13px] md:text-base">Notifications</p>
+                <div id="mark-as-all" class="flex flex-1 justify-end">
+                    <button type="button" class="w-4 aspect-square cursor-pointer">
+                        <span class="sr-only">Mark as all read</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" class="size-4 md:size-5">
+                            <path fill-rule="evenodd" stroke="#10A37F" stroke-width="2" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
+                        </svg>  
+                    </button>
+                    <p class="absolute -top-4 sm:-top-5 text-[9px] md:text-[11px] bg-white border hidden">Mark as all read</p>
+                </div>
+             </div>
+             <!-- Notifications body -->
+             <div class="flex flex-1 flex-col w-full overflow-auto"></div>
+
         </div>
         
     </header>
@@ -88,7 +110,7 @@
         <!-- Dashboard -->
         <div id="dashboard" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50">
             <!-- timetable, join class, leave form -->
-            <div class="flex flex-col flex-1 h-full py-5 sm:py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
+            <div class="flex flex-col flex-1 py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
                 <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
                     <!-- Add timetable here -->
@@ -115,7 +137,7 @@
                     <!-- Add join class here -->
                      <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
 
-                     <div id="slideInElement" class="mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
+                     <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
                         <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
@@ -187,8 +209,8 @@
             <div class="sm:min-w-[100px] flex sm:flex-1 sm:justify-center pb-2">
                 <div class="flex flex-col">
                 <p class="pt-2 sm:pt-3.5 text-white font-bold" alt="">More Info</p>
-                <a href="#" class="pt-4 text-[13px] text-white opacity-80" alt="">Text</a>
-                <a href="#" class="pt-0.5 text-[13px] text-white opacity-80" alt="">Technical Support</a>
+                <a href="#" class="pt-4 text-[13px] text-white opacity-80 hover:opacity-100" alt="">Text</a>
+                <a href="#" class="pt-0.5 text-[13px] text-white opacity-80 hover:opacity-100" alt="">Technical Support</a>
                 </div>
             </div>
   
@@ -253,7 +275,7 @@
 
                         <ellipse cx="16" cy="21.5" rx="16" ry="21.5" fill="#FBFEFF" class="opacity-0 group-hover:opacity-100"/>
                         <path d="M32 21.5C32 27.2022 30.3143 32.6708 27.3137 36.7028C24.3131 40.7348 20.2435 43 16 43C11.7565 43 7.68687 40.7348 4.68629 36.7028C1.68571 32.6708 0 27.2022 0 21.5C0 15.7978 1.68571 10.3292 4.68629 6.2972C7.68687 2.26517 11.7565 0 16 0C20.2435 0 24.3131 2.26517 27.3137 6.2972C30.3143 10.3292 32 15.7978 32 21.5ZM16.574 15.8724C15.0167 16.7431 11.906 18.5437 7.242 21.2742C6.486 21.6774 6.08933 22.0733 6.052 22.4621C5.992 23.1152 6.602 23.3732 7.432 23.7253L7.782 23.8731C8.598 24.2305 9.698 24.6471 10.268 24.6632C10.788 24.6811 11.3667 24.3944 12.004 23.8032C16.3627 19.8508 18.612 17.8531 18.752 17.8101C18.852 17.7778 18.992 17.7402 19.084 17.8531C19.176 17.9659 19.168 18.1756 19.158 18.232C19.098 18.5787 16.704 21.5672 15.466 23.1152C15.08 23.5989 14.806 23.9403 14.75 24.0182C14.6267 24.1876 14.5014 24.3542 14.374 24.5181C13.614 25.5017 13.046 26.2381 14.404 27.4421C15.058 28.0226 15.582 28.4982 16.104 28.9766C16.672 29.498 17.24 30.0167 17.976 30.6671C18.1627 30.8319 18.3427 30.9994 18.516 31.1696C19.178 31.8039 19.776 32.3736 20.51 32.2823C20.938 32.2285 21.38 31.691 21.604 30.0785C22.134 26.2703 23.176 18.0224 23.416 14.6227C23.4311 14.3401 23.4224 14.0561 23.39 13.7761C23.3706 13.5504 23.2893 13.3425 23.162 13.1929C22.9798 13.0248 22.763 12.9374 22.542 12.943C21.942 12.9564 21.016 13.3891 16.574 15.8724Z"
-                        fill="white" class="opacity-80 group-hover:fill-[#3091ED] group-hover:opacity-100"/>
+                        fill="white" class="opacity-80 group-hover:fill-[#3091ED] transition-opacity duration-300 ease-in-out group-hover:opacity-100"/>
                     </svg>
                     </a>
 
