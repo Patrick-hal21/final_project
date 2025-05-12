@@ -18,7 +18,7 @@
     }
 
     .notifi-box {
-      @apply min-w-[120px] sm:min-w-[140px] md:min-w-[170px] lg:min-w-[210px] min-h-[150px] sm:min-h-[190px] lg:min-h-[250px] max-h-[200px] md:max-w-[300px];
+      @apply min-w-[150px] sm:min-w-[170px] md:min-w-[200px] lg:min-w-[240px] min-h-[150px] sm:min-h-[190px] lg:min-h-[250px] max-h-[200px] md:max-w-[300px];
   }
 
     .noti-right {
@@ -30,10 +30,24 @@
     }
 
     .neon-card {
-      @apply shadow-md hover:shadow-[0_0_20px_10px_rgba(50,139,177,0.5)] transition duration-300 ease-in-out;
+      @apply shadow-md hover:shadow-[0_0_20px_10px_rgba(50,139,177,0.4)] transition duration-300 ease-in-out;
     }
 
     .slide-in-element {
       @apply opacity-0 translate-x-10 transition-all duration-700;
+    }
+
+    .link {
+      @apply hover:text-blue-600 hover:underline transition-all duration-300;
+    }
+
+    .lesson-div {
+      @apply flex w-full h-[130px] my-1 divide-x divide-x-[2px] divide-gray-500/50 p-3 overflow-hidden;
+    }
+    .scroll-shadow {
+      @apply before:content-[''] before:absolute before:bottom-3 before:w-full before:h-3
+      before:pointer-events-none before:bg-gradient-to-t before:from-[rgba(0,0,0,0.05)] before:to-transparent
+      after:content-[''] after:absolute after:top-3 after:w-full after:h-2 
+      after:pointer-events-none after:bg-gradient-to-b after:from-[rgba(0,0,0,0.05)] after:to-transparent
     }
   }

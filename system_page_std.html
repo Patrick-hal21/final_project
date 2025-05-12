@@ -6,6 +6,13 @@
     <title>Dashboard(student)</title>
     <link rel="stylesheet" href="./static/css/output.css">
 
+    <!-- Include Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Include Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
@@ -31,8 +38,8 @@
 
             <div class="navbar-tab hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
                 <!-- hover-linegrowth- custom hover class in inpput.css, gray for current page -->
-                <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth">Dashboard</a>
-                <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth">Class</a>
+                <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="dashboard">Dashboard</a>
+                <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="class">Class</a>
             </div>
 
             <!-- <div class="flex flex-1 justify-end">
@@ -62,7 +69,7 @@
         </nav>
 
         <!-- profile dropdown -->
-        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50">
+        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
             <div class="flex flex-1 flex-col w-full h-[80%] overflow-auto">
                 <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
                 <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Static</a>
@@ -75,7 +82,7 @@
         </div>
 
         <!-- notification box dropdown -->
-        <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] transition-all duration-500 opacity-0 z-10 divide-y divide-gray-500/50">
+        <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] transition-all duration-500 opacity-0 z-10 divide-y divide-gray-500/50 pointer-events-none">
             <!-- notification header -->
              <div class="relative flex items-center text-start px-1">
                 <p class="text-[13px] md:text-base">Notifications</p>
@@ -97,9 +104,9 @@
     </header>
     <!-- hover-linegrowth- custom hover class in inpput.css -->
     <div id="dropElement" class="navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
-        <a href="#dashboard" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center text-gray-500">Dashboard</a>
+        <a href="#dashboard" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center text-gray-500" data-tab="dashboard">Dashboard</a>
         <p class="text-gray-500/50 -mt-0.5">|</p>
-        <a href="#class" class="text-lg py-2 text-[13px] text-center">Class</a>
+        <a href="#class" class="text-lg py-2 text-[13px] text-center" data-tab="class">Class</a>
     </div>
 
     <!-- body -->
@@ -108,7 +115,7 @@
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
         <!-- Dashboard -->
-        <div id="dashboard" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50">
+        <div id="dashboard" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50 hidden">
             <!-- timetable, join class, leave form -->
             <div class="flex flex-col flex-1 py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
@@ -118,14 +125,14 @@
                 </div>
                 
                 <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
-                    <button id="join_class" type="button" class="flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white">
+                    <button id="join_class" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 -translate-x-10 transition-all duration-1000 active:scale-80 group">
                         <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/seat.png" alt="seat">
-                        <span class="mt-[1px] text-[14px] md:text-base">Join Class</span>
+                        <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Join Class</span>
                     </button>
 
-                    <button id="leave_form" type="button" class="flex justify-center space-x-3 w-30 sm:w-35 md:w-60 ml-3 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white">
+                    <button id="leave_form" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 ml-3 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 translate-x-10 transition-all duration-1000 active:scale-80 group">
                         <img class="w-7 h-7 object-contain hidden md:flex scale-130" src="./static/images/form.png" alt="form">
-                        <span class="text-[14px] md:text-base">Leave Form</span>
+                        <span class="text-[14px] md:text-base group-active:text-[#041E9E]">Leave Form</span>
                     </button>
                 </div>
                 
@@ -138,38 +145,38 @@
                      <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
 
                      <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Myanmar</p>
                         </div>
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">English</p>
                         </div>
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Mathematics</p>
                         </div>
 
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Physics</p>
                         </div>
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Chemistry</p>
                         </div>
-                        <div class="flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
@@ -185,10 +192,117 @@
         <div id="class" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50 hidden">
             Class Tab
         </div>
+
+        <!-- leave form -->
+        <div id="leave_form_tab" class="relative flex-1 mx-auto max-w-7xl py-8 md:p-12 md:mx-12 lg:mx-[120px] hidden"> <!-- for slide-in aanimation =  w-0 slide-in-element-->
+            <button type="button" class="absolute right-0 top-1 md:hidden md:pointer-events-none">
+                <span class="sr-only">Close form</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6 sm:size-7">
+                    <path fill-rule="evenodd" stroke="white" stroke-width="0.5" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>                  
+            </button>
+
+            <!-- <div class="mx-auto max-w-7xl flex flex-col px-12"> -->
+                <form class="flex flex-col md:mx-12 py-1.5 md:py-3 bg-white border shadow-sm border-gray-500/50 rounded-[8px]">
+                    <h1 class="mx-4 sm:mx-8 text-[18px] md:text-2xl font-semibold">Leave form</h1>
+                    <div class="mx-6 my-2 sm:mx-12 sm:px-3 md:px-6 lg:px-9 md:my-6 flex flex-col space-y-1 md:space-y-2">
+                        <label>Date</label>
+                        <div class="relative">
+                            <input type="date" id="dateInput" name="date" class="w-[120px] md:w-[150px] h-8 md:h-10 rounded-sm border border-gray-500 p-2 outline-none focus:ring focus:ring-blue-400 transition-all duration-300" placeholder="mm/dd/YY" required>
+                            <span id="fordate" class="cursor-pointer absolute -ml-7 mt-1.5 md:mt-2 md:-ml-8">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 md:size-6 opacity-40">
+                                    <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                    <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                                  </svg>                                  
+                            </span>
+                        </div>   
+                        
+                        <label class="mt-2">Type</label>
+                        <div class="relative">
+                            <input type="text" id="type_options" class="w-[160px] md:w-[180px] h-8 md:h-10 rounded-sm border border-gray-500 p-2 outline-none focus:ring focus:ring-blue-400 transition-all duration-300 overflow-hidden" value="The Whole Day" readonly required>
+                            <span id="for_type" class="cursor-pointer absolute -ml-7 mt-1.5 md:mt-2 md:-ml-8 transition-transform duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 sm:size-5 lg:sm:size-6 mt-0.5 sm:mt-0.5 opacity-60 hover:opacity-80">
+                                    <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd"/> <!-- pivot point is checked in "M12."-->
+                                </svg>    
+                            </span>
+
+                            <!-- we can modify according to users' needs -->
+                            <ul id="options" class="absolute w-[160px] md:w-[180px] mt-[1px] flex flex-col overflow-hidden bg-white border border-gray-500/50 rounded-sm shadow-sm opacity-0 -translate-y-1 transition-all duration-300 ease-in-out pointer-events-none">
+                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">The Whole Day</li>
+                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">Frist Half</li>
+                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">English</li>
+                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">Myanmar</li>
+                            </ul>
+                        </div>
+
+                        <label class="mt-2">Reason</label>
+                        <textarea id="autoExpandTextarea" class="rounded-sm border border-gray-500 p-2 outline-none focus:ring focus:ring-blue-400 transition-all duration-300 overflow-hidden" rows="5" placeholder="Type your reason"></textarea>
+
+                        <div class="flex justify-between mt-2">
+                            <button id="leave_form_cancel" type="button" class="w-[60px] md:w-[116px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#3B96BC] hover:bg-[#23B2CF] active:bg-[#09668E]">Cancel</button>
+                            <button type="submit" class="w-[120px] md:w-[188px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#3B96BC] hover:bg-[#23B2CF] active:bg-[#09668E]">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            <!-- </div> -->
+        </div>
+                    
+        <!-- Display subject content div-->
+        <div id="courses" class="relative flex-1 flex flex-col mx-auto max-w-7xl justify-center items-center py-4 md:px-12 md:mx-11 lg:mx-[100px] xl:mx-[150px] divide-y divide-gray-600 hidden">
+            <!-- to go back to Dashboard -->
+            <button type="button" class="absolute right-0 top-1 border-0 md:hidden md:pointer-events-none">
+                <span class="sr-only">Close form</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-6 sm:size-7">
+                    <path fill-rule="evenodd" stroke="white" stroke-width="0.5" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>                  
+            </button>
+
+            <div class="flex flex-col lg:mx-12 w-full space-y-3 pb-2 md:pb-5">
+                <h1 class="text-[18px] md:text-2xl font-semibold underline underline-offset-7"><!-- specific cubject name--></h1>
+                <div class="flex flex-1 my-2 md:my-4 divide-x divide-x-[2px] divide-gray-500/50">
+                    <div class="flex-l overflow-hidden w-[90px] sm:w-[21%] md:w-[25%] lg:w-[21%] lg:h-[143px] pr-2 md:pr-5">
+                        <div class="w-full h-full rounded-sm bg-white overflow-hidden">
+                            <img src="./static/images/book_1.png" class="w-full h-full object-contain" alt="book">
+                        </div>
+                    </div>
+                    <div class="description w-[65%]"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col flex-1 lg:mx-12 w-full mt-2 md:mt-4 space-y-6 md:space-y-8">
+                <h1 class="text-[18px] md:text-2xl font-semibold underline underline-offset-7">Content</h1>
+                <div class="flex flex-col w-full lg:min-h-[500px] max-h-[800px] md:p-2 bg-white rounded-sm border border-gray-600/60 divide-y divide-gray-500/50 overflow-hidden items-center">
+                    <!-- Data from server -->
+                     <!-- 2 samples -->
+                    <div class="lesson-div">
+                        <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                            <p class="md:text-[20px]">Lesson-1</p>
+                        </div>
+                        <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1">
+                            <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
+                            <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
+                            <a href="" class="file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
+                        </div>
+                    </div>
+                    <div class=" relative lesson-div">
+                        <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                            <p class="md:text-[20px]">Lesson-2</p>
+                        </div>
+                        <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check">
+                            <a href="./files/The Law Amending the Electronic Transactions Law.docx" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
+                            <a href="./files//The Law Amending the Electronic Transactions Law.docx" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
+                            <a href="" class="file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
+                        </div>
+                    </div>
+
+                    <div class="lesson-div"></div> <!-- to divided-y be visible-->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- footer -->
-    <footer class="flex flex-col bg-[#005275]">
+    <footer id="footer" class="flex flex-col bg-[#005275]">
 
         <div class="mx-4 md:mx-[90px] mt-5 sm:pb-2 border-b border-gray-500/50"></div>
   
@@ -302,7 +416,9 @@
   
   
         <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
-          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.</p>
+          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.
+            <a href="#" class="ml-2 opacity-80 font-thin hover:opacity-100 hover:underline underline-offset-5">Privacy Policys</a>
+          </p>
           <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
             <img src="./static/Up.png" alt="" onclick="">
           </div> -->
@@ -311,7 +427,7 @@
   
     </footer>
   
-    <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] transform transition-transform hover:scale-110 duration-300 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
+    <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] transform transition-all hover:scale-110 duration-300 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
     <span class="sr-only">To Top</span>
     <img src="./static/images/Up.png" alt="">
     </button>
