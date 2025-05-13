@@ -54,4 +54,13 @@
       @apply cursor-pointer flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 md:font-semibold rounded-sm
       shadow-md bg-[#328BB1] hover:bg-[#23B2CF] active:bg-[#09668E] text-white text-[14px] sm:text-base;
     }
+
+    .upload-box {
+      @apply flex flex-col relative w-[300px] aspect-2/1 border-2 border-dashed border-gray-300 items-center justify-center cursor-pointer text-lg;
+    }
+
+    .view-transform {
+      /* in mobile, useres can can click any events */
+      @apply opacity-80 scale-98 md:pointer-events-none duration-500;
+    }
   }

@@ -1,10 +1,13 @@
 // ----> For system pages(0- 528)-> mixed (108-164)
-flatpickr("#dateInput", {
+const dateInput = document.getElementById("dateInput");
+
+const fp = flatpickr(dateInput, {
   disableMobile: true, // Forces Flatpickr UI on mobile devices
   enableTime: false,
   dateFormat: "m-d-Y",
   // minDate: "today", // Prevents past dates from being selected
 });
+
 
 const humburgerBtn = document.getElementById("humburger-btn");
 humburgerBtn.onclick = function() {
@@ -74,16 +77,29 @@ function show_text_on_hover(btn, text_e) {
 
 show_text_on_hover(mark_as_all_btn, mark_read_p);
 
+const user_id_type = document.getElementById("user_id").textContent.split("-")[0];
 
 // notifications
 let notifications = 3; //
 // localStorage.clear(); // for testsing
+const user_types = ["SID", "TID", "CTID"];
 
-// check "noti_count" in localStorage
-if (localStorage.getItem("noti_count") === null) {
-  localStorage.setItem("noti_count", notifications);
+// set notifications count for each user type(testing)
+for(let i=0; i < user_types.length; i++){
+  // check "noti_count" in localStorage
+  if (localStorage.getItem(`noti_count_${user_types[i]}`) === null) {
+      localStorage.setItem(`noti_count_${user_types[i]}`, notifications);
+  }
 }
- let local_noti_count = parseInt(localStorage.getItem("noti_count"), 10);
+
+let local_noti_count;
+if (user_id_type === "SID") {
+  local_noti_count = parseInt(localStorage.getItem("noti_count_SID"), 10);
+} else if (user_id_type === "TID") {
+  local_noti_count = parseInt(localStorage.getItem("noti_count_TID"), 10);
+} else {
+  local_noti_count = parseInt(localStorage.getItem("noti_count_CTID"), 10);
+}
 
 const noti_count_box = document.getElementById("noti_count");
 noti_count_box.innerHTML = local_noti_count;
@@ -91,16 +107,18 @@ noti_count_box.innerHTML = local_noti_count;
 if (local_noti_count > 0) {
   noti_count_box.classList.remove("hidden");
 } else {
-  noti_count_box.classList.add("hidden");
+  if (!noti_count_box.classList.contains("hidden")) {
+      noti_count_box.classList.add("hidden");
+  }
 }
 
 
 // correct button to mark all as read
 const mark = mark_as_all_btn.querySelector("button");
 mark.onclick= ()=>{
-  localStorage.setItem("noti_count", 0);
+  localStorage.setItem(`noti_count_${user_id_type}`, 0);
   if (!noti_count_box.classList.contains("hidden")) {
-    noti_count_box.classList.add("hidden");
+      noti_count_box.classList.add("hidden");
     // console.log(notifications);
   }
 };
@@ -108,19 +126,17 @@ mark.onclick= ()=>{
 // ----> mixed student and teachers
 // user_types = ["SID", "TID", "CTID"]; // retrieve from the backend
 
-const user_id = document.getElementById("user_id").textContent;
-
 const join_class_btn = document.getElementById('join_class');
 const take_seat_img = join_class_btn.children[0];
 
-if (user_id.split("-")[0] == "SID") {
+if (user_id_type == "SID") {
   // console.log("hello student");
   hover_gif_animate(join_class_btn, take_seat_img, './static/images/take_seat.gif', './static/images/place_seat.gif');
-} else if (user_id.split("-")[0] == "TID") {
+} else if (user_id_type == "TID") {
   // console.log("hello teacher");
   hover_gif_animate(join_class_btn, take_seat_img, './static/images/teacher.gif', './static/images/teacher.png');
 } else {
-  console.log("hello class-teacher");
+  hover_gif_animate(join_class_btn, take_seat_img, './static/images/teacher.gif', './static/images/teacher.png');
 }
 
 
@@ -156,11 +172,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, { threshold: window.innerWidth < 768 ? 0.08 :0.9 });
 
+  // function test_func(div) {
+  //   const observer = new IntersectionObserver(([entry]) => {
+  //       if (entry.isIntersecting) {
+  //           div.classList.remove("opacity-50", "scale-90");
+  //           div.classList.add("opacity-100", "scale-100");
+  //       }
+  //   }, { threshold: 0.99});
+
+  //   observer.observe(div); // Ensure the element is observed
+  //   // return observer; // Optional: Return observer for further management
+  // }
+
+  // document.querySelectorAll("#class > div").forEach(elem => {
+  //   test_func(elem);
+  // });
+
   observer.observe(target);
   observer1.observe(join_class_btn);
   observer2.observe(leave_form_btn);
 
 });
+
+function checkMidScreen() {
+    document.querySelectorAll("#class > div").forEach((div) => {
+        const rect = div.getBoundingClientRect();
+        const screenMid = window.innerHeight / 2;
+
+        const isAtMidScreen = rect.top <= screenMid && rect.bottom >= screenMid;
+
+        if (isAtMidScreen) {
+            div.classList.remove("opacity-80", "scale-98", "md:pointer-events-none");
+            div.classList.add("opacity-100", "scale-100", "pointer-events-auto");
+        } else {
+            if (!div.classList.contains("opacity-80")) {
+              div.classList.remove("opacity-100", "scale-100", "pointer-events-auto");
+              div.classList.add("opacity-80", "scale-98", "md:pointer-events-none"); // Optional: Reset if not at mid
+            }
+        }
+    });
+}
+
+// to prevent firing scroll excessively, and to boost performance,(but currently it cause animations delay)
+function debounce(func, delay = 100) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+window.addEventListener("scroll", debounce(checkMidScreen));
+// Ensure it runs after the page fully loads
+document.addEventListener("DOMContentLoaded", checkMidScreen);
+
+// Run on scroll
+window.addEventListener("scroll", checkMidScreen);
+
+// Run on resize (handles viewport changes)
+window.addEventListener("resize", checkMidScreen);
+
+
 // end mixed
 
 const allTabSections = document.querySelectorAll(".navbar-tab");
@@ -190,6 +262,7 @@ allTabSections.forEach(navTab => {
     // Set the initial active state
     setActiveTab(activeTab);
   }
+
 
   // if current tab(last tab) is courses tab
   if (activeTabDiv == courses_tab) {
@@ -263,6 +336,10 @@ allTabSections.forEach(navTab => {
       // console.log(activeTabDiv.id);
       sessionStorage.setItem("activeTab", activeTab.getAttribute("href"));
       sessionStorage.setItem("activeTabDiv", activeTabDiv.id);
+
+      if (activeTabDiv.id == "class") {
+         checkMidScreen();
+      }
     });
   });
 });
@@ -346,6 +423,12 @@ const options = document.getElementById("options");
 toggleDropdown(type_options_input);
 toggleDropdown(document.getElementById("for_type"));
 
+document.getElementById("dateInput").onchange = () => {
+
+  document.getElementById("dateInput").blur();
+
+};
+
 function toggleDropdown(btn) {
   btn.addEventListener("click", (event)=> {
     if (options.classList.contains("opacity-0")) {
@@ -417,17 +500,20 @@ function backToDashboard(divName, leave_form = "") {
 //Courses
 
 const subjects = document.querySelectorAll(".subject");
-courses_tab.querySelector("button").onclick = () => {
-  console.log("hello");
-  backToDashboard(courses_tab);
+if (subjects) {
+    courses_tab.querySelector("button").onclick = () => {
+    console.log("hello");
+    backToDashboard(courses_tab);
+  }
+
+  subjects.forEach(sub => {
+    sub.addEventListener('click', ()=>{
+      loadSubject(sub.querySelector("p").textContent);
+      window.scrollTo({top: 0,  behavior: 'smooth' });
+    });
+  });
 }
 
-subjects.forEach(sub => {
-  sub.addEventListener('click', ()=>{
-    loadSubject(sub.querySelector("p").textContent);
-    window.scrollTo({top: 0,  behavior: 'smooth' });
-  });
-});
 
 
 function loadSubject(sub_name) {
@@ -664,6 +750,11 @@ function updateChart() {
         }
     });
 }
+
+document.getElementById("clear_chart").onclick = () => {
+  document.getElementById("today_stats").textContent = "";
+  chartInstance.destroy();
+} 
 
 //preview attendance.csv
 // const file = "./files/dummy_attendance.csv";
