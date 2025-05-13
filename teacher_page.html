@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard(student)</title>
+    <title>Dashboard(teacher)</title>
     <link rel="stylesheet" href="./static/css/output.css">
 
     <!-- Include Flatpickr CSS -->
@@ -12,6 +12,10 @@
     <!-- Include Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
@@ -64,7 +68,7 @@
                   </svg>
                 </div>
                 <!-- fetch role from the backend (currently from local storage) -->
-                <p class="absolute -bottom-1.5 right-0 sm:-bottom-3 text-sm sm:text-lg">Student</p>
+                <p class="absolute -bottom-1.5 right-0 sm:-bottom-3 text-sm sm:text-lg">Teacher</p>
             </div>
         </nav>
 
@@ -72,7 +76,7 @@
         <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
             <div class="flex flex-1 flex-col w-full h-[80%] overflow-auto">
                 <!-- fetch from the backend -->
-                <p id="user_id" class="flex-1 w-full h-[20%] p-1 sm:p-2 border-b text-center font-semibold">SID-001</p>
+                <p id="user_id" class="flex-1 w-full h-[20%] p-1 sm:p-2 border-b text-center font-semibold">TID-001</p>
 
                 <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
                 <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Static</a>
@@ -122,6 +126,7 @@
             <!-- timetable, join class, leave form -->
             <div class="flex flex-col flex-1 py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
+                 <!-- idela screen-size => 768px (width) x 250px (height) -->
                 <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
                     <!-- Add timetable here -->
                      <img class="w-full h-full object-contain" src="./static/images/time-table-sample.jpg" alt="timetable">
@@ -129,8 +134,8 @@
                 
                 <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
                     <button id="join_class" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 -translate-x-10 transition-all duration-1000 active:scale-80 group">
-                        <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/seat.png" alt="seat">
-                        <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Join Class</span>
+                        <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/teacher.png" alt="seat">
+                        <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Start Class</span>
                     </button>
 
                     <button id="leave_form" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 ml-3 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 translate-x-10 transition-all duration-1000 active:scale-80 group">
@@ -154,37 +159,7 @@
                             </div>
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Myanmar</p>
                         </div>
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">English</p>
-                        </div>
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Mathematics</p>
-                        </div>
-
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Physics</p>
-                        </div>
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Chemistry</p>
-                        </div>
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] md:mt-10 border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Biology</p>
-                        </div>
+                        
                       </div>
 
                 </div>
@@ -192,8 +167,80 @@
         </div>
 
         <!-- Class tab -->
-        <div id="class" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50 hidden">
-            Class Tab
+        <div id="class" class="flex flex-col flex-1 hidden bg-gray-100 md:mx-6 lg:mx-12 p-3 md:p-6 mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10">
+            <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
+            <!-- link generate div -->
+            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg">
+                <div class="flex">
+                    <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Link Generator</h1>
+                </div>
+                <div class="flex flex-col w-full h-[125px] sm:h-[150px] md:h-[180px] lg:[200px] p-3 md:py-6 lg:px-0 items-center justify-between">
+                    <div class="flex flex-col w-full items-center justify-center py-4">
+                        <input type="text" id="link_holder" class="bg-black border rounded-sm w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] h-10 md:h-12 text-white px-2">
+                        <div class="relative flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-end">
+                            <p id="expiredTime" class="text-[9px] md:text-[12px] hidden"></p>
+
+                            <div class="copied opacity-0 transition-all duration-200">
+                                <div class="absolute -top-3 sm:top-1 md:top-0 right-5 bg-white border border-gray-500/50 rounded-full p-1 ">
+                                    <p class="text-[9px] md:text-[11px]">Copied!</p>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="size-4 md:size-5 absolute top-1 sm:top-5 md:top-4 right-7 rotate-90">
+                                <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            
+
+                            <!-- <p class="absolute top-0 right-5 bg-gray-500 rounded-full p-1">Copied!</p> -->
+                        </div>
+                    </div>
+                    <div class="flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-between">
+                        <button type="button" id="generate_link" class="normal-btn disabled:bg-[#CFC5C5] disabled:text-black disabled:cursor-not-allowed">Generate Link</button>
+                        <button type="button" id="copy_link" class="normal-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="mr-2 size-4" fill="white"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg>
+                            Copy
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- reports -->
+            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg justify-center md:px-10">
+                <div class="flex justify-between mb-4">
+                    <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Reports</h1>
+                </div>
+                <div class="flex space-x-12">
+                    <button type="button" class="normal-btn">Generate Report</button>
+                    <button type="button" class="normal-btn">Send Report</button>
+                </div>
+                <div class="flex w-full max-h-[200px] overflow-auto">
+                    <table id="csvTable" class="border-1"></table>
+                </div>
+            </div>
+
+            <!-- graphs and charts -->
+            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg overflow-hidden md:px-10">
+                <div class="flex justify-between mb-4">
+                    <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Charts</h1>
+                    <button type="button"
+                    class="create-chart normal-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 md:hidden">
+                    <path fill-rule="evenodd" d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm4.5 7.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0v-2.25a.75.75 0 0 1 .75-.75Zm3.75-1.5a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0V12Zm2.25-3a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 1-1.5 0V9.75A.75.75 0 0 1 13.5 9Zm3.75-1.5a.75.75 0 0 0-1.5 0v9a.75.75 0 0 0 1.5 0v-9Z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="hidden md:flex">Create Chart</span></button>
+                </div>
+                
+                <div class="flex flex-col">
+                    <p id="today_stats" class="text-green-500"></p>
+                    <div class="flex w-full h-[300px] my-3">
+                        <canvas id="stdChart" class="flex-1 w-full h-full"></canvas>
+                    </div>
+                </div>
+                
+                
+
+            </div>
+            
         </div>
 
         <!-- leave form -->
@@ -242,8 +289,8 @@
                         <textarea id="autoExpandTextarea" class="rounded-sm border border-gray-500 p-2 outline-none focus:ring focus:ring-blue-400 transition-all duration-300 overflow-hidden" rows="5" placeholder="Type your reason"></textarea>
 
                         <div class="flex justify-between mt-2">
-                            <button id="leave_form_cancel" type="button" class="w-[60px] md:w-[116px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#3B96BC] hover:bg-[#23B2CF] active:bg-[#09668E]">Cancel</button>
-                            <button type="submit" class="w-[120px] md:w-[188px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#3B96BC] hover:bg-[#23B2CF] active:bg-[#09668E]">Submit</button>
+                            <button id="leave_form_cancel" type="button" class="w-[60px] md:w-[116px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#328BB1] hover:bg-[#23B2CF] active:bg-[#09668E]">Cancel</button>
+                            <button type="submit" class="w-[120px] md:w-[188px] h-[30px] md:h-[39px] rounded-sm text-white bg-[#3B96BC] hover:bg-[#328BB1] active:bg-[#09668E]">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -436,6 +483,8 @@
     </button>
 
     <script src="./static/js/footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="./static/js/std_page_navbar.js"></script>
     
 </body>

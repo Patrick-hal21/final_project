@@ -26,7 +26,7 @@
     }
 
     .neon-white {
-      @apply shadow-md border border-gray-500/50 hover:border-white hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.6)] transition duration-300 ease-in-out;
+      @apply shadow-md border border-gray-500/50 hover:border-white hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.6)] transition-all duration-300 ease-in-out;
     }
 
     .neon-card {
@@ -48,6 +48,10 @@
       @apply before:content-[''] before:absolute before:bottom-3 before:w-full before:h-3
       before:pointer-events-none before:bg-gradient-to-t before:from-[rgba(0,0,0,0.05)] before:to-transparent
       after:content-[''] after:absolute after:top-3 after:w-full after:h-2 
-      after:pointer-events-none after:bg-gradient-to-b after:from-[rgba(0,0,0,0.05)] after:to-transparent
+      after:pointer-events-none after:bg-gradient-to-b after:from-[rgba(0,0,0,0.05)] after:to-transparent;
+    }
+    .normal-btn {
+      @apply cursor-pointer flex items-center justify-center px-2 py-1 sm:px-4 sm:py-2 md:font-semibold rounded-sm
+      shadow-md bg-[#328BB1] hover:bg-[#23B2CF] active:bg-[#09668E] text-white text-[14px] sm:text-base;
     }
   }

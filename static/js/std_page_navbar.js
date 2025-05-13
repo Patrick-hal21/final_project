@@ -1,3 +1,4 @@
+// ----> For system pages(0- 528)-> mixed (108-164)
 flatpickr("#dateInput", {
   disableMobile: true, // Forces Flatpickr UI on mobile devices
   enableTime: false,
@@ -104,64 +105,63 @@ mark.onclick= ()=>{
   }
 };
 
+// ----> mixed student and teachers
+// user_types = ["SID", "TID", "CTID"]; // retrieve from the backend
 
-// switch tab
-// const allTabSections = document.querySelectorAll(".navbar-tab");
+const user_id = document.getElementById("user_id").textContent;
 
-// allTabSections.forEach(navTab => {
-//   const tabs = Array.from(navTab.querySelectorAll("a"));
-  
-//   // We will need to track the first tab as active initially
-//   let activeTab = tabs[0];
-//   let activeTabDiv = document.getElementById(activeTab.getAttribute("href").substring(1)); // Get content div based on href
+const join_class_btn = document.getElementById('join_class');
+const take_seat_img = join_class_btn.children[0];
 
-//   // Set the initial active state for the first tab and its corresponding div
-//   setActiveTab(activeTab);
+if (user_id.split("-")[0] == "SID") {
+  // console.log("hello student");
+  hover_gif_animate(join_class_btn, take_seat_img, './static/images/take_seat.gif', './static/images/place_seat.gif');
+} else if (user_id.split("-")[0] == "TID") {
+  // console.log("hello teacher");
+  hover_gif_animate(join_class_btn, take_seat_img, './static/images/teacher.gif', './static/images/teacher.png');
+} else {
+  console.log("hello class-teacher");
+}
 
-//   // Add click events to each tab
-//   tabs.forEach(tab => {
-//     tab.addEventListener("click", (e) => {
-//       e.preventDefault();
 
-//       // const targetSection = tab.dataset.tab; // Get section linked to tab
-//       // const matchingTabs = document.querySelectorAll(`[data-tab="${targetSection}"]`);
-      
-//       // Activate all matching tabs
-//       // matchingTabs.forEach(t => setActiveTab(t));
+const leave_form_btn = document.getElementById('leave_form'); // from dashboard div
+const leave_form_img = leave_form_btn.children[0];
+hover_gif_animate(leave_form_btn, leave_form_img, './static/images/form.gif', './static/images/form.png')
 
-//       // // Set the initial active state for the first tab and its corresponding div
-//       // setActiveTab(activeTab);
 
-//       // If the clicked tab is already active, do nothing
-//       if (tab === activeTab) return;
+// slide-in div onload/ restore dynamic content in reload**
+document.addEventListener("DOMContentLoaded", () => {
+  // localStorage.clear();
 
-//       // Hide the previous active content div
-//       activeTabDiv.classList.add("hidden");
+  const target = document.getElementById("slideInElement");
 
-//       // Re-enable the previous active tab
-//       setInactiveTab(activeTab);
+  const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+          target.classList.remove("opacity-0", "translate-x-10");
+          target.classList.add("opacity-100", "translate-x-0");
+      }
+  }, { threshold: window.innerWidth < 768 ? 0.08 : 0.1 });
 
-//       // Set the clicked tab as active and its corresponding div
-//       setActiveTab(tab);
+  const observer1 = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+        join_class_btn.classList.remove("opacity-0", "-translate-x-10");
+        join_class_btn.classList.add("opacity-100", "translate-x-0");
+    }
+  }, { threshold: window.innerWidth < 768 ? 0.08 :0.9 });
 
-//       activeTabDiv = document.getElementById(tab.getAttribute("href").substring(1));
-      
-//       // Show the new active content div
-//       activeTabDiv.classList.remove("hidden");
+  const observer2 = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+        leave_form_btn.classList.remove("opacity-0", "translate-x-10");
+        leave_form_btn.classList.add("opacity-100", "translate-x-0");
+    }
+  }, { threshold: window.innerWidth < 768 ? 0.08 :0.9 });
 
-//       // Update active tab reference
-//       activeTab = tab;
-//     });
-//   });
+  observer.observe(target);
+  observer1.observe(join_class_btn);
+  observer2.observe(leave_form_btn);
 
-//   function setActiveTab(tab) {
-//     tab.classList.add("text-gray-500", "pointer-events-none");
-//   }
-
-//   function setInactiveTab(tab) {
-//     tab.classList.remove("text-gray-500", "pointer-events-none");
-//   }
-// });
+});
+// end mixed
 
 const allTabSections = document.querySelectorAll(".navbar-tab");
 // leave form tab
@@ -289,55 +289,12 @@ function hover_gif_animate(btn, img, src1, src2){
   });
 }
 
-const join_class_btn = document.getElementById('join_class');
-const take_seat_img = join_class_btn.children[0];
-
-hover_gif_animate(join_class_btn, take_seat_img, './static/images/take_seat.gif', './static/images/place_seat.gif');
-
-const leave_form_btn = document.getElementById('leave_form'); // from dashboard div
-const leave_form_img = leave_form_btn.children[0];
-hover_gif_animate(leave_form_btn, leave_form_img, './static/images/form.gif', './static/images/form.png')
-
-
-// slide-in div onload/ restore dynamic content in reload**
-document.addEventListener("DOMContentLoaded", () => {
-  // localStorage.clear();
-
-  const target = document.getElementById("slideInElement");
-
-  const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-          target.classList.remove("opacity-0", "translate-x-10");
-          target.classList.add("opacity-100", "translate-x-0");
-      }
-  }, { threshold: window.innerWidth < 768 ? 0.08 : 0.1 });
-
-  const observer1 = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-        join_class_btn.classList.remove("opacity-0", "-translate-x-10");
-        join_class_btn.classList.add("opacity-100", "translate-x-0");
-    }
-  }, { threshold: window.innerWidth < 768 ? 0.08 :0.9 });
-
-  const observer2 = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-        leave_form_btn.classList.remove("opacity-0", "translate-x-10");
-        leave_form_btn.classList.add("opacity-100", "translate-x-0");
-    }
-  }, { threshold: window.innerWidth < 768 ? 0.08 :0.9 });
-
-  observer.observe(target);
-  observer1.observe(join_class_btn);
-  observer2.observe(leave_form_btn);
-
-});
-
 // zoom
 join_class_btn.onclick = () => {
   window.open("https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1", "_blank");
 };
 
-// adding hidden
+// adding hidden to divs
 function make_tabs_inactive() {
   allTabSections.forEach(navTab => {
     const tabs = Array.from(navTab.querySelectorAll("a"));
@@ -511,3 +468,224 @@ document.querySelectorAll('.scroll-check').forEach(container => {
     container.classList.add('scroll-shadow');
   }
 });
+
+
+
+// ------> Teacher
+
+// link section
+
+//generate link
+const generate_link = document.getElementById("generate_link");
+const copy_link = document.getElementById("copy_link");
+
+generate_link.onclick = generateLink;
+
+// copy link
+copy_link.onclick = () => {
+  copyText(document.getElementById("link_holder").value);
+}
+function copyText(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => copied_tooltip())//show as tooltip
+    .catch(err => console.error("Failed to copy:", err));
+}
+
+function copied_tooltip() {
+  const elem =  document.querySelector(".copied");
+  if (!elem) return;
+  elem.classList.remove("opacity-0");
+  elem.classList.add("opacity-100");
+  
+  setTimeout(() => {
+    elem.classList.remove("opacity-100");
+    elem.classList.add("opacity-0");
+  }, 2000);
+}
+// expired duration
+const duration = 2; // 2min
+
+
+function startCountdown(expiryTime) {
+  const countdownEl = document.getElementById("expiredTime");
+  if (!countdownEl) return;
+
+  function updateCountdown() {
+    const remaining = expiryTime - Date.now();
+
+    if (remaining <= 0) {
+      clearInterval(timer);
+      countdownEl.textContent = "Link expired";
+      generate_link.disabled = false;
+      localStorage.setItem("generate_disabled", false);
+      return;
+    }
+
+    const mins = Math.floor(remaining / 1000 / 60);
+    const secs = Math.floor((remaining / 1000) % 60);
+    countdownEl.textContent = `The link will expire in ${(mins * 60) + secs}s`;
+  }
+
+  updateCountdown(); // 👈 Sync immediately on function call
+  const timer = setInterval(updateCountdown, 1000);
+}
+
+function generateLink() {
+
+  const id = Math.random().toString(36).substring(2, 10);
+  const expiry = new Date(Date.now() + duration * 60 * 1000);
+  
+  const url = `${window.location.origin}/temp?id=${id}`;
+  localStorage.setItem("tempLink", JSON.stringify({ id, expiry }));
+
+  document.getElementById("link_holder").value = url;
+  // document.getElementById("genLink").href = url;
+  // document.getElementById("expiresAt").textContent = expiry.toLocaleString();
+  generate_link.disabled = true;
+  localStorage.setItem("generate_disbaled", true);
+  startCountdown(expiry.getTime());
+  document.getElementById("expiredTime").classList.remove("hidden");
+}
+
+// On page load, show existing link if not expired
+(function () {
+  const data = localStorage.getItem("tempLink");
+  if (data) {
+    const { id, expiry } = JSON.parse(data);
+    const expDate = new Date(expiry);
+    if (Date.now() < expDate.getTime()) {
+      const url = `${window.location.origin}/temp?id=${id}`;
+      document.getElementById("link_holder").value = url;
+      // document.getElementById("genLink").href = url;
+      // document.getElementById("expiresAt").textContent = expDate.toLocaleString();
+      startCountdown(expDate.getTime());
+      generate_link.disabled = localStorage.getItem("generate_disabled");
+      document.getElementById("expiredTime").classList.remove("hidden");
+    } else {
+      localStorage.removeItem("tempLink");
+    }
+  }
+})();
+
+
+let chartInstance;
+// updateChart();
+document.querySelector(".create-chart").onclick = updateChart;
+
+// Dummy data
+const classLabels = ["Class A", "Class B", "Class C"];
+const studentCounts = [20, 15, 30];
+const totalStudents = 40; //studentCounts.reduce((a, b) => a + b, 0);
+
+function updateChart() {
+    // add today date
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    document.getElementById("today_stats").textContent = `Today (${formattedDate})`;
+    // create chart
+    const ctx = document.getElementById("stdChart").getContext("2d");
+
+    // Destroy previous chart if it exists
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+    const legendPosition = window.innerWidth >= 768 ? "right" : "top"; // Check screen size
+
+    chartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: classLabels,
+            datasets: [{
+                label: "Number of Students",
+                data: studentCounts,
+                backgroundColor: [
+                    "rgba(255, 99, 132, 0.6)",   // Class A
+                    "rgba(54, 162, 235, 0.6)",   // Class B
+                    "rgba(255, 206, 86, 0.6)"    // Class C
+                ],
+                borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 206, 86, 1)"
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: legendPosition,
+                    labels: {
+                        generateLabels: function (chart) {
+                            return chart.data.labels.map((label, i) => ({
+                                text: `${label} - ${studentCounts[i]} students (${((studentCounts[i] / totalStudents) * 100).toFixed(1)}%)`,
+                                fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                strokeStyle: chart.data.datasets[0].borderColor[i],
+                                lineWidth: chart.data.datasets[0].borderWidth
+                            }));
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            const percent = ((value / totalStudents) * 100).toFixed(1);
+                            return `${value} students (${percent}%)`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    max: totalStudents,
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Students'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Classes'
+                    }
+                }
+            }
+        }
+    });
+}
+
+//preview attendance.csv
+// const file = "./files/dummy_attendance.csv";
+// function previewAttd() {
+//   Papa.parse("./files/dummy_attendance.csv", {
+//     download: true, // Required for file URLs
+//     header: false,  // Set to true if your first row is column names
+//     complete: function (results) {
+//       const data = results.data;
+//       const table = document.getElementById('csvTable');
+//       table.innerHTML = '';
+//       data.forEach((row, i) => {
+//         const tr = document.createElement('tr');
+//         row.forEach(cell => {
+//           const td = document.createElement(i === 0 ? 'th' : 'td');
+//           td.textContent = cell;
+//           tr.appendChild(td);
+//         });
+//         table.appendChild(tr);
+//       });
+//     }
+//   });
+// }
+
+// previewAttd();
