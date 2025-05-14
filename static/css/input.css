@@ -56,11 +56,17 @@
     }
 
     .upload-box {
-      @apply flex flex-col relative w-[300px] aspect-2/1 border-2 border-dashed border-gray-300 items-center justify-center cursor-pointer text-lg;
+      @apply flex flex-col relative w-[300px] aspect-2/1 border-2 border-dashed border-gray-300 items-center justify-center cursor-pointer text-lg hover:bg-gray-100;
     }
 
     .view-transform {
       /* in mobile, useres can can click any events */
       @apply opacity-80 scale-98 md:pointer-events-none duration-500;
+    }
+
+    .arrow-btn {
+      @apply cursor-pointer rounded-md border border-gray-200/50 
+      hover:border-b-0 hover:border-t-0 hover:border-gray-400/50 hover:border-r-gray-400/30 hover:shadow-md 
+      active:border active:border-gray-500/50 active:shadow-none transition-all duration-150;
     }
   }

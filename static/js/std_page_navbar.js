@@ -203,10 +203,10 @@ function checkMidScreen() {
 
         if (isAtMidScreen) {
             div.classList.remove("opacity-80", "scale-98", "md:pointer-events-none");
-            div.classList.add("opacity-100", "scale-100", "pointer-events-auto");
+            div.classList.add("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto");
         } else {
             if (!div.classList.contains("opacity-80")) {
-              div.classList.remove("opacity-100", "scale-100", "pointer-events-auto");
+              div.classList.remove("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto");
               div.classList.add("opacity-80", "scale-98", "md:pointer-events-none"); // Optional: Reset if not at mid
             }
         }
@@ -609,7 +609,7 @@ function startCountdown(expiryTime) {
 
     const mins = Math.floor(remaining / 1000 / 60);
     const secs = Math.floor((remaining / 1000) % 60);
-    countdownEl.textContent = `The link will expire in ${(mins * 60) + secs}s`;
+    countdownEl.textContent = `The link will expire in ${(mins * 60) + secs}s.`;
   }
 
   updateCountdown(); // 👈 Sync immediately on function call
@@ -656,7 +656,11 @@ function generateLink() {
 
 let chartInstance;
 // updateChart();
-document.querySelector(".create-chart").onclick = updateChart;
+// chart creation for TID is in class_teacher.js
+if (user_id_type == "TID") {
+  document.querySelector(".create-chart").onclick = updateChart;
+}
+
 
 // Dummy data
 const classLabels = ["Class A", "Class B", "Class C"];
@@ -664,6 +668,7 @@ const studentCounts = [20, 15, 30];
 const totalStudents = 40; //studentCounts.reduce((a, b) => a + b, 0);
 
 function updateChart() {
+    document.querySelector(".switch-hide").classList.remove("hidden");
     // add today date
     const today = new Date();
 
@@ -694,6 +699,11 @@ function updateChart() {
                     "rgba(255, 99, 132, 0.6)",   // Class A
                     "rgba(54, 162, 235, 0.6)",   // Class B
                     "rgba(255, 206, 86, 0.6)"    // Class C
+                ],
+                hoverBackgroundColor: [
+                    "rgba(255, 99, 132, 0.8)",   // Class A
+                    "rgba(54, 162, 235, 0.8)",   // Class B
+                    "rgba(255, 206, 86, 0.8)"    // Class C
                 ],
                 borderColor: [
                     "rgba(255, 99, 132, 1)",
@@ -746,13 +756,22 @@ function updateChart() {
                         text: 'Classes'
                     }
                 }
+            },
+            animation: {
+              duration: 1000, // Smooth transition
+              easing: 'easeInOutQuart' // Custom easing effect
             }
         }
     });
 }
 
 document.getElementById("clear_chart").onclick = () => {
+  
   document.getElementById("today_stats").textContent = "";
+  if (!document.querySelector(".switch-hide").classList.contains("hidden")) {
+    console.log("hello");
+    document.querySelector(".switch-hide").classList.add("hidden");
+  }
   chartInstance.destroy();
 } 
 

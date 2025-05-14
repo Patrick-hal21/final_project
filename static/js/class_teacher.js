@@ -21,3 +21,50 @@ function updateTImetable (input, box) {
 }
 updateTImetable("trTimetable", "trBox");
 updateTImetable("stdTimetable", "stdBox");
+
+// Charts
+
+document.querySelector(".create-chart").onclick = updateChart;
+
+function updateChart() {
+    document.querySelector(".switch-hide").classList.remove("hidden");
+    // add today date
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    document.getElementById("today_stats").textContent = `Today (${formattedDate})`;
+    // create chart
+    const ctx = document.getElementById("stdChart").getContext("2d");
+
+    // Destroy previous chart if it exists
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+
+    chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Math', 'Science', 'English', 'History', 'Geography', 'Art'],
+            datasets: [
+            { label: 'Class A', data: [30, 25, 28, 22, 20, 18], backgroundColor: 'rgba(255, 99, 132, 0.7)', hoverBackgroundColor: 'rgba(255, 99, 132, 0.9)' },
+            { label: 'Class B', data: [25, 30, 27, 24, 22, 20], backgroundColor: 'rgba(54, 162, 235, 0.7)', hoverBackgroundColor: 'rgba(54, 162, 235, 0.9)' },
+            { label: 'Class C', data: [20, 22, 25, 30, 28, 26], backgroundColor: 'rgba(255, 206, 86, 0.7)', hoverBackgroundColor: 'rgba(255, 206, 86, 0.9)' }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            
+            scales: { y: { beginAtZero: true } },
+            animation: {
+              duration: 1000, // Smooth transition
+              easing: 'easeInOutQuart' // Custom easing effect
+            }
+        }
+    });
+}
