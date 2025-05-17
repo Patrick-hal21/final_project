@@ -16,7 +16,7 @@ const footer = document.getElementById("footer");
 window.addEventListener("scroll", () => {
     const scrollPosition = window.scrollY;
     const pageHeight = document.body.scrollHeight;
-    const oneThirdHeight = pageHeight / 3;
+    const oneThirdHeight = pageHeight / 5; // make half
 
     const buttonRect = button.getBoundingClientRect();
     const footerRect = footer.getBoundingClientRect();

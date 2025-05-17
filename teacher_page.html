@@ -129,7 +129,7 @@
                  <!-- idela screen-size => 768px (width) x 250px (height) -->
                 <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
                     <!-- Add timetable here -->
-                     <img class="w-full h-full object-contain" src="./static/images/time-table-sample.jpg" alt="timetable">
+                     <img class="w-full h-full" src="./static/images/time-table-sample.jpg" alt="timetable">
                 </div>
                 
                 <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
@@ -153,14 +153,15 @@
                      <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
 
                      <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
+                        <!-- retreive respective course from database  -->
+                        <!-- <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
                             <div class="flex w-full h-[85%]">
                                 <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
                             </div>
-                            <!-- retreive respective course from database -->
+                            
                             <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Myanmar</p>
                         </div>
-                        
+                        -->
                       </div>
 
                 </div>
@@ -168,26 +169,29 @@
         </div>
 
         <!-- Class tab -->
-        <div id="class" class="flex flex-col flex-1 hidden md:mx-6 lg:mx-12 p-3 md:p-6 mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10">
+        <div id="class" class="flex flex-col flex-1 hidden md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 md:mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10">
             <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
             <!-- link generate div -->
-            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg view-transform">
+            <div class="relative flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg view-transform md:space-y-3 overflow-hidden ">
                 <div class="flex">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Link Generator</h1>
                 </div>
-                <div class="flex flex-col w-full h-[125px] sm:h-[150px] md:h-[180px] lg:[200px] p-3 md:py-6 lg:px-0 items-center justify-between">
-                    <div class="flex flex-col w-full items-center justify-center py-4">
-                        <input type="url" id="link_holder" class="bg-black border rounded-sm w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] h-10 md:h-12 text-white px-2">
-                        <div class="relative flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-end">
-                            <p id="expiredTime" class="text-[9px] md:text-[12px] hidden"></p>
+                <div class="flex flex-col w-full h-[125px] sm:h-[150px] md:h-[180px] lg:[200px] px-3 md:p-3 pt-0 pb-4 lg:px-0 items-center justify-between">
+                    <div class="flex flex-col w-full items-center justify-center pt-4">
+                        <input type="url" id="link_holder" class="bg-black border rounded-sm w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] h-10 md:h-12 font-mono text-white px-2" readonly>
+                        <div class="flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-end">
+                            <p id="expiredTime" class="text-[9px] md:text-[12px] opacity-0"></p>
 
-                            <div class="copied opacity-0 transition-all duration-200">
+                            <!-- <div class="copied opacity-0 transition-all duration-200">
                                 <div class="absolute -top-3 sm:top-1 md:top-0 right-5 bg-white border border-gray-500/50 rounded-full p-1 z-10 ">
                                     <p class="text-[9px] md:text-[11px]">Copied!</p>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="gray" class="size-4 z-0 md:size-5 absolute top-1 sm:top-5 md:top-4 right-7 rotate-90">
                                 <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
                                 </svg>
+                            </div> -->
+                            <div class="copied absolute top-3 right-0 bg-teal-400/50 p-1 sm:p-2 md:p-4 translate-x-20 opacity-0 transition-all duration-200">
+                                <p class="text-[11px] md:text-[14px]">Copied!</p>
                             </div>
                             
 
@@ -210,13 +214,23 @@
                 <div class="flex justify-between mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Reports</h1>
                 </div>
-                <div class="flex space-x-12">
-                    <button type="button" class="normal-btn">Generate Report</button>
-                    <button type="button" class="normal-btn">Send Report</button>
+                <div class="flex flex-1 flex-col md:flex-row justify-center w-full items-center md:space-x-4 space-y-4 md:space-y-0">
+                    <!-- <div class="flex space-x-12">
+                        <button type="button" class="normal-btn">Generate Report</button>
+                        <button type="button" class="normal-btn">Preview Report</button>
+                    </div>
+                    <button type="button" class="normal-btn">Send Report</button> -->
+                    <div class="flex w-full md:flex-1 h-[100px] bg-gray-300">
+                        <div class="w-full">This div will show students who clicked Join Class</div>
+                    </div>
+                    <div class="flex w-full md:flex-1 h-[100px] bg-gray-300">
+                        <div class="w-full">This div will appear only after generating link and show students who clicked generated link</div>   
+                    </div>
                 </div>
-                <div class="flex w-full max-h-[200px] overflow-auto">
+                <!-- Preview table -->
+                <!-- <div class="flex w-full max-h-[200px] overflow-auto">
                     <table id="csvTable" class="border-1"></table>
-                </div>
+                </div> -->
             </div>
 
             <!-- graphs and charts -->
@@ -299,11 +313,11 @@
                             </span>
 
                             <!-- we can modify according to users' needs -->
-                            <ul id="options" class="absolute w-[160px] md:w-[180px] mt-[1px] flex flex-col overflow-hidden bg-white border border-gray-500/50 rounded-sm shadow-sm opacity-0 -translate-y-1 transition-all duration-300 ease-in-out pointer-events-none">
+                            <ul id="options" class="absolute w-[160px] md:w-[180px] mt-[1px] flex flex-col overflow-hidden bg-white border border-gray-500/50 rounded-sm shadow-lg opacity-0 -translate-y-1 transition-all duration-300 ease-in-out pointer-events-none">
                                 <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">The Whole Day</li>
-                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">Frist Half</li>
-                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">English</li>
-                                <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">Myanmar</li>
+                                <!-- insert class -->
+                                <!-- <li class="p-2 hover:bg-blue-200 cursor-pointer text-[12px] lg:text-[16px] shadow-sm">Frist Half</li> -->
+                            
                             </ul>
                         </div>
 
@@ -331,7 +345,7 @@
 
             <div class="flex flex-col lg:mx-12 w-full space-y-3 pb-2 md:pb-5">
                 <h1 class="text-[18px] md:text-2xl font-semibold underline underline-offset-7"><!-- specific cubject name--></h1>
-                <div class="flex flex-1 my-2 md:my-4 divide-x divide-x-[2px] divide-gray-500/50">
+                <div class="flex flex-1 my-2 md:my-4 divide-x-[2px] divide-gray-500/50">
                     <div class="flex-l overflow-hidden w-[90px] sm:w-[21%] md:w-[25%] lg:w-[21%] lg:h-[143px] pr-2 md:pr-5">
                         <div class="w-full h-full rounded-sm bg-white overflow-hidden">
                             <img src="./static/images/book_1.png" class="w-full h-full object-contain" alt="book">
@@ -488,7 +502,7 @@
   
   
         <div class="mx-auto w-full flex items-center justify-between bg-[#328BB1] h-[30px]">
-          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95">All Rights Reserved.
+          <p class="w-full text-center flex-grow lg:ml-[150px] lg:mr-[150px] text-white opacity-95 text-[13px] md:text-base">All Rights Reserved.
             <a href="#" class="ml-2 opacity-90 hover:opacity-100 hover:underline underline-offset-5">Privacy Policy</a>
           </p>
           <!-- <div class="w-[35px] h-[35px] bg-[#F6802F] rounded-[5px] mb-9">
@@ -499,7 +513,7 @@
   
     </footer>
   
-    <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] transform transition-all hover:scale-110 duration-300 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
+    <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] hover:scale-110 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
     <span class="sr-only">To Top</span>
     <img src="./static/images/Up.png" alt="">
     </button>
@@ -507,7 +521,11 @@
     <script src="./static/js/footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <script src="./static/js/std_page_navbar.js"></script>
+
+    <script type="module" src="./static/js/subjects.js"></script>
+    <script type="module" src="./static/js/teacher.js"></script>
+    <script type="module" src="./static/js/std_page_navbar.js"></script>
+    
     
 </body>
 </html>

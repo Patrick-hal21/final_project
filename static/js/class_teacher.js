@@ -1,5 +1,16 @@
+const user_id_type = document.getElementById("user_id").textContent.split("-")[0];
+
 document.getElementById("stdBox").addEventListener("click", function() {
     document.getElementById("stdTimetable").click();
+
+    // to change dash border color
+    document.querySelector(".upload-box svg rect").classList.remove("stroke-gray-300");
+    document.querySelector(".upload-box svg rect").classList.add("stroke-blue-500");
+
+    // if (document.getElementById("stdBox").contains(document.getElementById("stdBox").querySelector("img"))) {
+    //     document.querySelector(".upload-box svg rect").classList.remove("stroke-blue-500");
+    // }
+    
 });
 
 document.getElementById("trBox").addEventListener("click", function() {
@@ -14,7 +25,7 @@ function updateTImetable (input, box) {
             img.src = URL.createObjectURL(file);
             img.onload = () => URL.revokeObjectURL(img.src); // Free memory
             document.getElementById(box).innerHTML = "";
-            img.classList.add("max-w-full", "max-h-full");
+            img.classList.add("w-full", "h-full");
             document.getElementById(box).appendChild(img);
         }
     });
