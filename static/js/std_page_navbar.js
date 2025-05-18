@@ -629,7 +629,7 @@ if (subjects) {
   
   subjects.forEach(sub => {
     sub.addEventListener('click', ()=>{
-      console.log("hello");
+      // console.log("hello");
       loadSubject(sub.querySelector("p").textContent);
       window.scrollTo({top: 0,  behavior: 'smooth' });
     });
@@ -650,7 +650,7 @@ export function loadSubject(sub_name) {
     sessionStorage.setItem("lastSubject", sub_name); // to restore content on reload
   }
 
-  console.log(`Loading ${sub_name}`);
+  // console.log(`Loading ${sub_name}`);
 }
 
 // ***** to load Course content dynamically

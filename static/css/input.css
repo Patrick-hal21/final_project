@@ -44,6 +44,11 @@
     .lesson-div {
       @apply flex w-full h-[130px] my-1 divide-x divide-x-[2px] divide-gray-500/50 p-3 overflow-hidden;
     }
+
+    .del-lesson-btn {
+      @apply cursor-pointer pl-1 -mr-2 size-6 md:size-8 opacity-50 hover:opacity-100 active:scale-90 transition-all duration-300;
+    }
+    
     .scroll-shadow {
       @apply before:content-[''] before:absolute before:bottom-3 before:w-full before:h-3
       before:pointer-events-none before:bg-gradient-to-t before:from-[rgba(0,0,0,0.05)] before:to-transparent
@@ -56,6 +61,11 @@
       hover:bg-[#23B2CF] hover:shadow-lg hover:border-gray-400/40
       active:bg-[#09668E] text-white text-[14px] sm:text-base
       disabled:shadow-none disabled:border-0 disabled:bg-[#CFC5C5] disabled:text-black disabled:cursor-not-allowed;
+    }
+    .edit-done-btn {
+      @apply flex border border-gray-300 rounded-sm mr-2 space-x-2 px-1 justify-center items-center cursor-pointer
+       hover:border-gray-500/50 hover:shadow-md hover:border-t-gray-500/20 hover:border-r-0 
+       active:border active:shadow-none active:border-gray-400 duration-75;
     }
 
     .upload-box {
