@@ -676,3 +676,35 @@ document.querySelectorAll('.scroll-check').forEach(container => {
     container.classList.add('scroll-shadow');
   }
 });
+
+
+
+// to order div if teacher reoreder lesson divs
+const container = document.getElementById('sortableDivs');
+
+window.onload = orderLessonDiv;
+function orderLessonDiv() {
+  const savedOrder = JSON.parse(localStorage.getItem('sortableRowOrder'));
+  if (savedOrder) {
+    const itemsById = {};
+    Array.from(container.children).forEach(item => {
+      if (item.dataset.id) {
+        itemsById[item.dataset.id] = item;
+      }
+    });
+
+    // Re-append elements in saved order
+    savedOrder.forEach(id => {
+      if (itemsById[id]) {
+        container.appendChild(itemsById[id]);
+      }
+    });
+
+    // Move any item without data-id (like the Add New div) to the end
+    Array.from(container.children).forEach(item => {
+      if (!item.dataset.id) {
+        container.appendChild(item); // moves it to the end
+      }
+    });
+  }
+}

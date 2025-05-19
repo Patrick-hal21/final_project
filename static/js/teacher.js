@@ -29,7 +29,7 @@ function copied_tooltip() {
   setTimeout(() => {
     elem.classList.remove("translate-x-0", "opacity-100");
     elem.classList.add("translate-x-20", "opacity-0");
-  }, 1500);
+  }, 1000);
 }
 // expired duration
 const duration = 2; // 2min
@@ -111,12 +111,19 @@ export let isEditing = false;
 const edit_btn = document.querySelector(".edit-btn");
 const done_btn = document.querySelector(".done-btn");
 
+import { sortable } from "./teacher-lesson-sortable.js"; // to allow divs to drag and place
+import { makeResizableDivs } from "./teacher-lesson-sortable.js"; // to allow divs to resize ( not used yet)
+
 // in edit state, custom div will be modified
 edit_btn.onclick = () => {
   done_btn.classList.remove("hidden");
   edit_btn.classList.add("hidden");
 
   isEditing = true; // enable reloading alert
+  if (isEditing) {
+    sortable.option("disabled", false); // Enable sorting when not in editing mode 
+    // makeResizableDivs(); // make div resizable
+  }
 
   // toggle edit mode and normal mode to elements (here edit mode)
   modifiedElements();
@@ -127,11 +134,21 @@ edit_btn.onclick = () => {
 
 function modifiedElements() {
   // make changes to element to be editable
+  document.querySelector(".add-new-lesson").classList.toggle("hidden"); // add new lesson button
+
   document.querySelectorAll(".lesson-div").forEach(lesson => {
     lesson.classList.toggle("h-[200px]");
+    lesson.classList.toggle("bg-gray-100");
+    lesson.classList.toggle("cursor-move");
+    // lesson.classList.toggle("shadow-md");
   });
   document.querySelectorAll(".lesson-div > div").forEach(lesson => {
     lesson.classList.toggle("border-r-0");
+  });
+  document.querySelectorAll(".lesson-div p").forEach(lesson => { // Lesson name
+    lesson.classList.toggle("border");
+    lesson.classList.toggle("p-2");
+    lesson.setAttribute("contenteditable", lesson.getAttribute("contenteditable") !== "true");
   });
   document.querySelectorAll(".editable").forEach(div => {
     div.classList.toggle("divide-x-[2px]");
@@ -147,6 +164,7 @@ function modifiedElements() {
   document.querySelectorAll(".editable a").forEach(div => {
     div.setAttribute("contenteditable", div.getAttribute("contenteditable") !== "true");
     div.classList.toggle("border");
+    div.classList.toggle("focus-link");
     div.classList.toggle("p-2");
 
     div.classList.toggle("link"); // toggle hover effect
@@ -178,86 +196,108 @@ function makeAtagInsertable() {
 const inputs = document.querySelectorAll('[class*="file-input"]').length;
 for (let i=1; i < inputs + 1; i++ ) {
   const f = `file-input${i}`;
-  fileAndInput(f, f);
+  fileAndInput(document.querySelector(`.${f}`), document.getElementById(f));
 }
-// file input
+// file input (clicking file will trigger input of file type)
 function fileAndInput(class_file_link, id_file_input) {
-  document.querySelector(`.${class_file_link}`).onclick = (event) => {
+  class_file_link.onclick = (event) => {
     if (isEditing) {
       event.preventDefault();
-      document.getElementById(id_file_input).click();
+      id_file_input.click();
     } 
   };
-  document.getElementById(id_file_input).addEventListener("change", function () {
+  id_file_input.addEventListener("change", function () {
     const file = this.files[0];
     const fileName = file.name;
     if (fileName) {
-      if (fileName !== document.querySelector(`.${class_file_link}`).textContent) {
+      if (fileName !== class_file_link.textContent) {
         console.log(this.files);
 
         const blobUrl = URL.createObjectURL(this.files[0]); // create temporary URL (to be able to view file)
 
-        document.querySelector(`.${class_file_link}`).setAttribute('href', blobUrl);
-        document.querySelector(`.${class_file_link}`).textContent = fileName;
+        class_file_link.setAttribute('href', blobUrl);
+        class_file_link.textContent = fileName;
       }
     }
   });
 }
 
-/* to insert element (create separate file)
-<div class="flex flex-1 border-r-0 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
-
-  <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
-      <p class="md:text-[20px]">Lesson-1</p>
-  </div>
-
-  <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable"> <!-- if edit, add - flex-1-->
-      <a href="./files/mola 21662.pdf" class="file-input1 file-link link text-[13px] sm:text-base" target="_blank"></a>
-      <input type="file" id="file-input1" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-      <a href="./files/mola 21662.pdf" class="file-input2 file-link link text-[13px] sm:text-base" target="_blank"></a>
-      <input type="file" id="file-input2" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-      <a href="" class="file-input3 file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
-      <input type="file" id="file-input3" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-  </div>
-</div>
-
-/// -----here ----- (direct element)
-document.getElementById('lessons-container').insertAdjacentHTML('beforeend', `
-  <div class="flex space-x-4">
-    <input type="text" placeholder="Lesson name" class="..." required>
-    <input type="file" class="..." required>
-    <div class="flex justify-center items-center">
-      <svg>...</svg>
-    </div>
-  </div>
-`);
+//to insert element (create separate file)
 
 /// -----here ----- (template element)
-function addLessonInput(index) {
+document.querySelector(".add-new-lesson").addEventListener("click", () => {
+    addNewLesson();
+});
+
+function addNewLesson() {
+  // retrieve card and count
+  const cur_card_count = document.querySelectorAll(".card").length;
+  const cur_input_count = document.querySelectorAll(".card input").length;
+
   const template = document.getElementById("lesson-input-template");
+  console.log(template);
   const clone = template.content.cloneNode(true); // deep clone
 
   // Select specific elements inside the template
-  const inputs = clone.querySelectorAll("input[type='file'], input[type='text']");
-  const fileInput = inputs[1]; // second input is file input
-  const textInput = inputs[0]; // first input is text input
+  const mainDiv = clone.querySelector(".lesson-div");
+  mainDiv.classList.add("card"); // add card class to div
+  mainDiv.setAttribute("data-id", cur_card_count + 1); // set data-id to div
 
-  // Add dynamic id/class
-  fileInput.id = `file-input${index}`;
-  fileInput.classList.add(`file-input${index}`);
+  const inputs = clone.querySelectorAll("input[type='file']");
+  const atags = clone.querySelectorAll("a.file-link");
 
-  textInput.id = `lesson-name${index}`;
-  textInput.classList.add(`lesson-name${index}`);
+  for (let i=1; i < inputs.length +1; i++) {
+    const v = `file-input${cur_input_count + i}`;
+    inputs[i-1].id = v; // set id
+    atags[i-1].classList.add(v); // add class to a tag
+    atags[i-1].setAttribute("contenteditable", "true"); // set contenteditable to ftrue
 
-  // Append to some container
-  document.getElementById("your-container").appendChild(clone);
+    // add file to inpu trigger event
+    fileAndInput(clone.querySelector(`.${v}`), clone.getElementById(v));
+  }
+
+  // add remove card
+  clone.querySelector(".del-lesson-btn").addEventListener("click", (event) => {
+    event.preventDefault();
+    const card = event.target.closest(".card");
+    if (card) {
+      card.remove();
+    }
+  });
+
+  const cards = document.querySelectorAll(".card");
+  if (cards.length > 0) {
+    const lastCard = cards[cards.length - 1];
+    lastCard.after(clone); // Insert right after the last .card
+  } else {
+    // If no .card exists, append to the container
+    document.getElementById("sortableDivs").appendChild(clone);
+  }
 }
 
-*/
+// if all a tags textcontet are empyt remove it
 
+function removeEmptyDiv() {
+  document.querySelectorAll(".card").forEach(card => {
+    const atags = card.querySelectorAll("a.file-link");
+    atags.forEach(atag => {
+      if (atag.textContent.trim() === "") {
+        card.remove(); // remove empty a tag
+      }
+    });
+  });
+}
 
+// delete lesson
+document.querySelectorAll(".del-lesson-btn").forEach(del => {
+  del.onclick = (event) => {
+    event.preventDefault();
+    const card = event.target.closest(".card");
+    if (card) {
+      card.remove();
+    }
+  };
+});
 
 // to save link changes (optional , unused)
 function confirmAtag() {
@@ -298,6 +338,9 @@ function user_confirm() {
 
     confirm_changes.onclick = () => {
       isEditing = false; // disable browser reloading alert
+      if (!isEditing) {
+        sortable.option("disabled", true); // Disable sorting when not in editing mode
+      }
       alert_box.classList.add("hidden");
       resolve(true);
     };
@@ -323,12 +366,32 @@ async function trySave() {
     // toggle edit mode and normal mode to elements (here normal mode)
     modifiedElements();
 
+    storeElements(); // store elements in local storage
+
+    removeEmptyDiv(); // remove empty card
+
   } else {
     console.log("User canceled save.");
     document.querySelector("body").classList.remove("overflow-hidden"); // reallows scrolling
   }
 }
 
+function storeElements() {
+  const items = Array.from(document.getElementById("sortableDivs").children);
+
+  //just only rearranging divs
+  const newOrder = items
+  .filter(item => item.dataset.id !== undefined) // omit divs without data-id
+  .map(item => item.dataset.id);
+
+  localStorage.setItem('sortableRowOrder', JSON.stringify(newOrder));
+  console.log("New card order:", newOrder);
+  // const newBody = items
+  // .filter(item => item.dataset.id !== undefined)
+  // .map(item => item.outerHTML);
+  // console.log("New card body:", newBody);
+
+}
 
 // cancel changes alert box (add red shadow on hover)
 const cancel_changes = document.querySelector(".cancel-chgs");

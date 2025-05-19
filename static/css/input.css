@@ -41,6 +41,10 @@
       @apply hover:text-blue-600 hover:underline transition-all duration-300;
     }
 
+    .focus-link {
+      @apply focus:border-2 focus:outline-none focus:border-blue-500;
+    }
+
     .lesson-div {
       @apply flex w-full h-[130px] my-1 divide-x divide-x-[2px] divide-gray-500/50 p-3 overflow-hidden;
     }

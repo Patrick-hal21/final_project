@@ -351,13 +351,20 @@
                             <img src="./static/images/book_1.png" class="w-full h-full object-contain" alt="book">
                         </div>
                     </div>
-                    <div class="description w-[65%]"></div>
+                    <div class="description w-[65%] flex flex-col ml-2 border-0 md:ml-5 px-2 md:px-5 items-center justify-center">
+                        <div class="flex flex-col w-full bg-white items-center justify-center rounded md:p-4">
+                            <p class="text-[13px] md:text-base pl-2 md:pl-0">All the needed learning materials can be downloaded from the <br>
+                                <a href="https://be.moeedu.org/course/index.php" class="text-blue-500/80 hover:text-blue-500 underline active:text-blue-900" rel="noopener" target="_blank">NUG-MOE eLearning Center</a></p>
+                            
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
 
             <div class="flex flex-col flex-1 lg:mx-12 w-full mt-2 md:mt-4 space-y-6 md:space-y-8">
                 <h1 class="text-[18px] md:text-2xl font-semibold underline underline-offset-7">Content</h1>
-                <div class="flex flex-col w-full lg:min-h-[500px] max-h-[800px] py-2 md:p-2 bg-white rounded-md border border-gray-600/60 divide-y divide-gray-500/50 overflow-hidden items-center">
+                <div class="flex flex-col w-full lg:min-h-[500px] max-h-full py-2 md:p-2 bg-white rounded-md border border-gray-600/60 divide-y divide-gray-500/50 overflow-hidden items-center">
                     <!-- Edit and Done -->
                     <div class="flex w-full pb-2 justify-end">
                         <button type="button" class="edit-btn edit-done-btn">
@@ -398,92 +405,129 @@
                      </div>
 
                     <!-- Data from server -->
-                     <!-- 2 samples -->
-                    <div class="relative lesson-div"> <!-- if edit h-[200px]-->
-                        <div class="flex flex-1 border-r-0 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
+                     <div id="sortableDivs" class="flex flex-col w-full h-full divide-y divide-gray-500/50"> <!-- if edit, add id="sortableDivs"-->
+                         <!-- 2 samples -->
+                        <div class="card relative lesson-div" data-id="1"> <!-- if edit,  and h-[200px]-->
+                            <!-- data-id to drag and place-->
+                            <div class="flex flex-1 border-r-0 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
 
-                            <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
-                                <p class="md:text-[20px]">Lesson-1</p>
-                            </div>
-
-                            <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable"> <!-- if edit, add - flex-1-->
-                                <a href="./files/mola 21662.pdf" class="file-input1 file-link link text-[13px] sm:text-base" target="_blank"></a>
-                                <input type="file" id="file-input1" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-                                <a href="./files/mola 21662.pdf" class="file-input2 file-link link text-[13px] sm:text-base" target="_blank"></a>
-                                <input type="file" id="file-input2" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-                                <a href="" class="file-input3 file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
-                                <input type="file" id="file-input3" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-                            </div>
-                        </div>
-                        <div class="del-lesson items-center justify-center h-full md:px-5 hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
-                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="relative lesson-div">
-                        <div class="flex flex-1 border-r-0 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
-                            <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
-                                <p class="md:text-[20px]">Lesson-2</p>
-                            </div>
-                             <!-- if edit state, add - divide-x-[2px] divide-gray-500/50-->
-                            <div class="flex flex-col max-h-full justify-center overflow-auto py-5 px-1 sm:py-0 sm:px-0 ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable">
-                                <a href="./files/The Law Amending the Electronic Transactions Law.docx" class="file-input4 mt-1 file-link link text-[13px] sm:text-base" target="_blank"></a>
-                                <input type="file" id="file-input4" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-                                <a href="./files//The Law Amending the Electronic Transactions Law.docx" class="file-input5 file-link link text-[13px] sm:text-base" target="_blank"></a>
-                                <input type="file" id="file-input5" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-
-                                <a href="" class="file-input6 file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
-                                <input type="file" id="file-input6" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
-                            </div>
-                        </div>
-                        <div class="del-lesson items-center justify-center h-full md:px-5 hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
-                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        
-                    </div>
-
-                    <div class="relative lesson-div"> 
-                        <!-- <div class="flex flex-1 divide-x-[2px] divide-gray-500/50"> normal mode
-                            <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
-                                <p class="md:text-[20px]">Lesson-2</p>
-                            </div>
-
-                            <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable"> if edit, add - flex-1
-                                <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a> 
-                                <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
-                                <a href="" class="file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
-                            </div>
-                        </div>
-                        <div class="flex flex-1 flex-col space-y-2 pl-8 pr-3">
-                            <p class="md:text-[20px] underline">Lesson-1</p>
-                            <div class="course-input-gp flex md:flex-col">
-                                <div class="flex space-x-4">
-                                    <p class="w-[100px] md:w-[120px] h-7 md:h-8">Lesson Name</p>
-                                    <p class="w-[100px] md:w-[120px] h-7 md:h-8">Filename</p>
+                                <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                                    <p class="md:text-[20px]">Lesson-1</p>
                                 </div>
-                                <div class="flex flex-col md:flex-row space-x-4">
-                                    <input type="text" placeholder="Lesson name" class="w-[100px] md:w-[120px] h-7 md:h-8 text-[14px] md:text-base rounded-sm border border-gray-500/50 p-2 outline-none focus:border-blue-400 focus:ring focus:ring-blue-400 transition-all duration-300" required>
-                                    <input type="file" class="w-[150px] md:w-full h-7 md:h-8 rounded-sm border border-gray-500/50 p-2 outline-none focus:border-blue-400 focus:ring focus:ring-blue-400 transition-all duration-300 text-[13px] text-center items-center" required>
+
+                                <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable"> <!-- if edit, add - flex-1-->
+                                    <a href="./files/Team Brainiacs (3).pdf" class="file-input1 file-link link text-[13px] sm:text-base" target="_blank"></a>
+                                    <input type="file" id="file-input1" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                    <a href="./files/Team Brainiacs (3).pdf" class="file-input2 file-link link text-[13px] sm:text-base" target="_blank"></a>
+                                    <input type="file" id="file-input2" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                    <a href="" class="file-input3 file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
+                                    <input type="file" id="file-input3" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
                                 </div>
-                                <div class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                            </div>
+                            <div class="del-lesson items-center justify-center h-full md:px-5 hidden"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card relative lesson-div" data-id="2">
+                            <div class="flex flex-1 border-r-0 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
+                                <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                                    <p class="md:text-[20px]">Lesson-2</p>
+                                </div>
+                                <!-- if edit state, add - divide-x-[2px] divide-gray-500/50-->
+                                <div class="flex flex-col max-h-full justify-center overflow-auto py-5 px-1 sm:py-0 sm:px-0 ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable">
+                                    <a href="./files/The Law Amending the Electronic Transactions Law.docx" class="file-input4 mt-1 file-link link text-[13px] sm:text-base" target="_blank"></a>
+                                    <input type="file" id="file-input4" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                    <a href="./files//The Law Amending the Electronic Transactions Law.docx" class="file-input5 file-link link text-[13px] sm:text-base" target="_blank"></a>
+                                    <input type="file" id="file-input5" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                    <a href="" class="file-input6 file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
+                                    <input type="file" id="file-input6" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+                                </div>
+                            </div>
+                            <div class="del-lesson items-center justify-center h-full md:px-5 hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            
+                        </div>
+                        <!-- template div -->
+                         <template id="lesson-input-template">
+                            <div class="relative lesson-div h-[200px] bg-gray-100 cursor-move" data-id="">
+                                <div class="flex flex-1 divide-x-[2px] divide-gray-500/50"> <!-- if edit, remove border--r-0-->
+                                    <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                                        <p class="md:text-[20px] border px-2" contenteditable="true">Lesson-</p>
+                                    </div>
+                                    <!-- if edit state, add - divide-x-[2px] divide-gray-500/50-->
+                                    <div class="flex flex-col flex-1 max-h-full justify-center overflow-auto py-5 px-1 sm:py-0 sm:px-0 mx-3 space-y-1 space-y-4 divide-x-[2px] divide-x-gray-500/50] scroll-check editable">
+                                        <a href="" class=" mt-1 file-link text-[13px] sm:text-base p-2 border focus-link " target="_blank"></a>
+                                        <input type="file" id="" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                        <a href="" class=" file-link text-[13px] sm:text-base p-2 border focus-link" target="_blank"></a>
+                                        <input type="file" id="" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+
+                                        <a href="" class=" file-link text-[13px] sm:text-base p-2 border focus-link" target="_blank"></a>
+                                        <input type="file" id="" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
+                                    </div>
+                                </div>
+                                <div class="del-lesson items-center justify-center h-full md:px-5 flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
+                                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
+                                
                             </div>
+                         </template>
+
+                         <!-- Add new div-->
+                        <div class="fixed-div relative lesson-div justify-center items-center"> 
+                            <div class="add-new-lesson cursor-pointer flex space-x-2 group opacity-50 hover:opacity-100 transition-all duration-300 hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="-mt-0.5 size-6 md:size-7 ">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-[13px] md:text-base">Add New Lesson</span>
+                            </div>
+                            <!-- <div class="flex flex-1 divide-x-[2px] divide-gray-500/50"> normal mode
+                                <div class="flex flex-shrink-0 w-[80px] sm:w-[20%] md:w-[23%] lg:w-[20%] h-full pr-3 justify-center items-center">
+                                    <p class="md:text-[20px]">Lesson-2</p>
+                                </div>
+
+                                <div class="flex flex-col max-h-full justify-center overflow-auto ml-3 md:ml-6 lg:ml-12 space-y-1 scroll-check editable"> if edit, add - flex-1
+                                    <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a> 
+                                    <a href="./files/mola 21662.pdf" class="file-link link text-[13px] sm:text-base" target="_blank"></a>
+                                    <a href="" class="file-link link text-[13px] sm:text-base" target="_blank">Homework</a>
+                                </div>
+                            </div>
+                            <div class="flex flex-1 flex-col space-y-2 pl-8 pr-3">
+                                <p class="md:text-[20px] underline">Lesson-1</p>
+                                <div class="course-input-gp flex md:flex-col">
+                                    <div class="flex space-x-4">
+                                        <p class="w-[100px] md:w-[120px] h-7 md:h-8">Lesson Name</p>
+                                        <p class="w-[100px] md:w-[120px] h-7 md:h-8">Filename</p>
+                                    </div>
+                                    <div class="flex flex-col md:flex-row space-x-4">
+                                        <input type="text" placeholder="Lesson name" class="w-[100px] md:w-[120px] h-7 md:h-8 text-[14px] md:text-base rounded-sm border border-gray-500/50 p-2 outline-none focus:border-blue-400 focus:ring focus:ring-blue-400 transition-all duration-300" required>
+                                        <input type="file" class="w-[150px] md:w-full h-7 md:h-8 rounded-sm border border-gray-500/50 p-2 outline-none focus:border-blue-400 focus:ring focus:ring-blue-400 transition-all duration-300 text-[13px] text-center items-center" required>
+                                    </div>
+                                    <div class="flex justify-center items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center h-full md:px-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                                </svg>
+                            </div> -->
                         </div>
-                        <div class="flex items-center justify-center h-full md:px-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="del-lesson-btn">
-                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                            </svg>
-                        </div> -->
-                    </div>
+                     </div>
                     <!-- </div> to divided-y be visible -->
                 </div>
             </div>
@@ -623,10 +667,13 @@
 
     <script src="./static/js/footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script> <!-- for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script> <!-- for sorting -->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script> <!-- for resizig -->
 
     <script type="module" src="./static/js/subjects.js"></script>
     <script type="module" src="./static/js/teacher.js"></script>
+    <script type="module" src="./static/js/teacher-lesson-sortable.js"></script>
     <script type="module" src="./static/js/std_page_navbar.js"></script>
     
     
