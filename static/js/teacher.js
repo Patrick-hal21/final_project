@@ -37,7 +37,7 @@ function copied_tooltip() {
 const duration = 2; // 2min
 
 
-async function startCountdown(expiryTime) {
+function startCountdown(expiryTime) {
   const countdownEl = document.getElementById("expiredTime");
   if (!countdownEl) return;
 
@@ -52,7 +52,7 @@ async function startCountdown(expiryTime) {
       return;
     }
 
-    generate_link.disabled = true; // to ensuyre generate btn is disabled
+    // generate_link.disabled = true; // to ensuyre generate btn is disabled
     const mins = Math.floor(remaining / 1000 / 60);
     const secs = Math.floor((remaining / 1000) % 60);
     countdownEl.textContent = `The link will expire in ${(mins * 60) + secs}s.`;
@@ -62,7 +62,7 @@ async function startCountdown(expiryTime) {
   const timer = setInterval(updateCountdown, 1000);
 }
 
-async function generateLink() {
+function generateLink() {
 
   const id = Math.random().toString(36).substring(2, 10);
   const expiry = new Date(Date.now() + duration * 60 * 1000);
@@ -74,7 +74,7 @@ async function generateLink() {
   // document.getElementById("genLink").href = url;
   // document.getElementById("expiresAt").textContent = expiry.toLocaleString();
   generate_link.disabled = true;
-  localStorage.setItem("generate_disbaled", true);
+  localStorage.setItem("generate_disabled", true);
   console.log("generate_link.disabled", generate_link.disabled);
 
   startCountdown(expiry.getTime());
@@ -93,6 +93,7 @@ function checkExistingLink() {
       // document.getElementById("genLink").href = url;
       // document.getElementById("expiresAt").textContent = expDate.toLocaleString();
       startCountdown(expDate.getTime());
+      console.log(generate_link.disabled);
       generate_link.disabled = localStorage.getItem("generate_disabled");
 
       // document.getElementById("expiredTime").classList.remove("opacity-0");

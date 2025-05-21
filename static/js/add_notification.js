@@ -18,7 +18,7 @@ function addNoti(data_id, title, body, time = new Date().toISOString(), read=fal
   const holder = document.createElement("div");
   holder.className = "noti-msg-box new-msg group"; // new-msg has bg-gray-200/50
   if (read) { // if msg is read
-    console.log("hello");
+    // console.log("hello");
     holder.className = "noti-msg-box group"; // read msg
   } else {
     holder.className = "noti-msg-box new-msg group"; // new-msg has bg-gray-200/50
