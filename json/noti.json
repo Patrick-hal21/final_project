@@ -1,0 +1,71 @@
+
+{
+  "SID": [
+    { 
+      "id" : "1",
+      "header": "Class Announcement-1",
+     "body": "This is to notify that students must change the passcode as soon as possible for security reason as we used randomly generated code.",
+     "time" : "2025-05-19T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "2",
+      "header": "Class Announcement-2",
+     "body": "Welcome Students! \nFirst ever class of 2025 will be start on 1st June. Please stay informed!" ,
+     "time" : "2025-05-20T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "3",
+     "header": "Class Announcement-3",
+     "body": "You can join your class by clicking Join Class in which respective zoom link for your class will be added in time." ,
+     "time" : "2025-05-21T07:46:29.628Z"
+    }
+  ],
+
+  "TID": [
+    { 
+      "id" : "1",
+     "header": "Class Announcement-1",
+     "body": "This is to notify that teachers must change the passcode as soon as possible for security reason as we used randomly generated code." ,
+     "time" : "2025-05-19T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "2",
+     "header": "Class Announcement-2",
+     "body": "Please check out our system comfortable to use or not' before class of 2025 start! \nIf there is any trouble in using this webpage or any technical problems, please informed admin in time! " ,
+     "time" : "2025-05-20T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "3",
+      "header": "Class Announcement-3",
+     "body": "You can start your class by clicking Join Class in which respective zoom link for your class will be added in time." ,
+     "time" : "2025-05-21T07:46:29.628Z"
+    }
+  ],
+
+  "CTID": [
+    { 
+      "id" : "1",
+      "header": "Class Announcement-1",
+     "body": "This is to notify that teachers must change the passcode as soon as possible for security reason as we used randomly generated code." ,
+     "time" : "2025-05-19T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "2",
+      "header": "Class Announcement-2",
+     "body": "Please check out our system comfortable to use or not before class of 2025 start! \nIf there is any trouble in using this webpage or any technical problems, please informed admin in time! " ,
+     "time" : "2025-05-20T07:46:29.628Z"
+    },
+
+    { 
+      "id" : "3",
+      "header": "Class Announcement-3",
+     "body": "You can start your class by clicking Join Class in which respective zoom link for your class will be added in time." ,
+     "time" : "2025-05-21T07:46:29.628Z"
+    }
+  ]
+}

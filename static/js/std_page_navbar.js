@@ -23,10 +23,14 @@ humburgerBtn.onclick = function() {
 
 function toggle_dropdown(btn, box) {
   btn.addEventListener('click', function (event) {
+    event.preventDefault();
     event.stopPropagation(); // Prevent this click from bubbling to document
     box.classList.toggle('opacity-0');
     box.classList.toggle('opacity-100');
     box.classList.toggle("pointer-events-none")
+
+    document.querySelector("body").classList.toggle("overflow-hidden");
+    // document.querySelector("body").classList.toggle("sm:overflow-auto");
   
     btn.querySelector('svg').classList.toggle('opacity-100'); // toggle noti's opacity
   });
@@ -56,7 +60,7 @@ toggle_dropdown(noti, noti_box);
 // mark as all read on hover
 
 const mark_as_all_btn = document.getElementById("mark-as-all");
-const mark_read_p = mark_as_all_btn.querySelector("p");
+const mark_read_p = mark_as_all_btn.nextElementSibling;
 
 
 // btn = btn or any other element to add hover event
@@ -118,14 +122,14 @@ if (local_noti_count > 0) {
 
 
 // correct button to mark all as read
-const mark = mark_as_all_btn.querySelector("button");
-mark.onclick= ()=>{
-  localStorage.setItem(`noti_count_${user_id_type}`, 0);
-  if (!noti_count_box.classList.contains("hidden")) {
-      noti_count_box.classList.add("hidden");
-    // console.log(notifications);
-  }
-};
+// const mark = mark_as_all_btn.querySelector("button");
+// mark.onclick= ()=>{
+//   localStorage.setItem(`noti_count_${user_id_type}`, 0);
+//   if (!noti_count_box.classList.contains("hidden")) {
+//       noti_count_box.classList.add("hidden");
+//     // console.log(notifications);
+//   }
+// };
 
 // ----> mixed student and teachers
 // user_types = ["SID", "TID", "CTID"]; // retrieve from the backend
@@ -191,8 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // document.querySelectorAll("#class > div").forEach(elem => {
   //   test_func(elem);
   // });
-
-  observer.observe(target);
+  if (user_id_type !== "CTID") {
+    observer.observe(target);
+  }
+  
   observer1.observe(join_class_btn);
   observer2.observe(leave_form_btn);
 
@@ -207,10 +213,10 @@ function checkMidScreen() {
 
         if (isAtMidScreen) {
             div.classList.remove("opacity-80", "scale-98", "md:pointer-events-none");
-            div.classList.add("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto");
+            div.classList.add("opacity-100", "scale-100", "shadow-lg", "md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]", "pointer-events-auto");
         } else {
             if (!div.classList.contains("opacity-80")) {
-              div.classList.remove("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto");
+              div.classList.remove("opacity-100", "scale-100", "shadow-lg", "md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]", "pointer-events-auto");
               div.classList.add("opacity-80", "scale-98", "md:pointer-events-none"); // Optional: Reset if not at mid
             }
         }
@@ -371,9 +377,15 @@ function hover_gif_animate(btn, img, src1, src2){
 
 
 // zoom
+const zoom_link = localStorage.getItem("zoom-link" || "https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1")
+
+// console.log(zoom_link);
+// localStorage.setItem("zoom-link", "https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1");
+
 join_class_btn.onclick = () => {
-  window.open("https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1", "_blank");
+  window.open(zoom_link, "_blank");
 };
+
 
 // adding hidden to divs
 function make_tabs_inactive() {
@@ -571,8 +583,23 @@ function backToDashboard(divName, leave_form = "") {
 
 //Courses
 
+function widthDetermine() { // as I dont want to use style.width = `${percent}%`
+  let newClass = "w-0";
+    if (percent >= 100) newClass = "w-full";
+    else if (percent >= 75) newClass = "w-3/4";
+    else if (percent >= 66) newClass = "w-2/3";
+    else if (percent >= 50) newClass = "w-1/2";
+    else if (percent >= 33) newClass = "w-1/3";
+    else if (percent >= 25) newClass = "w-1/4";
+    else if (percent >= 10) newClass = "w-1/6";
+    else newClass = "w-1/8";
+    return newClass;
+}
+
 // for student only
 if(user_id_type === "SID") {
+  // console.log("Hello");
+  // console.log(resSubjects);
   insertSubjects(resSubjects);
 }
 // from randomType and resSubjects
@@ -587,7 +614,7 @@ export function insertSubjects(subs) {
     primDiv.className = "subject subject-div-box group neon-card";
     // creat img holder
     const secDiv = document.createElement("div");
-    secDiv.className = "flex w-full h-[85%]";
+    secDiv.className = "flex w-full h-[85%] xl:h-[90%]";
     // create img
     const img = document.createElement("img");
     img.className = "subject-img"; // insertable
@@ -597,13 +624,42 @@ export function insertSubjects(subs) {
     // add img to secDiv
     secDiv.appendChild(img);
     // create text
+    const textDiv = document.createElement("div");
+    textDiv.className = "flex items-center justify-center w-full mb-1 sm:mb-[10px]";
     const text = document.createElement("p");
     text.className = "subject-text"; // insertable
     text.textContent = sub;
+    textDiv.appendChild(text);
+    // console.log(sub.trim().toLocaleLowerCase());
+    // Get stored progress or start from 0 ( stored as subject-progress) (for student only)
+    let progress = parseInt(localStorage.getItem(`${sub.trim().toLocaleLowerCase()}-progress`) || "0");
+
+    // if student
+    if (user_id_type === "SID") {
+      const percent = document.createElement("span");
+      percent.textContent = `${progress}%`; // retrieved data from local storage
+      percent.className = "ml-2 sm:ml-3 sm:text-[20px]";
+      textDiv.appendChild(percent);
+    }
 
     // insert to primDiv
     primDiv.appendChild(secDiv);
-    primDiv.appendChild(text);
+    primDiv.appendChild(textDiv);
+    
+    // if student
+    if (user_id_type === "SID") {
+      // progress bar
+      const progressBarContainer = document.createElement("div");
+      progressBarContainer.className = "progress-container";
+
+      const progressBar = document.createElement("div");
+      // tailwind cant handle handle arbitrary dynamic values (progress-bar w-[${progress}%])
+      progressBar.className = "progress-bar w-[0%]"; // retrieved data from local storage
+      progressBar.style.width = `${progress}%`; // set width dynamically
+      progressBarContainer.appendChild(progressBar);
+
+      primDiv.appendChild(progressBarContainer);
+    }
 
     //insert to main holder
     holder.appendChild(primDiv);
@@ -677,34 +733,41 @@ document.querySelectorAll('.scroll-check').forEach(container => {
   }
 });
 
+// localStorage.setItem('Myanmar-progress', "0");
 
+// increase percentage if user clicked on content
+if (user_id_type === "SID") {
+  const files = document.querySelectorAll(".file-link");
+  files.forEach(sub => {
+    sub.onclick = () => {
+      const course_name = courses_tab.querySelector("h1").textContent;
+      let key = course_name.trim().toLocaleLowerCase();
+      // get current progress
+      // console.log(key);
+      let progress = parseInt(localStorage.getItem(`${key}-progress`) || "0");
 
-// to order div if teacher reoreder lesson divs
-const container = document.getElementById('sortableDivs');
+      if (progress < 100) {
+        const increment = Math.floor(100/files.length);
+        progress = Math.min(progress + increment, 100);
+        localStorage.setItem(`${key}-progress`, progress);
+        // console.log(progress);
+        document.querySelectorAll(".subject-text").forEach(value => {
+          if (value.textContent === course_name) {
+            value.nextElementSibling.textContent = `${progress}%`; // eg. Subjectname's next sibling => 0% ( eg. Myanmar 0%)
+            // console.log(value.parentElement.nextElementSibling); // eg (Myanmar )%)div's next sibling => progress container
+            const progress_container = value.parentElement.nextElementSibling;
 
-window.onload = orderLessonDiv;
-function orderLessonDiv() {
-  const savedOrder = JSON.parse(localStorage.getItem('sortableRowOrder'));
-  if (savedOrder) {
-    const itemsById = {};
-    Array.from(container.children).forEach(item => {
-      if (item.dataset.id) {
-        itemsById[item.dataset.id] = item;
+            progress_container.firstChild.style.width = `${progress}%`; // progress bar
+          }    
+        });
+
+        // const progressBar = sub.parentElement.parentElement.querySelector(".progress-bar");
+        // progressBar.className = `progress-bar w-[${progress}%]`;
       }
-    });
-
-    // Re-append elements in saved order
-    savedOrder.forEach(id => {
-      if (itemsById[id]) {
-        container.appendChild(itemsById[id]);
-      }
-    });
-
-    // Move any item without data-id (like the Add New div) to the end
-    Array.from(container.children).forEach(item => {
-      if (!item.dataset.id) {
-        container.appendChild(item); // moves it to the end
-      }
-    });
-  }
+    }
+  });
 }
+// document.querySelectorAll(".subject-text").forEach(value => {
+        //   value.textContent === course_name ? value.querySelector("span").textContent = `${progress}%` : "";
+        // })
+

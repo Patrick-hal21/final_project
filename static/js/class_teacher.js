@@ -33,9 +33,88 @@ function updateTImetable (input, box) {
 updateTImetable("trTimetable", "trBox");
 updateTImetable("stdTimetable", "stdBox");
 
+
+//zoom link management
+const zoom_link_holder = document.getElementById("zoom_link_holder");
+// set value when loading
+zoom_link_holder.value = localStorage.getItem("zoom-link");
+
+const edit_zoom = document.querySelector(".edit-zoom");
+// edit zoom link
+edit_zoom.onclick = () => {
+
+    // https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1
+  // if this is done action
+  if (edit_zoom.querySelector("span").textContent === "Done") {
+    const inserted_value = zoom_link_holder.value;
+    if (inserted_value === localStorage.getItem("zoom-link")) {
+        console.log("same link");
+    } else {
+        if (isValidURL(inserted_value)) {
+            localStorage.setItem("zoom-link", inserted_value);
+            insertionComplete(); // default = true
+        } else {
+            console.log("invalid link");
+            zoom_link_holder.value = localStorage.getItem("zoom-link"); // reasign original value
+            insertionComplete(false);
+        }
+    }
+  }
+
+  zoom_link_holder.readOnly = !zoom_link_holder.readOnly;
+  zoom_link_holder.classList.toggle("focus:border-[#F6802F]"); // orange
+  zoom_link_holder.classList.toggle("focus:ring-2");
+  zoom_link_holder.classList.toggle("focus:ring-[#F6802F]");
+  zoom_link_holder.focus();
+
+  edit_zoom.querySelector(".edit").classList.toggle("hidden");
+  edit_zoom.querySelector(".done").classList.toggle("hidden");
+  edit_zoom.querySelector("span").textContent = zoom_link_holder.readOnly ? "Edit": "Done";
+  
+};
+
+// to check ibserted lin is valid or not
+function isValidURL(text) {
+  try {
+    new URL(text);
+    return true; // valid URL
+  } catch (_) {
+    return false; // invalid URL
+  }
+}
+
+// to notify user after insertion link
+function insertionComplete(success = true) {
+  const insert_noti = document.querySelector(".inserted");
+  const msg = insert_noti.querySelector("p");
+
+  if (success) {
+    msg.textContent = "New Link inserted!";
+    insert_noti.classList.remove("bg-red-500");
+    insert_noti.classList.add("bg-teal-500");
+  } else {
+    msg.textContent = "Link insertion failed!";
+    insert_noti.classList.remove("bg-teal-500");
+    insert_noti.classList.add("bg-red-500");
+  }
+
+  insert_noti.classList.remove("translate-x-20", "opacity-0");
+  insert_noti.classList.add("translate-x-0", "opacity-100");
+
+  setTimeout(() => {
+    insert_noti.classList.remove("translate-x-0", "opacity-100");
+    insert_noti.classList.add("translate-x-20", "opacity-0");
+  }, 1500);
+}
+
 // Charts
 
-document.querySelector(".create-chart").onclick = updateChart;
+let chartInstance;
+// updateChart();
+// chart creation for TID is in class_teacher.js
+if (user_id_type == "CTID") {
+  document.querySelector(".create-chart").onclick = updateChart;
+}
 
 function updateChart() {
     document.querySelector(".switch-hide").classList.remove("hidden");

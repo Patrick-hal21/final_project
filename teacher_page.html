@@ -20,9 +20,9 @@
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
-<body class="relative">
-    <header id="navbar" class="relative border-b-2 border-gray-300 h-[53px] sm:h-[70px]">
-        <nav class="mx-auto lg:mx-12 h-full px-4 flex max-w-7xl items-center justify-center sm:px-12 overflow-hidden" aria-label="Global">
+<body class="h-full relative sm:overflow-auto">
+    <header id="navbar" class="fixed top-0 left-right-0 z-50 bg-white w-full border-b-2 border-gray-300 h-[53px] sm:h-[70px]">
+        <nav class="relative mx-auto lg:mx-12 h-full px-4 flex max-w-7xl items-center justify-center sm:px-12 overflow-hidden" aria-label="Global">
             <!-- humburger menu -->
             <div class="flex md:hidden justify-center items-center">
                 <button id="humburger-btn" type="button" class="w-auto p-1 border border-gray-300 rounded">
@@ -50,10 +50,10 @@
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl text-end font-semibold">Federal School</h1>
             </div> -->
               
-            <div id="noti" class="relative flex justify-end">
-                <a href="#" class="relative mt-1 p-1.5 md:mr-6"> <!--  pl-5-->
+            <div class="relative flex justify-end">
+                <a id="noti" href="" class="relative mt-1 p-1.5 md:mr-6"> <!--  pl-5-->
                     <span class="sr-only">Notification</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-8 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 sm:size-8 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
                         <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd" />
                     </svg>
 
@@ -73,14 +73,13 @@
         </nav>
 
         <!-- profile dropdown -->
-        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
+        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-lg rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-50 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
             <div class="flex flex-1 flex-col w-full h-[80%] overflow-auto">
                 <!-- fetch from the backend -->
                 <p id="user_id" class="flex-1 w-full h-[20%] p-1 sm:p-2 border-b text-center font-semibold">TID-001</p>
-
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Static</a>
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Tests</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Account Info</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Static</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Tests</a>
 
             </div>
             <div class="flex items-end">
@@ -91,33 +90,43 @@
         <!-- notification box dropdown -->
         <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] transition-all duration-500 opacity-0 z-10 divide-y divide-gray-500/50 pointer-events-none">
             <!-- notification header -->
-             <div class="relative flex items-center text-start px-1">
-                <p class="text-[13px] md:text-base">Notifications</p>
-                <div id="mark-as-all" tabindex="-1" class="flex flex-1 justify-end">
-                    <button type="button" class="w-5 aspect-square cursor-pointer active:bg-gray-500/20">
+             <div class="relative flex items-center text-start p-1.5 sm:p-2.5 md:p-2 border-b border-black">
+                <p class="text-[13px] md:text-base md:font-semibold">Notifications</p>
+                <div tabindex="-1" class="flex flex-1 justify-end">
+                    <button id="mark-as-all" type="button" class="w-5 md:w-6 aspect-square cursor-pointer rounded-sm border border-green-500 md:border-white active:bg-gray-500/20 group md:hover:border-green-500 transition-all duration-300">
                         <span class="sr-only">Mark as all read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 md:size-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="ml-[1px] size-4 md:size-5 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                             <path fill-rule="evenodd" stroke="#10A37F" stroke-width="2" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
                         </svg>  
                     </button>
                     <p class="absolute -top-4 sm:-top-5 text-[9px] md:text-[11px] bg-white border hidden">Mark as all read</p>
                 </div>
              </div>
-             <!-- Notifications body -->
-             <div class="flex flex-1 flex-col w-full overflow-auto"></div>
+             <!-- Notifications body (insert via backend) --> 
+             <div id="noti-entry" class="flex flex-1 flex-col w-full h-full overflow-auto">
+                <!-- <div class="noti-msg-box new-msg group">
+                    <div class="noti-msg-header">
+                        <h2 class="truncate max-w-[70%]"></h2>
+                        <time datetime="" class="smart-time whitespace-nowrap"></time>
+                    </div>
+                    <p class="noti-msg-body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam iusto magni blanditiis libero dolore quisquam iure maxime et repellat ut qui illum voluptas iste saepe quos, voluptatibus nisi dolores pariatur.</p>   
+                    <span class="noti-span">View Notifications</span>
+                </div>
+                     -->
+             </div>
 
         </div>
         
     </header>
     <!-- hover-linegrowth- custom hover class in inpput.css -->
-    <div id="dropElement" class="navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
+    <div id="dropElement" class="mt-[51px] sm:mt-[68px] navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
         <a href="#dashboard" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center" data-tab="dashboard">Dashboard</a>
         <p class="text-gray-500/50 -mt-0.5">|</p>
         <a href="#class" class="text-lg py-2 text-[13px] text-center" data-tab="class">Class</a>
     </div>
 
     <!-- body -->
-    <div class="relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
+    <div class="md:pt-[68px] relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
@@ -173,7 +182,7 @@
             <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
             <!-- link generate div -->
             <div class="relative flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg view-transform md:space-y-3 overflow-hidden ">
-                <div class="flex">
+                <div class="flex justify-center">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Link Generator</h1>
                 </div>
                 <div class="flex flex-col w-full h-[125px] sm:h-[150px] md:h-[180px] lg:[200px] px-3 md:p-3 pt-0 pb-4 lg:px-0 items-center justify-between">
@@ -211,7 +220,7 @@
 
             <!-- reports -->
             <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg justify-center md:px-10 view-transform">
-                <div class="flex justify-between mb-4">
+                <div class="flex justify-center mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Reports</h1>
                 </div>
                 <div class="flex flex-1 flex-col md:flex-row justify-center w-full items-center md:space-x-4 space-y-4 md:space-y-0">
@@ -675,6 +684,7 @@
     <script type="module" src="./static/js/teacher.js"></script>
     <script type="module" src="./static/js/teacher-lesson-sortable.js"></script>
     <script type="module" src="./static/js/std_page_navbar.js"></script>
+    <script typre="module" src="./static/js/add_notification.js"></script>
     
     
 </body>

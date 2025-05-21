@@ -20,9 +20,9 @@
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
-<body class="relative">
-    <header id="navbar" class="relative border-b-2 border-gray-300 h-[53px] sm:h-[70px]">
-        <nav class="mx-auto lg:mx-12 h-full px-4 flex max-w-7xl items-center justify-center sm:px-12 overflow-hidden" aria-label="Global">
+<body class="h-full relative sm:overflow-auto">
+    <header id="navbar" class="fixed top-0 left-right-0 z-50 bg-white w-full border-b-2 border-gray-300 h-[53px] sm:h-[70px]">
+        <nav class="relative mx-auto lg:mx-12 h-full px-4 flex max-w-7xl items-center justify-center sm:px-12 overflow-hidden" aria-label="Global">
             <!-- humburger menu -->
             <div class="flex md:hidden justify-center items-center">
                 <button id="humburger-btn" type="button" class="w-auto p-1 border border-gray-300 rounded">
@@ -50,10 +50,10 @@
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl text-end font-semibold">Federal School</h1>
             </div> -->
               
-            <div id="noti" class="relative flex justify-end">
-                <a href="#" class="relative mt-1 p-1.5 md:mr-6"> <!--  pl-5-->
+            <div class="relative flex justify-end">
+                <a id="noti" href="" class="relative mt-1 p-1.5 md:mr-6"> <!--  pl-5-->
                     <span class="sr-only">Notification</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-8 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 sm:size-8 opacity-50 transition-opacity duration-300 ease-in-out hover:opacity-100">
                         <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z" clip-rule="evenodd" />
                     </svg>
 
@@ -73,14 +73,13 @@
         </nav>
 
         <!-- profile dropdown -->
-        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-10 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
+        <div id="profile_box" class="absolute flex flex-col mt-[2px] top-full right-0 profile-box border border-t-0 border-gray-500/50 shadow-lg rounded-b-[5px] bg-white transition-all duration-500 opacity-0 z-50 overflow-hidden divide-y divide-gray-500/50 pointer-events-none">
             <div class="flex flex-1 flex-col w-full h-[80%] overflow-auto">
                 <!-- fetch from the backend -->
                 <p id="user_id" class="flex-1 w-full h-[20%] p-1 sm:p-2 border-b text-center font-semibold">CTID-001</p>
-
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Account Info</a>
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Static</a>
-                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-200">Tests</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Account Info</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Static</a>
+                <a href="#" class="flex-1 w-full h-[20%] p-1 sm:p-2 shadow-sm hover:bg-blue-600 hover:text-white">Tests</a>
 
             </div>
             <div class="flex items-end">
@@ -91,33 +90,43 @@
         <!-- notification box dropdown -->
         <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-md rounded-b-[5px] transition-all duration-500 opacity-0 z-10 divide-y divide-gray-500/50 pointer-events-none">
             <!-- notification header -->
-             <div class="relative flex items-center text-start px-1">
-                <p class="text-[13px] md:text-base">Notifications</p>
-                <div id="mark-as-all" tabindex="-1" class="flex flex-1 justify-end">
-                    <button type="button" class="w-5 aspect-square cursor-pointer active:bg-gray-500/20">
+             <div class="relative flex items-center text-start p-1.5 sm:p-2.5 md:p-2 border-b border-black">
+                <p class="text-[13px] md:text-base md:font-semibold">Notifications</p>
+                <div tabindex="-1" class="flex flex-1 justify-end">
+                    <button id="mark-as-all" type="button" class="w-5 md:w-6 aspect-square cursor-pointer rounded-sm border border-green-500 md:border-white active:bg-gray-500/20 group md:hover:border-green-500 transition-all duration-300">
                         <span class="sr-only">Mark as all read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 md:size-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="ml-[1px] size-4 md:size-5 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                             <path fill-rule="evenodd" stroke="#10A37F" stroke-width="2" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
                         </svg>  
                     </button>
                     <p class="absolute -top-4 sm:-top-5 text-[9px] md:text-[11px] bg-white border hidden">Mark as all read</p>
                 </div>
              </div>
-             <!-- Notifications body -->
-             <div class="flex flex-1 flex-col w-full overflow-auto"></div>
+             <!-- Notifications body (insert via backend) --> 
+             <div id="noti-entry" class="flex flex-1 flex-col w-full h-full overflow-auto">
+                <!-- <div class="noti-msg-box new-msg group">
+                    <div class="noti-msg-header">
+                        <h2 class="truncate max-w-[70%]"></h2>
+                        <time datetime="" class="smart-time whitespace-nowrap"></time>
+                    </div>
+                    <p class="noti-msg-body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam iusto magni blanditiis libero dolore quisquam iure maxime et repellat ut qui illum voluptas iste saepe quos, voluptatibus nisi dolores pariatur.</p>   
+                    <span class="noti-span">View Notifications</span>
+                </div>
+                     -->
+             </div>
 
         </div>
         
     </header>
     <!-- hover-linegrowth- custom hover class in inpput.css -->
-    <div id="dropElement" class="navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
+    <div id="dropElement" class="mt-[51px] sm:mt-[68px] navbar-tab md:hidden flex items-center w-full space-x-2 dropdown-hidden">
         <a href="#dashboard" class="text-lg py-2 ml-4 sm:ml-12 text-[13px] text-center text-gray-500" data-tab="dashboard">Dashboard</a>
         <p class="text-gray-500/50 -mt-0.5">|</p>
         <a href="#class" class="text-lg py-2 text-[13px] text-center" data-tab="class">Class</a>
     </div>
 
     <!-- body -->
-    <div class="relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
+    <div class="md:pt-[68px] relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
@@ -150,69 +159,13 @@
 
         <!-- For class-teacher currently hidden -->
         <!-- courses -->
-         <div>
-            <div class="flex max-w-7xl h-full px-4 py-5 sm:py-7 md:py-9 lg:py-12 mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden hidden">
-                <div class="flex flex-col flex-1 w-full rounded-lg justify-center">
-                    <!-- Add join class here -->
-                     <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
-
-                     <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
-                        <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">
-                            <div class="flex w-full h-[85%]">
-                                <img class="object-contain transition-transform group-hover:scale-110 duration-500" src="./static/images/book_1.png" alt="book">
-                            </div>
-                            <!-- retreive respective course from database -->
-                            <p class="text-center sm:mt-1 lg:mt-2 sm:text-[20px] group-hover:font-semibold">Myanmar</p>
-                        </div>
-                        
-                      </div>
-
-                </div>
-            </div>
-        </div>
 
         <!-- Class tab -->
         <div id="class" class="flex flex-col flex-1 hidden bg-gray-90 md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 md:mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10 ">
             <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
-            <!-- link generate div -->
-            <div class="relative flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg view-transform md:space-y-3 overflow-hidden"> <!-- currently shadow-lg is also added first(though it toggles in view-transform)-->
-                <div class="flex justify-center">
-                    <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Link Generator</h1>
-                </div>
-                <div class="flex flex-col w-full h-[125px] sm:h-[150px] md:h-[180px] lg:[200px] px-3 md:p-3 pt-0 pb-4 lg:px-0 items-center justify-between">
-                    <div class="flex flex-col w-full items-center justify-center pt-4">
-                        <input type="url" id="link_holder" class="bg-black border rounded-sm w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] h-10 md:h-12 text-gray-200 font-mono px-2 focus:outline-none" readonly>
-                        <div class="flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-end">
-                            <!-- display expired time -->
-                            <p id="expiredTime" class="text-[9px] md:text-[12px] opacity-0"></p>
-
-                            <!-- copied tooltip -->
-                            <!-- <div class=" overflow-hidden"> -->
-                                <div class="copied absolute top-3 right-0 bg-teal-400/50 p-1 sm:p-2 md:p-4 translate-x-20 opacity-0 transition-all duration-200">
-                                    <p class="text-[11px] md:text-[14px]">Copied!</p>
-                                </div>
-                                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="gray" class="size-4 z-2 md:size-5 absolute top-1 sm:top-5 md:top-3 right-7 rotate-90">
-                                    <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
-                                </svg> -->
-                            <!-- </div> -->
-                            
-
-                            <!-- <p class="absolute top-0 right-5 bg-gray-500 rounded-full p-1">Copied!</p> -->
-                        </div>
-                    </div>
-                    <div class="flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-between">
-                        <button type="button" id="generate_link" class="normal-btn">Generate Link</button>
-                        <button type="button" id="copy_link" class="normal-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="mr-2 size-4" fill="white"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg>
-                            Copy
-                        </button>
-                    </div>
-                </div>
-                
-            </div>
 
             <!-- add timetable -->
-            <div class="flex flex-col bg-white p-3 md:p-6 md:pb-8 rounded-sm shadow-lg justify-center md:px-10 view-transform">
+            <div class="flex flex-col bg-white p-3 md:p-6 md:pb-8 rounded-sm justify-center md:px-10 view-transform">
                 <div class="flex justify-center mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Manage Timetables</h1>
                 </div>
@@ -275,13 +228,50 @@
                 <p class="w-full text-center text-[14px] md:text-base mt-3 -mb-3 text-gray-500">==> Ideal image size -> 768px (width) x 250px (height) <==</p>
             </div>
 
+            <!-- Zoom link management -->
+            <div class="relative flex flex-col w-full  bg-white p-3 md:p-6 rounded-sm view-transform md:space-y-3 overflow-hidden"> <!-- currently shadow-lg is also added first(though it toggles in view-transform)-->
+                <!-- noti text -->
+                <div class="inserted absolute top-2 right-0 p-1 sm:p-2 md:p-4 translate-x-20 opacity-0 transition-all duration-200">
+                    <p class="text-[11px] md:text-[14px]"></p>
+                </div>
+
+                <div class="flex justify-center">
+                    <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Zoom Link Management</h1>
+                </div>
+                <!-- <div class="flex w-full h-[90px] sm:h-[110px] md:h-[150px] lg:[180px] px-3 md:p-3 pt-0 pb-4 lg:px-0 items-center justify-between">
+                    
+                </div> -->
+                <div class="flex w-full py-5 overflow-hidden">
+                    <div class="flex flex-col w-full mx-12">
+                        <!-- <p class="flex">Class-A</p> for many classes -->
+                        <div class="flex w-full space-x-5 justify-between">
+                            <input type="url" id="zoom_link_holder" class="flex flex-2 bg-black border rounded-sm w-full sm:w-[80%] lg:w-[80%] xl:w-[70%] h-8 sm:h-11 text-gray-200 font-mono px-3 focus:outline-none" readonly>
+                            <button type="button" class="edit-zoom normal-btn">
+                                <!-- Edit -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="edit size-5 md:size-6">
+                                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                    <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                </svg>
+                                <!-- DOne -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke-width="0" class="done size-5 md:size-6 hidden">
+                                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                                </svg>
+                                
+                                <span>Edit</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
 
             <!-- reports -->
-            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg justify-center md:px-10 view-transform">
+            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm justify-center md:px-10 view-transform">
                 <div class="flex justify-center mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Reports</h1>
                 </div>
-                <div class="flex space-x-12 justify-center">
+                <div class="flex space-x-12 mb-5 justify-center">
                     <button type="button" class="normal-btn">Generate Report</button>
                     <button type="button" class="normal-btn">Send Report</button>
                 </div>
@@ -292,13 +282,13 @@
             </div>
 
             <!-- graphs and charts -->
-            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg overflow-hidden md:px-10 view-transform">
+            <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm overflow-hidden md:px-10 view-transform">
                 <div class="flex justify-between mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Charts</h1>
                     <div class="flex">
                         <button type="button"
-                            class="create-chart normal-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 md:hidden">
+                            class="create-chart normal-btn md:space-x-1 justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 md:size-6">
                             <path fill-rule="evenodd" d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm4.5 7.5a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0v-2.25a.75.75 0 0 1 .75-.75Zm3.75-1.5a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0V12Zm2.25-3a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 1-1.5 0V9.75A.75.75 0 0 1 13.5 9Zm3.75-1.5a.75.75 0 0 0-1.5 0v9a.75.75 0 0 0 1.5 0v-9Z" clip-rule="evenodd" />
                             </svg>
                             <span class="hidden md:flex">Create Chart</span>
@@ -583,20 +573,22 @@
     </footer>
   
     <button id="to_nav_bar" type="button" class="fixed right-[5%] bottom-4 lg:bottom-3 w-[25px] lg:w-[35px] bg-[#F6802F] rounded-[5px] hover:scale-110 objext-cover aspect-square transform transition-all duration-500 shadow-lg opacity-0 pointer-events-none">
-    <span class="sr-only">To Top</span>
-    <img src="./static/images/Up.png" alt="">
+        <span class="sr-only">To Top</span>
+        <img src="./static/images/Up.png" alt="">
     </button>
 
     <script src="./static/js/footer.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     
     <script type="module" src="./static/js/subjects.js"></script>
     <script type="module" src="./static/js/std_page_navbar.js"></script>
     <script type="module" src="./static/js/teacher.js"></script>
     <script type="module" src="./static/js/class_teacher.js"></script>
+    <script type="module" src="./static/js/add_notification.js"></script>
+    <!-- <script type="module" src="./static/js/teacher-lesson-sortable.js"></script> -->
     
 </body>
 </html>
