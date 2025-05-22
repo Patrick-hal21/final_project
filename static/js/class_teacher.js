@@ -158,3 +158,13 @@ function updateChart() {
         }
     });
 }
+
+document.getElementById("clear_chart").onclick = () => {
+  
+  document.getElementById("today_stats").textContent = "";
+  if (!document.querySelector(".switch-hide").classList.contains("hidden")) {
+    // console.log("hello");
+    document.querySelector(".switch-hide").classList.add("hidden");
+  }
+  chartInstance.destroy();
+} 

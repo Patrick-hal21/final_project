@@ -20,6 +20,31 @@ humburgerBtn.onclick = function() {
     dropElement.classList.toggle('dropdown-visible');
 }
 
+let scrollY = window.scrollY;
+
+function lockScroll() {
+  if (window.innerWidth < 640) {
+    scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    document.body.style.width = '100%';
+  }
+}
+
+function unlockScroll() {
+  if (window.innerWidth < 640) {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.overflow = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollY);
+  }
+}
 
 function toggle_dropdown(btn, box) {
   btn.addEventListener('click', function (event) {
@@ -28,24 +53,33 @@ function toggle_dropdown(btn, box) {
     box.classList.toggle('opacity-0');
     box.classList.toggle('opacity-100');
     box.classList.toggle("pointer-events-none")
-
-    document.querySelector("body").classList.toggle("overflow-hidden");
-    // document.querySelector("body").classList.toggle("sm:overflow-auto");
   
     btn.querySelector('svg').classList.toggle('opacity-100'); // toggle noti's opacity
-  });
-  
-  document.addEventListener('click', function (event) {
-    if (!btn.contains(event.target) && !box.contains(event.target)) {
-      if (box.classList.contains('opacity-100')) {
-        box.classList.remove('opacity-100');
-        box.classList.add('opacity-0');
-        box.classList.add("pointer-events-none")
-  
-        btn.querySelector('svg').classList.toggle('opacity-100'); // toggle noti's opacity
+
+    // to lock scroll in mobile only
+    const isNotiBox = box === document.getElementById('noti_box');
+    if (isNotiBox) {
+      if (box.classList.contains("opacity-100") || document.getElementById('noti_box').classList.contains("opacity-100")) {
+        lockScroll();
+      } else {
+        unlockScroll();
       }
     }
   });
+  if (window.innerWidth >= 768) {
+    document.addEventListener('click', function (event) {
+      if (!btn.contains(event.target) && !box.contains(event.target)) {
+        if (box.classList.contains('opacity-100')) {
+          box.classList.remove('opacity-100');
+          box.classList.add('opacity-0');
+          box.classList.add("pointer-events-none")
+    
+          btn.querySelector('svg').classList.toggle('opacity-100'); // toggle noti's opacity
+        }
+      }
+    });
+  }
+  
 }
 
 const profile_card = document.getElementById('profile_box');
@@ -123,13 +157,27 @@ if (local_noti_count > 0) {
 
 // correct button to mark all as read
 // const mark = mark_as_all_btn.querySelector("button");
-// mark.onclick= ()=>{
-//   localStorage.setItem(`noti_count_${user_id_type}`, 0);
-//   if (!noti_count_box.classList.contains("hidden")) {
-//       noti_count_box.classList.add("hidden");
-//     // console.log(notifications);
-//   }
-// };
+mark_as_all_btn.onclick= ()=>{
+  const key = `${user_id_type}_read_noti_id`;
+  // Get existing IDs from localStorage (or empty array)
+  let readIDs = JSON.parse(localStorage.getItem(key)) || [];
+  const noti_msgs = document.querySelectorAll(".noti-msg-box");
+  noti_msgs.forEach(noti => {
+    if (!readIDs.includes(noti.dataset.id)) {
+      readIDs.push(noti.dataset.id);
+      noti.classList.add("bg-transparent", "hover:bg-blue-600");
+    }
+  })
+
+  localStorage.setItem(key, JSON.stringify(readIDs)); // store all the read noti as to mark as read in DOMload
+  
+  localStorage.setItem(`noti_count_${user_id_type}`, 0); // set noti-count to 0 
+
+  if (!noti_count_box.classList.contains("hidden")) {
+      noti_count_box.classList.add("hidden");
+    // console.log(notifications);
+  }
+};
 
 // ----> mixed student and teachers
 // user_types = ["SID", "TID", "CTID"]; // retrieve from the backend
@@ -387,6 +435,7 @@ join_class_btn.onclick = () => {
 };
 
 
+
 // adding hidden to divs
 function make_tabs_inactive() {
   allTabSections.forEach(navTab => {
@@ -559,7 +608,7 @@ leave_form_cancel.onclick = () => {
   backToDashboard(leave_form, "leave_form");
 };
 
-function backToDashboard(divName, leave_form = "") {
+export function backToDashboard(divName, leave_form = "") {
   
   //hide and reset leave form
   divName.classList.add("hidden");
@@ -678,8 +727,9 @@ if (user_id_type === "TID") {
 
 
 const subjects = document.querySelectorAll(".subject");
-if (subjects) {
-  courses_tab.querySelector("button").onclick = () => {
+
+if (subjects && user_id_type === "SID") {
+  courses_tab.querySelector("button").onclick = (e) => {
     backToDashboard(courses_tab);
   }
   

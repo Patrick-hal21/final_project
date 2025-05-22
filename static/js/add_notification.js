@@ -102,8 +102,10 @@ fetch('./json/noti.json')
         if (readIDs.includes(item.id)) {
           // Mark as read
           addNoti(item.id, item.header, item.body, item.time, true);
+        } else {
+          addNoti(item.id, item.header, item.body, item.time); // add noti
         }
-        addNoti(item.id, item.header, item.body, item.time); // add noti
+        
       });
     }
     else if (user_id_type === "CTID") {
@@ -114,8 +116,9 @@ fetch('./json/noti.json')
         if (readIDs.includes(item.id)) {
           // Mark as read
           addNoti(item.id, item.header, item.body, item.time, true);
+        } else {
+          addNoti(item.id, item.header, item.body, item.time); // add noti
         }
-        addNoti(item.id, item.header, item.body, item.time); // add noti
       });
     }
     
@@ -211,4 +214,9 @@ function read_noti(elem) {
 
   // open new page to display noti
   // New Page !
+}
+
+
+function showNotiDetail() {
+  // cretate div and display noti details
 }

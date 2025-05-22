@@ -46,12 +46,20 @@ const done_btn = document.querySelector(".done-btn");
 // import { sortable } from "./teacher-lesson-sortable.js"; // to allow divs to drag and place
 // import { makeResizableDivs } from "./teacher-lesson-sortable.js"; // to allow divs to resize ( not used yet)
 
+// import { isEditing } from "./teacher.js";
+localStorage.setItem("isEditing", false);
+let isEditing = localStorage.getItem("isEditing");
+// console.log(isEditing);
+// localStorage.setItem("isEditing", isEditing);
+
 // in edit state, custom div will be modified
 edit_btn.onclick = () => {
   done_btn.classList.remove("hidden");
   edit_btn.classList.add("hidden");
 
   isEditing = true; // enable reloading alert
+  localStorage.setItem("isEditing", isEditing);
+
   if (isEditing) {
     sortable.option("disabled", false); // Enable sorting when not in editing mode 
     // makeResizableDivs(); // make div resizable
@@ -93,7 +101,7 @@ function modifiedElements() {
     div.classList.toggle("flex-1");
     div.classList.toggle("space-y-4");
   });
-  document.querySelectorAll(".editable a").forEach(div => {
+  document.querySelectorAll(".editable a").forEach(div => { // lesson content
     div.setAttribute("contenteditable", div.getAttribute("contenteditable") !== "true");
     div.classList.toggle("border");
     div.classList.toggle("focus-link");
@@ -244,11 +252,18 @@ function addNewLesson() {
 function removeEmptyDiv() {
   document.querySelectorAll(".card").forEach(card => {
     const atags = card.querySelectorAll("a.file-link");
-    atags.forEach(atag => {
-      if (atag.textContent.trim() === "") {
-        card.remove(); // remove empty a tag
-      }
-    });
+    const allEmpty = Array.from(atags).every(atag => atag.getAttribute("href").trim() === "" && atag.textContent.trim() === ""); // to check all are empty
+
+    if (allEmpty) {
+      card.remove();
+    } else {
+      atags.forEach(atag => {
+        if (atag.getAttribute("href").trim() === "" && atag.textContent.trim() === "") {
+          // console.log("Hello");
+          atag.remove();
+        }
+      });
+    }
   });
 }
 
@@ -278,7 +293,8 @@ function confirmAtag() {
 
 // to prevent reloading while in editing (browser will alert)
 window.addEventListener("beforeunload", (e) => {
-  if (isEditing) {
+  // console.log(isEditing);
+  if (isEditing === true) {
     e.preventDefault();
   }
 })
@@ -302,6 +318,8 @@ function user_confirm() {
 
     confirm_changes.onclick = () => {
       isEditing = false; // disable browser reloading alert
+      localStorage.setItem("isEditing", isEditing);
+
       if (!isEditing) {
         sortable.option("disabled", true); // Disable sorting when not in editing mode
       }
@@ -338,6 +356,20 @@ async function trySave() {
     console.log("User canceled save.");
     document.querySelector("body").classList.remove("overflow-hidden"); // reallows scrolling
   }
+}
+
+export function backTabReset() {
+    edit_btn.classList.remove("hidden");
+    done_btn.classList.add("hidden");
+    
+    document.querySelector("body").classList.remove("overflow-hidden"); // reallows scrolling
+
+    // toggle edit mode and normal mode to elements (here normal mode)
+    modifiedElements();
+
+    storeElements(); // store elements in local storage
+
+    removeEmptyDiv(); // remove empty card
 }
 
 function storeElements() {

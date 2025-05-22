@@ -1,6 +1,38 @@
 // ------> Teacher
 const user_id_type = document.getElementById("user_id").textContent.split("-")[0];
 
+// course section
+
+import { backTabReset } from "./teacher-lesson-sortable.js"; // to make edit mode none
+import { backToDashboard, loadSubject } from "./std_page_navbar.js";
+
+const courses_tab = document.getElementById("courses");
+const subjects = document.querySelectorAll(".subject");
+
+if (subjects && user_id_type === "TID") {
+  courses_tab.querySelector("button").onclick = (e) => {
+    // console.log(localStorage.getItem("isEditing") == true);
+    if (localStorage.getItem("isEditing") === "true") {
+      e.preventDefault();
+
+      const confirmLeave = confirm("You have unsaved changes. Are you sure you want to leave?");
+      if (!confirmLeave) return;
+
+      // Optional: clear editing flag if they confirmed
+      localStorage.setItem("isEditing", false);
+      backTabReset();
+    }
+    backToDashboard(courses_tab);
+  }
+  
+  subjects.forEach(sub => {
+    sub.addEventListener('click', ()=>{
+      // console.log("hello");
+      loadSubject(sub.querySelector("p").textContent);
+      window.scrollTo({top: 0,  behavior: 'smooth' });
+    });
+  });
+}
 
 // link section
 
@@ -129,7 +161,7 @@ if (user_id_type == "TID") {
 // Dummy data
 const classLabels = ["Class A", "Class B", "Class C"];
 const studentCounts = [20, 15, 30];
-const totalStudents = 40; //studentCounts.reduce((a, b) => a + b, 0);
+const totalStudents = parseInt(localStorage.getItem("each_class_totalStd" || 40)); //studentCounts.reduce((a, b) => a + b, 0);
 
 function updateChart() {
     document.querySelector(".switch-hide").classList.remove("hidden");
@@ -187,7 +219,7 @@ function updateChart() {
                     labels: {
                         generateLabels: function (chart) {
                             return chart.data.labels.map((label, i) => ({
-                                text: `${label} - ${studentCounts[i]} students (${((studentCounts[i] / totalStudents) * 100).toFixed(1)}%)`,
+                                text: `${label} - ${studentCounts[i]}/${totalStudents} students (${((studentCounts[i] / totalStudents) * 100).toFixed(1)}%)`,
                                 fillStyle: chart.data.datasets[0].backgroundColor[i],
                                 strokeStyle: chart.data.datasets[0].borderColor[i],
                                 lineWidth: chart.data.datasets[0].borderWidth
@@ -225,7 +257,7 @@ function updateChart() {
               duration: 1000, // Smooth transition
               easing: 'easeInOutQuart' // Custom easing effect
             }
-        }
+        },
     });
 }
 
@@ -233,7 +265,7 @@ document.getElementById("clear_chart").onclick = () => {
   
   document.getElementById("today_stats").textContent = "";
   if (!document.querySelector(".switch-hide").classList.contains("hidden")) {
-    console.log("hello");
+    // console.log("hello");
     document.querySelector(".switch-hide").classList.add("hidden");
   }
   chartInstance.destroy();
