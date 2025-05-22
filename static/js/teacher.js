@@ -125,7 +125,7 @@ function checkExistingLink() {
       // document.getElementById("genLink").href = url;
       // document.getElementById("expiresAt").textContent = expDate.toLocaleString();
       startCountdown(expDate.getTime());
-      console.log(generate_link.disabled);
+      // console.log(generate_link.disabled);
       generate_link.disabled = localStorage.getItem("generate_disabled");
 
       // document.getElementById("expiredTime").classList.remove("opacity-0");

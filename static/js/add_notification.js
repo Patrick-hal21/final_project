@@ -9,6 +9,7 @@ const user_types = ["SID", "TID", "CTID"];
 //   unread_notis[user] = localStorage.getItem(`noti_count_${user}`);
 // })
 
+const noti_types = {"message" : "📧", "event" : "🗓️", "system" : "🛠️"};
 
 ///// adding notifications // formatLocalISO(); // currrent time 
 function addNoti(data_id, title, body, time = new Date().toISOString(), read=false) {
@@ -32,7 +33,7 @@ function addNoti(data_id, title, body, time = new Date().toISOString(), read=fal
   // msg title of header
   const h2 = document.createElement("h2");
   h2.className = "truncate max-w-[70%]";
-  h2.textContent = title;
+  h2.textContent = noti_types['message'] + " " + title;
   // timestamp
   const tstmp = document.createElement("time");
   tstmp.className = "smart-time whitespace-nowrap";
