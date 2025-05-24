@@ -5,7 +5,8 @@
       "id" : "1",
       "header": "Class Announcement-1",
      "body": "This is to notify that students must change the passcode as soon as possible for security reason as we used randomly generated code.",
-     "time" : "2025-05-19T07:46:29.628Z"
+     "time" : "2025-05-19T07:46:29.628Z",
+     "type" : "important"
     },
 
     { 

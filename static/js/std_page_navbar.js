@@ -14,11 +14,21 @@ const fp = flatpickr(dateInput, {
 
 
 const humburgerBtn = document.getElementById("humburger-btn");
+const dropElement = document.getElementById("dropElement");
+
 humburgerBtn.onclick = function() {
-    const dropElement = document.getElementById("dropElement");
-    dropElement.classList.toggle('dropdown-hidden');
-    dropElement.classList.toggle('dropdown-visible');
+  dropElement.classList.toggle('dropdown-hidden');
+  dropElement.classList.toggle('dropdown-visible');
 }
+
+// to gide when its children is clicked
+dropElement.addEventListener("click", function (event) {
+  // Optional: check if click was not on the dropdown itself, but a child
+  if (event.target !== dropElement) {
+    dropElement.classList.add("dropdown-hidden");
+    dropElement.classList.remove("dropdown-visible");
+  }
+});
 
 let scrollY = window.scrollY;
 
@@ -99,13 +109,13 @@ const mark_read_p = mark_as_all_btn.nextElementSibling;
 
 // btn = btn or any other element to add hover event
 // text - p or text element to show on hovering 
-function show_text_on_hover(btn, text_e) {
+export function show_text_on_hover(btn, text_e) {
   let timeoutId;
   btn.addEventListener("mouseenter", () => {
     // Start 1.5s delay to show tooltip
     timeoutId = setTimeout(() => {
       text_e.classList.remove("hidden");
-    }, 1500);
+    }, 500);
   });
   
   btn.addEventListener("mouseleave", () => {
@@ -178,6 +188,10 @@ mark_as_all_btn.onclick= ()=>{
     // console.log(notifications);
   }
 };
+
+// add timetable
+const timetable_img = localStorage.getItem(`${user_id_type}_timetable`) || "./static/images/timetable_colored.png";
+document.getElementById("timetable").src = timetable_img;
 
 // ----> mixed student and teachers
 // user_types = ["SID", "TID", "CTID"]; // retrieve from the backend
@@ -252,20 +266,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
+// for teachers
 function checkMidScreen() {
+    const screenMid = window.innerHeight / 2;
+    const isMobile = window.innerWidth < 640;
+
     document.querySelectorAll("#class > div").forEach((div) => {
         const rect = div.getBoundingClientRect();
-        const screenMid = window.innerHeight / 2;
 
-        const isAtMidScreen = rect.top <= screenMid && rect.bottom >= screenMid;
+        // highlights all divs that are visible in screen
+        const isVisible = (
+            rect.top < window.innerHeight &&  // Div top is above viewport bottom
+            rect.bottom > 0                  // Div bottom is below viewport top
+        );
 
-        if (isAtMidScreen) {
+        // for divs that are more than 50% visible
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        const isMoreThanHalfVisible = visibleHeight > rect.height / 2;
+
+        const isAtMidScreen = (
+            rect.top <= screenMid &&
+            rect.bottom >= screenMid
+        );
+
+        const shouldHighlight = isMobile ? isMoreThanHalfVisible : isAtMidScreen;
+
+        if (shouldHighlight) {
             div.classList.remove("opacity-80", "scale-98", "md:pointer-events-none");
-            div.classList.add("opacity-100", "scale-100", "shadow-lg", "md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]", "pointer-events-auto");
+            div.classList.add("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto");
+
+            if (!isMobile) {
+                div.classList.add("md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]");
+            }
         } else {
+            // Only reset if it was previously highlighted
             if (!div.classList.contains("opacity-80")) {
-              div.classList.remove("opacity-100", "scale-100", "shadow-lg", "md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]", "pointer-events-auto");
-              div.classList.add("opacity-80", "scale-98", "md:pointer-events-none"); // Optional: Reset if not at mid
+                div.classList.remove("opacity-100", "scale-100", "shadow-lg", "pointer-events-auto", "md:shadow-[0_0_20px_10px_rgba(255,255,255,0.3)]");
+                div.classList.add("opacity-80", "scale-98", "md:pointer-events-none");
             }
         }
     });
@@ -529,8 +567,10 @@ const randomType = values[Math.floor(Math.random() * values.length)];
 // retrieve from database (to use in production)
 // const stdTypes = ;
 // sbject names
-const resSubjects = getSubjects(randomType); // may be Primary, Secondary, etc.
+export const resSubjects = getSubjects(randomType); // may be Primary, Secondary, etc.
 
+
+// leave form options
 
 Array.from(options.children).forEach(item => {
   item.addEventListener('click', () => {

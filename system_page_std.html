@@ -40,7 +40,7 @@
                     </a>
                 </div>
 
-                <div class="navbar-tab hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
+                <div class="navbar-tab hidden md:ml-1 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
                     <!-- hover-linegrowth- custom hover class in inpput.css, gray for current page -->
                     <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="dashboard">Dashboard</a>
                     <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="class">Class</a>
@@ -95,7 +95,7 @@
         </div>
 
         <!-- notification box dropdown -->
-        <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-lg rounded-b-[5px] transition-all duration-500 opacity-0 z-40 divide-y divide-gray-500/50 pointer-events-none">
+        <div id="noti_box" class="absolute flex flex-col mt-[2px] top-full noti-right notifi-box bg-white border border-t-0 border-gray-500/50 shadow-xl rounded-b-[5px] transition-all duration-500 opacity-0 z-40 divide-y divide-gray-500/50 pointer-events-none">
             <!-- notification header -->
              <div class="relative flex items-center text-start p-1.5 sm:p-2 border-b border-black">
 
@@ -128,7 +128,7 @@
     </header>
 
     <!-- body -->
-    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
+    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] xl:pt-[80px] relative mx-auto flex max-w-7xl lg:max-w-full min-h-screen px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
@@ -137,12 +137,16 @@
             <!-- timetable, join class, leave form -->
             <div class="flex flex-col flex-1 py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
-                <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
+                
+                <!--22/5/25 <div class="mx-auto min-w-[150px] w-full flex flex-1 md:w-xl lg:w-2xl xl:w-3xl h-full max-w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[180px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg"> -->
+                <div class="mx-auto min-w-[150px] w-full max-w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl min-h-[150px] max-h-[180px] sm:max-h-[200px] md:max-h-[250px] h-full bg-gray-200 rounded-sm md:rounded-lg flex flex-1">
                     <!-- Add timetable here -->
-                     <img class="w-full h-full" src="./static/images/time-table-sample.jpg" alt="timetable">
+                     <img id="timetable" class="w-full h-full object-contain" src="" alt="timetable">
                 </div>
                 
-                <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
+                <!--22/5/25 <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4"> -->
+                <div class="w-full flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4 justify-between sm:justify-center">  
+                    
                     <button id="join_class" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 -translate-x-10 transition-all duration-1000 active:scale-80 group">
                         <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/seat.png" alt="seat">
                         <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Join Class</span>
@@ -157,10 +161,12 @@
             </div>
 
             <!-- courses -->
-            <div class="flex max-w-7xl h-full px-4 py-5 sm:py-7 md:py-9 lg:py-12 mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden">
+            <div class="flex max-w-7xl h-full mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden">
                 <div class="flex flex-col flex-1 w-full rounded-lg justify-center">
                     <!-- Add join class here -->
-                     <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
+                     <div class="sm:mx-4 md:mx-12 mt-7 sm:mt-9 md:mt-12">
+                        <h2 class="md:ml-3 lg:ml-4 xl:ml-7 md:text-xl lg:text-2xl font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
+                     </div>
 
                      <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-y-6 md:gap-y-10 justify-items-center slide-in-element">
                     <!-- <div class="subject flex flex-col w-[80%] sm:w-[67%] aspect-[1/1.4] border border-gray-500/50 rounded-sm lg:rounded-md bg-white overflow-hidden hover:border-white group neon-card">

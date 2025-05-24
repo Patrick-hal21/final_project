@@ -41,7 +41,7 @@
                     </a>
                 </div>
 
-                <div class="navbar-tab hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
+                <div class="navbar-tab hidden md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
                     <!-- hover-linegrowth- custom hover class in inpput.css, gray for current page -->
                     <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="dashboard">Dashboard</a>
                     <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="class">Class</a>
@@ -131,7 +131,7 @@
     
 
     <!-- body (removed min-h-screen )--> 
-    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] relative mx-auto flex max-w-7xl lg:max-w-full px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
+    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] xl:pt-[80px] relative mx-auto flex max-w-7xl lg:max-w-full px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
@@ -141,12 +141,14 @@
             <div class="flex flex-col flex-1 py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
                  <!-- idela screen-size => 768px (width) x 250px (height) -->
-                <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
+                <!-- <div class="mx-auto min-w-[150px] w-full flex flex-1 md:w-xl lg:w-2xl xl:w-3xl h-full max-w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[180px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg"> -->
+                <div class="mx-auto min-w-[150px] w-full max-w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl min-h-[150px] max-h-[180px] sm:max-h-[200px] md:max-h-[250px] h-full bg-gray-200 rounded-sm md:rounded-lg flex flex-1">    
                     <!-- Add timetable here -->
-                     <img class="w-full h-full" src="./static/images/time-table-sample.jpg" alt="timetable">
+                     <img id="timetable" class="w-full h-full object-contain" src="" alt="timetable">
                 </div>
                 
-                <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
+                <!-- <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4"> -->
+                <div class="w-full flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4 justify-between sm:justify-center">
                     <button id="join_class" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 -translate-x-10 transition-all duration-1000 active:scale-80 group">
                         <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/teacher.png" alt="seat">
                         <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Start Class</span>
@@ -161,10 +163,13 @@
             </div>
 
             <!-- courses -->
-            <div class="flex max-w-7xl h-full px-4 py-5 sm:py-7 md:py-9 lg:py-12 mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden">
+            <div class="flex max-w-7xl h-full sm:py-7 md:py-9 lg:py-12 mb-5 sm:mb-10 md:mb-12 lg:mx-12 justify-center items-start overflow-hidden">
                 <div class="flex flex-col flex-1 w-full rounded-lg justify-center">
                     <!-- Add join class here -->
-                     <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
+                     <!-- <h2 class="md:text-xl lg:text-2xl mx-2 sm:mx-0 font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2> -->
+                      <div class="sm:mx-4 mt-7 sm:mt-9 md:mt-12">
+                        <h2 class="md:text-xl lg:text-2xl font-semibold underline decoration-2 underline-offset-5 lg:underline-offset-6">My Courses</h2>
+                     </div>
 
                      <div id="slideInElement" class="mx-0.5 sm:mx-4 mt-7 sm:mt-9 md:mt-12 grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center slide-in-element">
                         <!-- retreive respective course from database  -->
@@ -183,7 +188,7 @@
         </div>
 
         <!-- Class tab -->
-        <div id="class" class="flex flex-col flex-1 hidden md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 md:mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10">
+        <div id="class" class="flex flex-col flex-1 hidden md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 mb-8 md:mt-6 md:mb-10 rounded-sm space-y-5 md:space-y-10">
             <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
             <!-- link generate div -->
             <div class="relative flex flex-col bg-white p-3 md:p-6 rounded-sm shadow-lg view-transform md:space-y-3 overflow-hidden ">
@@ -215,7 +220,11 @@
                     <div class="flex w-full sm:w-[80%] lg:w-[70%] xl:w-[60%] justify-between">
                         <button type="button" id="generate_link" class="normal-btn disabled:bg-[#CFC5C5] disabled:text-black disabled:cursor-not-allowed">Generate Link</button>
                         <button type="button" id="copy_link" class="normal-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="mr-2 size-4" fill="white"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white" class="mr-2 size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                            </svg>
+
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="mr-2 size-4" fill="white">!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.<path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg> -->
                             Copy
                         </button>
                     </div>

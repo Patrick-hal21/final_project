@@ -1,43 +1,181 @@
 const user_id_type = document.getElementById("user_id").textContent.split("-")[0];
 
-document.getElementById("stdBox").addEventListener("click", function() {
-    document.getElementById("stdTimetable").click();
+// Set up the focusin listener once
+// document.getElementById("stdBox").addEventListener("focusin", () => {
+//   const rect = document.querySelector(".upload-box svg rect");
+//   if (rect) {
+//     rect.classList.remove("stroke-gray-300");
+//     rect.classList.add("stroke-blue-500");
+//   }
+// });
 
-    // to change dash border color
-    document.querySelector(".upload-box svg rect").classList.remove("stroke-gray-300");
-    document.querySelector(".upload-box svg rect").classList.add("stroke-blue-500");
+const stdBox = document.getElementById("stdBox");
+const stdInput = document.getElementById("stdTimetable");
+const stdRect = document.querySelector(".std svg rect");
 
-    // if (document.getElementById("stdBox").contains(document.getElementById("stdBox").querySelector("img"))) {
-    //     document.querySelector(".upload-box svg rect").classList.remove("stroke-blue-500");
-    // }
-    
-});
+const trBox = document.getElementById("trBox");
+const trInput = document.getElementById("trTimetable");
+const trRect = document.querySelector(".tr svg rect");
+
+stdBox.querySelector("img").src = localStorage.getItem("SID_timetable") || "./static/images/timetable_colored.png";
+// trBox.querySelector("img").src = localStorage.getItem("TID_timetable") || "./static/images/timetable_colored.png";
+
+function focusInput (box, input, rect) {
+  box.addEventListener("mousedown", function() {
+    input.click();
+
+    //   // to change dash border color
+    rect.classList.remove("stroke-gray-300");
+    rect.classList.add("stroke-blue-500");
+  });
+
+  box.addEventListener("mouseout" , () => {
+    rect.classList.remove("stroke-blue-500");
+    rect.classList.add("stroke-gray-300");
+  })
+}
+
+
+focusInput(stdBox, stdInput, stdRect);
+focusInput(trBox, trInput, trRect);
 
 document.getElementById("trBox").addEventListener("click", function() {
     document.getElementById("trTimetable").click();
 });
 
-function updateTImetable (input, box) {
+// image remove btn
+const remove_stdImage = document.querySelector(".std-remove");
+const remove_trImage = document.querySelector(".tr-remove");
+
+// tooltip
+const std_img_tooltip = document.querySelector(".std-tooltip");
+const tr_img_tooltip = document.querySelector(".tr-tooltip");
+
+import { resSubjects, show_text_on_hover } from "./std_page_navbar.js"; // tooltip
+
+let timetables = {};
+
+function updateTImetable (input, box, rm_btn) {
     document.getElementById(input).addEventListener("change", function(event) {
         const file = event.target.files[0];
         if (file) {
-            const img = document.createElement("img");
-            img.src = URL.createObjectURL(file);
-            img.onload = () => URL.revokeObjectURL(img.src); // Free memory
-            document.getElementById(box).innerHTML = "";
-            img.classList.add("w-full", "h-full");
-            document.getElementById(box).appendChild(img);
+            // const img = document.createElement("img");
+            // img.src = URL.createObjectURL(file);
+            // img.onload = () => URL.revokeObjectURL(img.src); // Free memory
+            // document.getElementById(box).innerHTML = "";
+            // img.classList.add("w-full", "h-full");
+            // document.getElementById(box).appendChild(img);
+
+            //for backend
+            // const formData = new FormData();
+            // formData.append("image", file); // "image" is the key the backend expects
+
+            // to test 
+            const reader = new FileReader();
+            reader.onload = () => {
+              if (box === "stdBox") {
+                timetables['SID_timetable'] = reader.result;
+              } else {
+                timetables['TID_timetable'] = reader.result;
+              }
+              
+              // Store base64 string in localStorage
+              // localStorage.setItem("timetable_img", reader.result); // base64
+
+              // Set image src to preview
+              const img = document.createElement("img");
+              img.src = reader.result;
+              document.getElementById(box).innerHTML = "";
+              img.classList.add("w-full", "h-full");
+              document.getElementById(box).appendChild(img);
+            };
+            reader.readAsDataURL(file);
+
+            document.getElementById(box).classList.add("border"); // add border to div
+
+            // some codes here to send image to backend
+            // here
+
+            rm_btn.classList.remove("hidden");
+            rm_btn.classList.add("opacity-50");
+
+            clearImage(document.getElementById(box), rm_btn);
         }
     });
 }
-updateTImetable("trTimetable", "trBox");
-updateTImetable("stdTimetable", "stdBox");
+
+show_text_on_hover(remove_stdImage, std_img_tooltip);
+show_text_on_hover(remove_trImage, tr_img_tooltip);
+
+updateTImetable("trTimetable", "trBox", remove_trImage);
+updateTImetable("stdTimetable", "stdBox", remove_stdImage);
+
+// clear image
+function clearImage(box, btn) {
+  btn.addEventListener('click', () => {
+    // console.log("hello");
+    const img = box.querySelector("img");
+    // console.log(img);
+    if (img) {
+      img.remove();
+
+      box.classList.remove("border"); // remove border if there is no img
+      btn.classList.remove("opacity-50");
+      btn.classList.add("hidden");
+
+      // reinsert original image placeholder
+      addImageHolder(box, box.id === "stdBox"); // idea from chatGPT :)
+    }
+  });
+}
+
+function addImageHolder(box, std = true) {
+  const temp = document.getElementById("add-img-holder");
+  const clone = temp.content.cloneNode(true); //deep clone the content of template
+
+  const span = clone.querySelector("span");
+  if (span) {
+    span.textContent = std ? "Student's Timetable" : "Teacher's Timetable";
+  } 
+
+  box.appendChild(clone);
+}
+
+const edit_img_btn = document.querySelector(".edit-img");
+
+edit_img_btn.addEventListener("click", () => {
+  edit_img_btn.querySelector(".edit").classList.toggle("hidden");
+  edit_img_btn.querySelector(".done").classList.toggle("hidden");
+
+  edit_img_btn.querySelector("span").textContent = edit_img_btn.querySelector("span").textContent === "Edit" ? "Done" : "Edit";
+
+  // toggle pointer-events-none
+  document.querySelector(".std").classList.toggle("pointer-events-none");
+  document.querySelector(".tr").classList.toggle("pointer-events-none");
+
+  if (edit_img_btn.querySelector("span").textContent === "Edit") { // because when user click Done, text is changed to Edit
+    // saveImg();
+  }
+})
+
+function saveImg() {
+  if (Object.keys(timetables).length !== 0) {
+    for (const [key, value] of Object.entries(timetables)) {
+      localStorage.setItem(key, value);
+    }
+  } else {
+    console.log("dict is empty!");
+  }
+}
+// clearImage(stdBox, remove_stdImage);
+// clearImage(trBox, remove_trImage);
+
 
 
 //zoom link management
 const zoom_link_holder = document.getElementById("zoom_link_holder");
 // set value when loading
-zoom_link_holder.value = localStorage.getItem("zoom-link");
+zoom_link_holder.value = localStorage.getItem("zoom-link") || "https://zoom.us/j/93256450585?pwd=ORP7IIsUXQqxlLdKjyhuR56JQKFftr.1";
 
 const edit_zoom = document.querySelector(".edit-zoom");
 // edit zoom link
@@ -87,6 +225,7 @@ function isValidURL(text) {
 function insertionComplete(success = true) {
   const insert_noti = document.querySelector(".inserted");
   const msg = insert_noti.querySelector("p");
+  msg.classList.add("text-white");
 
   if (success) {
     msg.textContent = "New Link inserted!";
@@ -109,54 +248,183 @@ function insertionComplete(success = true) {
 
 // Charts
 
+// console.log(resSubjects);  // to generate random subjects ( that const is imported from std_page)
+
 let chartInstance;
 // updateChart();
 // chart creation for TID is in class_teacher.js
 if (user_id_type == "CTID") {
-  document.querySelector(".create-chart").onclick = updateChart;
+  document.querySelector(".create-chart").onclick = () => {
+    updateChart(0);
+  }
 }
 
-function updateChart() {
-    document.querySelector(".switch-hide").classList.remove("hidden");
-    // add today date
-    const today = new Date();
+// to add today date
+function getShiftedDate(offset = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + offset);
 
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(today.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
-    const formattedDate = `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`;
+}
 
-    document.getElementById("today_stats").textContent = `Today (${formattedDate})`;
+let n = 0;
+document.querySelector(".to-prev").addEventListener("click", () => {
+  if (n-1 > -8) { // alows a week
+    n--;
+    updateChart(n);
+  }
+});
+
+document.querySelector(".to-next").addEventListener("click", () => {
+  if (n+1 < 8) { // alows a week
+    n++;
+    updateChart(n);
+  }
+});
+
+const totalStudents = 40;
+
+// for pie charts
+let pieCharts = [];
+const pie_chart_holder = document.getElementById("single-charts");
+
+function updateChart(n) {
+    if (document.querySelector(".switch-hide").classList.contains("hidden")) {
+      document.querySelector(".switch-hide").classList.remove("hidden");
+    }
+
+    document.getElementById("today_stats").textContent = n === 0 ? `Today (${getShiftedDate(n)})` : `(${getShiftedDate(n)})`;
     // create chart
     const ctx = document.getElementById("stdChart").getContext("2d");
+    document.getElementById("stdChart").classList.add("bg-gray-200");
+
+    // data labels
+    const labels = resSubjects;
 
     // Destroy previous chart if it exists
     if (chartInstance) {
       chartInstance.destroy();
     }
 
-    chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Math', 'Science', 'English', 'History', 'Geography', 'Art'],
-            datasets: [
-            { label: 'Class A', data: [30, 25, 28, 22, 20, 18], backgroundColor: 'rgba(255, 99, 132, 0.7)', hoverBackgroundColor: 'rgba(255, 99, 132, 0.9)' },
-            { label: 'Class B', data: [25, 30, 27, 24, 22, 20], backgroundColor: 'rgba(54, 162, 235, 0.7)', hoverBackgroundColor: 'rgba(54, 162, 235, 0.9)' },
-            { label: 'Class C', data: [20, 22, 25, 30, 28, 26], backgroundColor: 'rgba(255, 206, 86, 0.7)', hoverBackgroundColor: 'rgba(255, 206, 86, 0.9)' }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            
-            scales: { y: { beginAtZero: true } },
-            animation: {
-              duration: 1000, // Smooth transition
-              easing: 'easeInOutQuart' // Custom easing effect
-            }
+    chartInstance = createBarChart(ctx, labels);
+
+
+    // if (pieCharts) {
+    //   pieCharts.forEach(chart => chart.destroy());
+    //   pieCharts = [];
+    // }
+
+    // resSubjects.forEach(sub => {
+    //   const canvas = createCanvas();
+    //   pie_chart_holder.appendChild(canvas);
+
+    //   const chart = createPieChart(canvas.getContext("2d"), sub);
+    //   pieCharts.push(chart);
+    // });
+}
+
+function createCanvas() {
+  const canvas = document.createElement("canvas");
+  canvas.className = "w-full h-full p-2";
+
+  return canvas;
+}
+
+function createBarChart(ctx, labels) {
+   return new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Class A',
+              data: [30, 25, 28, 22, 20, 18], // retrieve from backend
+              backgroundColor: 'rgba(255, 99, 132, 0.7)',
+              hoverBackgroundColor: 'rgba(255, 99, 132, 0.9)' 
+          },
+          { label: 'Class B',
+            data: [25, 30, 27, 24, 22, 20], 
+            backgroundColor: 'rgba(54, 162, 235, 0.7)', 
+            hoverBackgroundColor: 'rgba(54, 162, 235, 0.9)' 
+          },
+          { label: 'Class C', 
+            data: [20, 22, 25, 30, 28, 26], 
+            backgroundColor: 'rgba(255, 206, 86, 0.7)', 
+            hoverBackgroundColor: 'rgba(255, 206, 86, 1)' 
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        
+        scales: { 
+          y: {
+                max: totalStudents,
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Number of Students'
+                }
+              },
+          x: {
+              title: {
+                  display: true,
+                  text: 'Subjects'
+              }
+          }
+      },
+        animation: {
+          duration: 1000, // Smooth transition
+          easing: 'easeInOutQuart' // Custom easing effect
         }
-    });
+      }
+  });
+}
+
+
+// create pie chart
+function createPieChart(ctx, subject) {
+  return new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ["Present", "Absence"],
+      datasets: [{
+        label: '',
+        data: [30, 20], // presence and absence
+        backgroundColor: ['#FF6384', '#36A2EB'],
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        },
+        datalabels: {
+          color: '#fff',
+          font: {
+            weight: 'bold'
+          },
+          formatter: (value, ctx) => {
+            const total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `${percentage}%`;
+          }
+        },
+        // Optional: Title plugin if you want to display subject as chart title
+        title: {
+          display: true,
+          text: subject
+        }
+      }
+    },
+    plugins: [ChartDataLabels] // Register the plugin here
+  });
 }
 
 document.getElementById("clear_chart").onclick = () => {
@@ -166,5 +434,70 @@ document.getElementById("clear_chart").onclick = () => {
     // console.log("hello");
     document.querySelector(".switch-hide").classList.add("hidden");
   }
+  document.getElementById("stdChart").classList.remove("bg-gray-200");
   chartInstance.destroy();
 } 
+
+let report_file = "./files/dummy_attendance.csv";
+document.querySelector(".view-report").onclick = () => {
+  
+  viewReports(report_file, std=true);
+
+}
+
+// view reports (csv file)
+
+function viewReports(file, std=false) {
+  fetch(file) // Use relative path if local
+  .then(response => response.text())
+  .then(text => {
+    const rows = text.trim().split('\n').map(row => row.split(','));
+
+    const table = document.getElementById('csvTable');
+    table.innerHTML = '';
+
+    rows.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      row.forEach((cell, index) => {
+        const lastCell = row.length - 1 === index;
+
+        const td = document.createElement(i === 0 ? 'th' : 'td');
+        td.textContent = cell.trim();
+        if (i === 0) {
+          // Header cell
+          td.className = 'sticky top-0 bg-gray-200 z-10 border px-2 py-1';
+        } else {
+          // Body cell
+           td.className = 'border border-black px-2 py-1';
+          if (lastCell) {
+            if (td.textContent === "Present") {
+              td.classList.add('text-green-600');
+            } else if (td.textContent === "Absence" || parseFloat(td.textContent) < 50) {
+              td.classList.add('text-red-600');
+            }
+          }
+        }
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+  })
+  .catch(err => console.error('Error loading CSV:', err));
+}
+
+// to check only one box
+document.querySelectorAll('input.user-type').forEach(checkbox => {
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      // Uncheck all others
+      if (this.value === "student") {
+        report_file = "./files/dummy_attendance.csv"
+      } else {
+        report_file = "./files/teacher_attendance.csv"
+      }
+      document.querySelectorAll('.user-type').forEach(cb => {
+        if (cb !== this) cb.checked = false;
+      });
+    }
+  });
+});

@@ -154,16 +154,48 @@ let chartInstance;
 // updateChart();
 // chart creation for TID is in class_teacher.js
 if (user_id_type == "TID") {
-  document.querySelector(".create-chart").onclick = updateChart;
-}
+  document.querySelector(".create-chart").onclick = () => {
+    updateChart(0);
+  }
+} 
 
 
 // Dummy data
 const classLabels = ["Class A", "Class B", "Class C"];
 const studentCounts = [20, 15, 30];
-const totalStudents = parseInt(localStorage.getItem("each_class_totalStd" || 40)); //studentCounts.reduce((a, b) => a + b, 0);
+const totalStudents = parseInt(localStorage.getItem("each_class_totalStd") || 40); //studentCounts.reduce((a, b) => a + b, 0);
 
-function updateChart() {
+
+// to add today date
+function getShiftedDate(offset = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + offset);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+let n = 0;
+document.querySelector(".to-prev").addEventListener("click", () => {
+  if (n-1 > -8) { // alows a week
+    n--;
+    updateChart(n);
+  }
+});
+
+document.querySelector(".to-next").addEventListener("click", () => {
+  if (n+1 < 8) { // alows a week
+    n++;
+    updateChart(n);
+  }
+});
+
+
+
+function updateChart(n) {
     document.querySelector(".switch-hide").classList.remove("hidden");
     // add today date
     const today = new Date();
@@ -174,9 +206,10 @@ function updateChart() {
 
     const formattedDate = `${year}-${month}-${day}`;
 
-    document.getElementById("today_stats").textContent = `Today (${formattedDate})`;
+    document.getElementById("today_stats").textContent = n === 0 ? `Today (${getShiftedDate(n)})` : `(${getShiftedDate(n)})`;
     // create chart
     const ctx = document.getElementById("stdChart").getContext("2d");
+    document.getElementById("stdChart").classList.add("bg-gray-200");
 
     // Destroy previous chart if it exists
     if (chartInstance) {
@@ -268,6 +301,7 @@ document.getElementById("clear_chart").onclick = () => {
     // console.log("hello");
     document.querySelector(".switch-hide").classList.add("hidden");
   }
+  document.getElementById("stdChart").classList.remove("bg-gray-200");
   chartInstance.destroy();
 } 
 

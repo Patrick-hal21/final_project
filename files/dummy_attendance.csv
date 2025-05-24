@@ -1,4 +1,4 @@
-Class, Total_Std, Tdy_att, Atted_perc
+Class, Total_Students, Today_attandance, Atted_percentage
 A, 40, 20, 50.0
 B, 40, 15, 37.5
 C, 40, 30, 75.0

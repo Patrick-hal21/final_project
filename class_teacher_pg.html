@@ -41,7 +41,7 @@
                     </a>
                 </div>
 
-                <div class="navbar-tab hidden md:ml-6 md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
+                <div class="navbar-tab hidden md:flex md:flex-1 justify-center items-center sm:justify-start divide-x divide-gray-500/50">
                     <!-- hover-linegrowth- custom hover class in inpput.css, gray for current page -->
                     <a href="#dashboard" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="dashboard">Dashboard</a>
                     <a href="#class" class="text-lg px-3 active:text-[#041E9E] hover-linegrowth" data-tab="class">Class</a>
@@ -129,22 +129,24 @@
 
 
     <!-- body (removed min-h-screen)-->
-    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] relative mx-auto flex max-w-7xl lg:max-w-full px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
+    <div class="pt-[68px] sm:pt-[85px] lg:pt-[68px] xl:pt-[80px] relative mx-auto flex max-w-7xl lg:max-w-full px-4 sm:px-12 pb-6 md:pb-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce] justify-center overflow-hidden">
         <!-- profile dropdown(the one that doesn't overflow dropdown menu) -->
         <!-- <div class="absolute top-0 right-0 profile-box bg-white transition-all duration-300 opacity-100 z-10"></div> -->
 
         <!-- Dashboard -->
-        <div id="dashboard" class="flex flex-col flex-1 divide-y-2 divide-gray-500/50 hidden items-center">
+        <div id="dashboard" class="flex flex-col flex-1 w-full divide-y-2 divide-gray-500/50 hidden items-center">
             <!-- timetable, join class, leave form -->
-            <div class="flex flex-col py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
+            <div class="flex flex-col flex-1 w-full py-7 md:py-9 lg:py-12 lg:px-12 lg:my-5 lg:mx-12 justify-center items-center">
                 <!-- w-[90%] md:w-xl lg:w-2xl xl:w-3xl , i think I shhould toggle overflow-hidden, w-full, h-full in JS not to display "letterboxing"-->
                  <!-- idela screen-size => 768px (width) x 250px (height) -->
-                <div class="mx-auto flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg">
-                    <!-- Add timetable here (object-cover or object-contain)-->
-                     <img class="w-full h-full" src="./static/images/time-table-sample.jpg" alt="timetable">
+                <!-- <div class="mx-auto w-full flex flex-1 w-[80%] md:w-xl lg:w-2xl xl:w-3xl h-full max-w-[90%] md:max-w-xl lg:max-w-2xl xl:max-w-3xl max-h-[130px] sm:max-h-[200px] md:max-h-[250px] bg-gray-200 rounded-sm md:rounded-lg"> -->
+                <div class="mx-auto min-w-[150px] w-full max-w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl min-h-[150px] max-h-[180px] sm:max-h-[200px] md:max-h-[250px] h-full bg-gray-200 rounded-sm md:rounded-lg flex flex-1">    
+                    <!-- Add timetable here -->
+                     <img id="timetable" class="w-auto h-full object-contain" src="" alt="timetable">
                 </div>
                 
-                <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4">
+                <!-- <div class="mx-6 flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4"> -->
+                <div class="w-full flex sm:space-x-10 md:space-x-25 lg:pb-5 lg:mt-4 justify-between sm:justify-center">
                     <button id="join_class" type="button" class="cursor-pointer flex justify-center space-x-3 w-30 sm:w-35 md:w-60 mt-6 sm:mt-7 lg:mt-10 px-2 py-1 sm:px-4 sm:py-2 bg-white md:font-semibold rounded-sm sm:rounded-md neon-white opacity-0 -translate-x-10 transition-all duration-1000 active:scale-80 group">
                         <img class="w-7 h-7 object-contain hidden md:flex scale-135" src="./static/images/teacher.png" alt="seat">
                         <span class="mt-[1px] text-[14px] md:text-base group-active:text-[#041E9E]">Start Class</span>
@@ -164,27 +166,40 @@
         <!-- courses -->
 
         <!-- Class tab -->
-        <div id="class" class="flex flex-col flex-1 hidden bg-gray-90 md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 md:mt-6 -mb-6 rounded-sm space-y-5 md:space-y-10 ">
+        <div id="class" class="flex flex-col flex-1 hidden bg-gray-90 md:mx-6 lg:mx-12 sm:p-3 md:p-6 pt-0 mt-3 mb-8 md:mt-6 md:mb-10 rounded-sm space-y-5 md:space-y-10 ">
             <h1 class="text-[18px] md:text-3xl font-semibold">Class Management</h1>
 
             <!-- add timetable -->
             <div class="flex flex-col bg-white p-3 md:p-6 md:pb-8 rounded-sm justify-center md:px-10 view-transform">
-                <div class="flex justify-center mb-4">
+                <div class="relative flex justify-center mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Manage Timetables</h1>
+
+                    <button type="button" class="absolute top-0 right-0 sm:-top-1 md:-top-2 lg:-top-2.5 edit-img normal-btn">
+                        <!-- Edit -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="edit size-5 md:size-6">
+                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                            <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                        </svg>
+                        <!-- DOne -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke-width="0" class="done size-5 md:size-6 hidden">
+                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                        </svg>
+                        
+                        <span class="hidden sm:flex">Edit</span>
+                    </button>
                 </div>
+
                 <!-- idela screen-size => 768px (width) x 250px (height)  -->
                 <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 justify-betweem md:space-x-4">
-                    <div class="flex flex-1 justify-center">
-                        <!--
-                        <div id="stdBox" class="upload-box space-y-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 sm:size-7 md:size-8 opacity-50">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    <div class="relative flex flex-1 justify-center">
+                        <p class="std-remove absolute top-[1px] left-[1px] bg-gray-100 z-20 hover:opacity-100 active:scale-90 hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                             </svg>
-                            <span class="text-gray-500">Student's timetable</span>
-                        </div>
-                        <input type="file" id="stdTimetable" accept="image/*" class="hidden">
-                    </div> -->
-                        <div class="upload-box border-0 group relative">
+                        </p>
+                        <p class="std-tooltip absolute -top-6 md:-top-7 left-0 border border-gray-600 bg-white p-[2px] text-[9px] md:text-[12px] hidden">Remove image</p> <!-- select-none -->
+
+                        <div class="std upload-box border-0 group relative overflow-hidden pointer-events-none">
                             <svg class="w-full h-full absolute top-0 left-0">
                                 <rect width="100%" height="100%" stroke="" stroke-width="3"
                                     stroke-dasharray="7,5" fill="transparent" class="stroke-gray-300">
@@ -196,6 +211,44 @@
                             </svg>
 
                             <div id="stdBox" class="flex flex-col flex-1 items-center justify-center w-full h-full space-y-4 z-10">
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="size-6 sm:size-7 md:size-8 opacity-50">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 
+                                        1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 
+                                        3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75
+                                        A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5
+                                        -11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1
+                                        -.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                <span class="text-gray-500">Student's Timetable</span> -->
+                                <img src="" class="w-full h-full border" alt="timetable">
+                            </div>
+                        </div>
+                        <input type="file" id="stdTimetable" accept="image/*" class="hidden">
+                    </div>
+                    
+                    <div class="relative flex flex-1 justify-center">
+                        <p class="tr-remove absolute top-[1px] left-[1px] bg-gray-100 z-30 hover:opacity-100 active:scale-90 hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                        </p>
+                        <p class="tr-tooltip absolute -top-6 md:-top-7 left-0 border border-gray-600 bg-white p-[2px] text-[9px] md:text-[12px] hidden">Remove image</p>
+
+                        <div class="tr upload-box border-0 group relative overflow-hidden pointer-events-none">
+                            <svg class="w-full h-full absolute top-0 left-0">
+                                <rect width="100%" height="100%" stroke="" stroke-width="3"
+                                    stroke-dasharray="7,5" fill="transparent" class="stroke-gray-300">
+                                <animate attributeName="stroke-dashoffset"
+                                        from="100" to="0" dur="8s"
+                                        begin="trBox.mouseover" end="trBox.mouseout"
+                                        repeatCount="indefinite" />
+                                </rect>
+                            </svg>
+
+                            <div id="trBox" class="flex flex-col flex-1 items-center justify-center w-full h-full space-y-4 z-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                     class="size-6 sm:size-7 md:size-8 opacity-50">
@@ -207,20 +260,10 @@
                                         -11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1
                                         -.75 0 .375.375 0 0 1 .75 0Z" />
                                 </svg>
-                                <span class="text-gray-500">Student's timetable</span>
+                                <span class="text-gray-500">Teacher's Timetable</span>
                             </div>
                         </div>
-                        <input type="file" id="stdTimetable" accept="image/*" class="hidden">
-                    </div>
-                    
-                    <div class="flex flex-1 justify-center">
-                        <div id="trBox" class="upload-box space-y-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 sm:size-7 md:size-8 opacity-50">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                            </svg>
-                            <span class="text-gray-500">Teacher's timetable</span>
-                        </div>
-                        <input type="file" id="trTimetable" accept="image/*" class="hidden">    
+                        <input type="file" id="trTimetable" accept="image/*" class="hidden">
                     </div>
                 </div>
                 <!-- <svg class="w-full h-full">
@@ -230,6 +273,22 @@
                 </svg> -->
                 <p class="w-full text-center text-[14px] md:text-base mt-3 -mb-3 text-gray-500">==> Ideal image size -> 768px (width) x 250px (height) <==</p>
             </div>
+
+            <!-- add image template -->
+            <template id="add-img-holder">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    class="size-6 sm:size-7 md:size-8 opacity-50">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 
+                        1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 
+                        3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75
+                        A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5
+                        -11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1
+                        -.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <span class="text-gray-500"></span>
+            </template>
 
             <!-- Zoom link management -->
             <div class="relative flex flex-col w-full  bg-white p-3 md:p-6 rounded-sm view-transform md:space-y-3 overflow-hidden"> <!-- currently shadow-lg is also added first(though it toggles in view-transform)-->
@@ -245,7 +304,7 @@
                     
                 </div> -->
                 <div class="flex w-full py-5 overflow-hidden">
-                    <div class="flex flex-col w-full mx-12">
+                    <div class="flex flex-col w-full md:mx-12">
                         <!-- <p class="flex">Class-A</p> for many classes -->
                         <div class="flex w-full space-x-5 justify-between">
                             <input type="url" id="zoom_link_holder" class="flex flex-2 bg-black border rounded-sm w-full sm:w-[80%] lg:w-[80%] xl:w-[70%] h-8 sm:h-11 text-gray-200 font-mono px-3 focus:outline-none" readonly>
@@ -271,17 +330,29 @@
 
             <!-- reports -->
             <div class="flex flex-col bg-white p-3 md:p-6 rounded-sm justify-center md:px-10 view-transform">
-                <div class="flex justify-center mb-4">
+                <div class="flex justify-between mb-4">
                     <h1 class="text-[16px] sm:text-[20px] md:text-xl font-semibold">Attendance Reports</h1>
-                </div>
-                <div class="flex space-x-12 mb-5 justify-center">
-                    <button type="button" class="normal-btn">Generate Report</button>
-                    <button type="button" class="normal-btn">Send Report</button>
+                    <button type="button" class="view-report normal-btn">View reports</button>
                 </div>
                 <!-- to preview CSV file -->
-                <div class="flex w-full max-h-[200px] overflow-auto">
-                    <table id="csvTable" class="border-1"></table>
+                <div class="flex flex-col sm:flex-row w-full bg-gray-300 ">
+                    <div class="w-full sm:w-[80%] max-h-[400px] overflow-auto">
+                        <table id="csvTable" class="w-full table-auto border-collapse border border-gray-400 text-sm">
+                        <!-- Your rows go here -->
+                        </table>
+                    </div>
+                    <div class="w-full sm:w-[20%] max-h-full bg-gray-50 border border-l-0 border-gray-500/50 justify-center p-2 overflow-hidden">
+                            <div class="flex flex-1 md:flex-col md:space-y-3 lg:flex-row lg:space-y-0 lg:space-x-2">
+                                <div class="flex flex-1 items-center justify-center space-x-1">
+                                    <input type="checkbox" class="user-type std size-5" value="student" checked><span for="student" class="items-center">Students</span>
+                                </div>
+                                <div class="flex flex-1 items-center justify-center space-x-1">
+                                    <input type="checkbox" class="user-type tr size-5" value="teacher"><span for="teacher" class="items-center">Teachers</span>
+                                </div>
+                            </div>
+                    </div>
                 </div>
+
             </div>
 
             <!-- graphs and charts -->
@@ -307,21 +378,27 @@
                 </div>
                 
                 <div class="flex flex-col">
-                    <p class="switch-hide flex hidden space-x-2">
-                        <span class="to-prev arrow-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
-                        <span id="today_stats" class="text-green-500"></span>
-                        <span class="to-next arrow-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
-                    </p> 
-                    <div class="flex w-full h-[300px] my-3">
-                        <canvas id="stdChart" class="flex-1 w-full h-full"></canvas>
+                    <div>
+                        <div class="switch-hide flex hidden space-x-2 text-center">
+                            <span class="to-prev arrow-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                            <span id="today_stats" class="text-green-500"></span>
+                            <span class="to-next arrow-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        </div> 
+                    </div>
+                    
+                    <div class="flex flex-col w-full h-[300px] my-3">
+                        <canvas id="stdChart" class="flex-1 w-full h-full p-2"></canvas>
+                        <div id="single-charts" class="grid grid-cols-2 md:grid-cols-3">
+                            <canvas id="pieChart" class="w-full h-full p-2"></canvas>
+                        </div>
                     </div>
                 </div>
                 
@@ -459,6 +536,7 @@
     </button>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script> -->
     
