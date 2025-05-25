@@ -55,7 +55,8 @@ import { resSubjects, show_text_on_hover } from "./std_page_navbar.js"; // toolt
 
 let timetables = {};
 
-function updateTImetable (input, box, rm_btn) {
+function updateTimetable (input, box, rm_btn) {
+    clearImage(document.getElementById(box), rm_btn);
     document.getElementById(input).addEventListener("change", function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -86,7 +87,7 @@ function updateTImetable (input, box, rm_btn) {
               const img = document.createElement("img");
               img.src = reader.result;
               document.getElementById(box).innerHTML = "";
-              img.classList.add("w-full", "h-full");
+              img.classList.add("w-full", "h-full", "object-contain");
               document.getElementById(box).appendChild(img);
             };
             reader.readAsDataURL(file);
@@ -95,11 +96,6 @@ function updateTImetable (input, box, rm_btn) {
 
             // some codes here to send image to backend
             // here
-
-            rm_btn.classList.remove("hidden");
-            rm_btn.classList.add("opacity-50");
-
-            clearImage(document.getElementById(box), rm_btn);
         }
     });
 }
@@ -107,8 +103,8 @@ function updateTImetable (input, box, rm_btn) {
 show_text_on_hover(remove_stdImage, std_img_tooltip);
 show_text_on_hover(remove_trImage, tr_img_tooltip);
 
-updateTImetable("trTimetable", "trBox", remove_trImage);
-updateTImetable("stdTimetable", "stdBox", remove_stdImage);
+updateTimetable("trTimetable", "trBox", remove_trImage);
+updateTimetable("stdTimetable", "stdBox", remove_stdImage);
 
 // clear image
 function clearImage(box, btn) {
@@ -120,8 +116,6 @@ function clearImage(box, btn) {
       img.remove();
 
       box.classList.remove("border"); // remove border if there is no img
-      btn.classList.remove("opacity-50");
-      btn.classList.add("hidden");
 
       // reinsert original image placeholder
       addImageHolder(box, box.id === "stdBox"); // idea from chatGPT :)
@@ -147,6 +141,12 @@ edit_img_btn.addEventListener("click", () => {
   edit_img_btn.querySelector(".edit").classList.toggle("hidden");
   edit_img_btn.querySelector(".done").classList.toggle("hidden");
 
+  remove_stdImage.classList.toggle("hidden");
+  remove_stdImage.classList.toggle("opacity-50");
+
+  remove_trImage.classList.toggle("hidden");
+  remove_trImage.classList.toggle("opacity-50");
+
   edit_img_btn.querySelector("span").textContent = edit_img_btn.querySelector("span").textContent === "Edit" ? "Done" : "Edit";
 
   // toggle pointer-events-none
@@ -154,11 +154,15 @@ edit_img_btn.addEventListener("click", () => {
   document.querySelector(".tr").classList.toggle("pointer-events-none");
 
   if (edit_img_btn.querySelector("span").textContent === "Edit") { // because when user click Done, text is changed to Edit
-    // saveImg();
+    saveImg();
+    
   }
 })
 
 function saveImg() {
+
+  // console.log(timetables);
+
   if (Object.keys(timetables).length !== 0) {
     for (const [key, value] of Object.entries(timetables)) {
       localStorage.setItem(key, value);
@@ -309,29 +313,33 @@ function updateChart(n) {
     if (chartInstance) {
       chartInstance.destroy();
     }
-
     chartInstance = createBarChart(ctx, labels);
 
 
-    // if (pieCharts) {
-    //   pieCharts.forEach(chart => chart.destroy());
-    //   pieCharts = [];
-    // }
+    if (pieCharts) {
+      pieCharts.forEach(chart => chart.destroy());
+      pieCharts = [];
+    }
 
-    // resSubjects.forEach(sub => {
-    //   const canvas = createCanvas();
-    //   pie_chart_holder.appendChild(canvas);
+    resSubjects.forEach(sub => {
+      const div = createCanvas();
+      pie_chart_holder.appendChild(div);
 
-    //   const chart = createPieChart(canvas.getContext("2d"), sub);
-    //   pieCharts.push(chart);
-    // });
+      const canvas = div.querySelector("canvas");
+      const chart = createPieChart(canvas.getContext("2d"), sub);
+      pieCharts.push(chart);
+    });
 }
 
 function createCanvas() {
-  const canvas = document.createElement("canvas");
-  canvas.className = "w-full h-full p-2";
+  const div = document.createElement('div');
+  div.className = 'pie-chart w-full h-full flex';
 
-  return canvas;
+  const canvas = document.createElement("canvas");
+  canvas.className = "flex-1 w-full h-full p-2 bg-gray-200 shadow-lg";
+
+  div.appendChild(canvas);
+  return div;
 }
 
 function createBarChart(ctx, labels) {
@@ -367,13 +375,21 @@ function createBarChart(ctx, labels) {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Number of Students'
+                    text: 'Number of Students',
+                    font: {
+                      size : 16,
+                      weight : 'bold'
+                    }
                 }
               },
           x: {
               title: {
                   display: true,
-                  text: 'Subjects'
+                  text: 'Subjects',
+                  font: {
+                      size : 16,
+                      weight : 'bold'
+                    }
               }
           }
       },
@@ -403,11 +419,12 @@ function createPieChart(ctx, subject) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'bottom'
+          position: 'right'
         },
         datalabels: {
           color: '#fff',
           font: {
+            size: 15,
             weight: 'bold'
           },
           formatter: (value, ctx) => {
@@ -419,7 +436,10 @@ function createPieChart(ctx, subject) {
         // Optional: Title plugin if you want to display subject as chart title
         title: {
           display: true,
-          text: subject
+          text: subject,
+          font : {
+            size: 16
+          }
         }
       }
     },
@@ -436,12 +456,18 @@ document.getElementById("clear_chart").onclick = () => {
   }
   document.getElementById("stdChart").classList.remove("bg-gray-200");
   chartInstance.destroy();
+
+  pieCharts.forEach(chart => chart.destroy()); // clear charts
+  document.getElementById("single-charts").innerHTML=''; // clear div
+
+  // destroy pie charts
 } 
 
 let report_file = "./files/dummy_attendance.csv";
 document.querySelector(".view-report").onclick = () => {
   
-  viewReports(report_file, std=true);
+  viewReports(report_file, true);
+  localStorage.setItem("view_report", true);
 
 }
 
@@ -485,19 +511,33 @@ function viewReports(file, std=false) {
   .catch(err => console.error('Error loading CSV:', err));
 }
 
+document.getElementById("clear_report").onclick = () => {
+  document.getElementById("csvTable").innerHTML = '';
+  localStorage.setItem("view_report", false);
+};
+
+window.onload = () => {
+  localStorage.setItem("view_report", false);
+}
+
 // to check only one box
 document.querySelectorAll('input.user-type').forEach(checkbox => {
   checkbox.addEventListener('change', function () {
     if (this.checked) {
       // Uncheck all others
       if (this.value === "student") {
-        report_file = "./files/dummy_attendance.csv"
+        report_file = "./files/dummy_attendance.csv";
       } else {
-        report_file = "./files/teacher_attendance.csv"
+        report_file = "./files/teacher_attendance.csv";
       }
       document.querySelectorAll('.user-type').forEach(cb => {
         if (cb !== this) cb.checked = false;
       });
+
+      // if data is on view (meaning that while data is displayed)
+      if (localStorage.getItem("view_report") === "true") {
+        viewReports(report_file);
+      }
     }
   });
 });

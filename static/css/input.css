@@ -93,7 +93,7 @@
     }
 
     .upload-box {
-      @apply flex flex-col flex-1 relative w-[200px] md:w-[300px] aspect-2/1 border-2 border-dashed border-gray-300 items-center justify-center cursor-pointer text-lg hover:bg-gray-100;
+      @apply flex flex-col flex-1 relative w-[200px] sm:w-[250px] sm:max-w-[500px] md:max-w-full md:w-[300px] aspect-2/1 border-2 border-dashed border-gray-300 items-center justify-center cursor-pointer text-lg hover:bg-gray-100;
     }
 
     .view-transform {
