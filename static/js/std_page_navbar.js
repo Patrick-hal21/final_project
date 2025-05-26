@@ -861,3 +861,69 @@ if (user_id_type === "SID") {
         //   value.textContent === course_name ? value.querySelector("span").textContent = `${progress}%` : "";
         // })
 
+
+
+// Log out
+
+const log_out_alert_box = document.getElementById("log-out-alert-box");
+
+const cancel_logout = document.querySelector(".cancel-logout");
+cancel_logout.addEventListener("mouseenter", () => {
+  document.querySelector(".log-out-alert").classList.add("shadow-[0_0_20px_10px_rgba(255,102,102,0.8)]");
+});
+
+cancel_logout.addEventListener("mouseleave", () => {
+  document.querySelector(".log-out-alert").classList.remove("shadow-[0_0_20px_10px_rgba(255,102,102,0.8)]");
+});
+
+// confirm changes laert box (add green shadow on hover)
+const confirm_logout = document.querySelector(".confirm-logout");
+confirm_logout.addEventListener("mouseenter", () => {
+  document.querySelector(".log-out-alert").classList.add("shadow-[0_0_20px_10px_rgba(144,238,144,0.8)]");
+});
+
+confirm_logout.addEventListener("mouseleave", () => {
+  document.querySelector(".log-out-alert").classList.remove("shadow-[0_0_20px_10px_rgba(144,238,144,0.8)]");
+});
+
+
+function userConfirm() {
+  return new Promise((resolve) => {
+    
+    log_out_alert_box.classList.remove("hidden");
+    // to lock scroll in mobile only
+    lockScroll();
+
+    // resolve when user clicks on confirm logout
+    confirm_logout.onclick = () => {
+      resolve(true);
+      unlockScroll();
+    };
+
+    // resolve when user clicks on cancel logout
+    cancel_logout.onclick = () => {
+      resolve(false);
+      unlockScroll();
+    };
+  });
+}
+
+async function confirmLogout() {
+  const confirmed = await userConfirm();
+  if (confirmed) {
+    // clear session storage
+    sessionStorage.clear();
+    // redirect to login page
+    window.location.href = "./login_email.html";
+
+    window.location.replace("./login_email.html");
+
+  } else {
+    // User canceled logout
+    log_out_alert_box.classList.add("hidden");
+  }
+}
+
+document.getElementById("log-out").onclick = () => {
+  confirmLogout();
+};

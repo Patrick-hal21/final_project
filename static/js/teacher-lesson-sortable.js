@@ -402,11 +402,11 @@ cancel_changes.addEventListener("mouseleave", () => {
 // confirm changes laert box (add green shadow on hover)
 const confirm_changes = document.querySelector(".confirm-chgs");
 confirm_changes.addEventListener("mouseenter", () => {
-  document.querySelector(".alert").classList.add("shadow-[0_0_20px_10px_rgba(144,238,144,0.8)]");
+  document.querySelector(".alert").classList.add("shadow-[0_0_20px_10px_rgba(144,238,144,0.6)]");
 });
 
 confirm_changes.addEventListener("mouseleave", () => {
-  document.querySelector(".alert").classList.remove("shadow-[0_0_20px_10px_rgba(144,238,144,0.8)]");
+  document.querySelector(".alert").classList.remove("shadow-[0_0_20px_10px_rgba(144,238,144,0.6)]");
 });
 
 

@@ -336,7 +336,7 @@ function createCanvas() {
   div.className = 'pie-chart w-full h-full flex';
 
   const canvas = document.createElement("canvas");
-  canvas.className = "flex-1 w-full h-full p-2 bg-gray-200 shadow-lg";
+  canvas.className = "sm:flex-1 w-full h-full p-2 bg-gray-200 shadow-lg";
 
   div.appendChild(canvas);
   return div;
@@ -424,7 +424,7 @@ function createPieChart(ctx, subject) {
         datalabels: {
           color: '#fff',
           font: {
-            size: 15,
+            size: window.innerWidth < 650 ? 13 : 15,
             weight: 'bold'
           },
           formatter: (value, ctx) => {

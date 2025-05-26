@@ -41,7 +41,13 @@ const generate_link = document.getElementById("generate_link");
 const copy_link = document.getElementById("copy_link");
 
 if (user_id_type == "TID") {
-  generate_link.onclick = generateLink;
+  generate_link.onclick = () => {
+    generateLink();
+
+    // display div and count
+    document.querySelector(".after-generate").classList.remove("hidden");
+    insertClickedData(); // temporary data
+  };
   copy_link.onclick = () => {
     copyText(document.getElementById("link_holder").value);
   }
@@ -130,6 +136,10 @@ function checkExistingLink() {
 
       // document.getElementById("expiredTime").classList.remove("opacity-0");
       document.getElementById("expiredTime").classList.add("opacity-100");
+
+
+      // live attendance
+      document.querySelector(".after-generate").classList.remove("hidden");
     } else {
       localStorage.removeItem("tempLink");
     }
@@ -142,6 +152,78 @@ checkExistingLink();
 // to check  across teacher and class teacher accounts
 setInterval(checkExistingLink, 2000); // Check every 2 seconds
 
+
+// display students who cclicked generated link demo (removing and inserting std randomly)
+function insertClickedData() {
+  fetch("./json/link_clicked.json")
+    .then(response => response.json())
+    .then(data => { 
+      const keys = Object.keys(data);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)]; // may be Class A, B, C
+      
+      const unclickedBody = document.querySelector(".unclicked");
+      const clickedBody = document.querySelector(".clicked");
+
+      // first clear bodies
+      unclickedBody.innerHTML = "";
+      clickedBody.innerHTML = "";
+
+      const lastElemUnclick = [...unclickedBody.children].at(-1); // to skip last p element
+      const lastElemClick = [...clickedBody.children].at(-1);
+
+      const students = data[randomKey];
+      const totalStudents = students.length;
+      const totalDuration = 1 * 60 * 1000; // 1 minute
+      const intervalTime = totalDuration / totalStudents;
+
+      const remainingRows = [];
+
+      // Fill unclickedBody initially
+      students.forEach(student => {
+        const row = document.createElement("p");
+        row.className = "p-1";
+        row.innerHTML = student;
+        unclickedBody.insertBefore(row, lastElemUnclick);
+        // remainingRows.push({ student, row });
+      });
+
+      const randomInsert = setInterval(() => {
+        if (students.length === 0) {
+          clearInterval(randomInsert);
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * students.length);
+        const student = students[randomIndex];
+        students.splice(randomIndex, 1); // Remove the student from the array
+
+        const row = document.createElement("p");
+        row.className = "p-1 ";
+        row.innerHTML = student;
+
+        clickedBody.insertBefore(row, lastElemClick);
+
+        // Remove from unclickedBody
+        const unclickedRows = unclickedBody.querySelectorAll("p");
+        unclickedRows.forEach(unclickedRow => {
+          if (unclickedRow.textContent === student) {
+            unclickedRow.remove();
+          }
+        });
+
+        // insert count
+        document.querySelector(".clicked_count").textContent = clickedBody.querySelectorAll("p").length;
+        document.querySelector(".unclicked_count").textContent = unclickedBody.querySelectorAll("p").length;
+
+      }, intervalTime);
+          
+    })
+    .catch(error => {
+      console.error("Error fetching link clicked data:", error);
+    });
+}
+
+// insertClickedData(); // initial call to insert data
 
 ////// Edit course content
 

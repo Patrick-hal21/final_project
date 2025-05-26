@@ -131,4 +131,10 @@
     .active-noti {
       @apply bg-blue-600/60 text-white;
     }
+    
+    @media (min-width: 400px) {
+      .grid-cols-xs-2 {
+        @apply grid-cols-2;
+      }
+    }
   }
