@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="./static/css/output.css">
+</head>
+<body >
+    <header id="navbar" class="fixed top-0 right-0 z-50 bg-white w-full border-b-2 border-gray-300 min-h-[61px]">
+        <nav class="relative mx-auto lg:mx-12 h-full px-4 flex max-w-8xl sm:px-12 justify-between items-center overflow-hidden" aria-label="Global">
+            <div class="flex-1 flex md:flex-none">
+                <a href="#" class="p-1.5"> <!--  pl-5-->
+                <span class="sr-only">Our School Logo</span>
+                <img class="max-w-[50px] sm:max-w-[67px] rounded-[50%] sm:aspect-1/1" src="./static/images/logo (4).png" alt="">
+                </a>
+            </div>
+            <p class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl md:text-3xl">Notifications</p>
+
+            <div class="flex">
+                <button type="button" class="normal-btn back-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 md:size-6 mr-1">
+                        <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                        <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                    </svg>
+
+                    Home
+                </button>
+            </div>
+        </nav>
+    </header>   
+
+    <div class="min-h-screen min-w-screen bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce]">
+        <!-- notification views -->
+        <div class="fixed inset-0 bg-gray-50/10 backdrop-blur-sm z-40 flex p-4 pt-[78px] sm:pt-[98px] md:px-10 md:pt-[105px] overflow-hidden">
+            <div class="flex flex-1 w-full h-full bg-white md:mx-12 rounded-sm shadow-xl divide-x overflow-hidden">
+                <div class="relative flex flex-1 flex-col w-full h-full overflow-auto md:border">
+                    <div class="sticky top-0 bg-white py-2 justify-center text-center items-center border-b flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                        </svg>
+                        <p id="user_id"></p> <!-- from previous page-->
+                    </div>
+                    <div id="noti-entry-box" class="flex flex-1 flex-col md:flex-1 w-full h-[800px] divide-y space-y-0.5">
+                        <!-- <div class="w-full h-[70px] flex-shrink-0 hover:bg-blue-600"></div>
+                        <div class="w-full h-[70px] flex-shrink-0 hover:bg-blue-600 active-noti"></div>
+                        <div class="w-full h-[70px] flex-shrink-0 hover:bg-blue-600"></div> -->
+
+                    </div>
+                </div>
+
+                <!-- msg display box -->
+                <div id="tab-2" class="flex flex-col md:flex-2 lg:flex-3 h-full transition-all duration-300 ease-in-out overflow-hidden max-w-full">
+                    <div class="content flex flex-1 flex-col w-full h-full space-y-3 overflow-y-auto" data-id="">
+                        <div class="relative flex w-full bg-gray-100 border-y border-black justify-center text-center mb-3 md:mb-10 py-3">
+                            <button type="button" id="back-noti" class="absolute left-1 top-2 flex md:hidden p-1 md:border md:border-black group hover:text-blue-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 mr-2 group-hover:stroke-blue-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                                </svg>
+                                <span class="hidden md:flex">Back</span>
+                            </button>
+                            <h1 class="header w-full  text-xl ">Message Header</h1>
+                        </div>
+                        
+                        <div class="flex w-full md:px-6">
+                            <div class="w-[30%] md:w-[20%] text-start pl-6">
+                                <p>When -</p>
+                            </div>
+                            <div class="when w-[70%] md:w-[80%] flex flex-wrap text-start space-x-4">
+                                <p>Monday, 19 May 2025 4:00 PM</p><span class="opacity-60">Myanamr Standard Time</span>
+                            </div>
+                        </div>
+
+                        <div class="flex w-full md:px-6 pb-6">
+                            <div class="w-[30%] md:w-[20%] text-start pl-6">
+                                <p>Topic -</p>
+                            </div>
+                            <div class="topic w-[70%] md:w-[80%] flex flex-wrap text-start space-x-4">
+                                <p>Class Announcement</p>
+                            </div>
+                        </div>
+
+                        <div class="flex w-full md:px-6 border-t py-2">
+                            <div class="w-[30%] md:w-[20%] text-start pl-6">
+                                <p>Detail -</p>
+                            </div>
+                            <div class="detail w-[70%] md:w-[80%] flex flex-wrap text-start space-x-4">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod nesciunt odit, officia sit quia neque quo dolore consequatur tenetur eum placeat! Dolor, nesciunt eum fugiat quam explicabo iste repellat quo!</p>
+                            </div>
+                        </div>
+
+                        <div class="flex w-full bg-gray-300 px-6 md:px-12 py-3 mt-10 border border-x-0 border-black">
+                            <a href="" class="underline hover:text-blue-600">To Contact</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./static/js/display_notifications.js"></script>
+
+</body>
+</html>
