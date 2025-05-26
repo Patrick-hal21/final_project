@@ -1,11 +1,7 @@
-// to apply changes when user navigating back from noti page
-window.onpageshow = function(event) {
-    if (event.persisted) {
-        location.reload();
-    }
-};
+const user = document.getElementById("user_id");
+user.textContent = sessionStorage.getItem("user");
 
-const user_id_type = document.getElementById("user_id").textContent.split("-")[0];
+const user_id_type = user.textContent.split("-")[0];
 const user_types = ["SID", "TID", "CTID"];
 
 // add noti msges 
@@ -16,11 +12,58 @@ const user_types = ["SID", "TID", "CTID"];
 //   unread_notis[user] = localStorage.getItem(`noti_count_${user}`);
 // })
 
+
+const dateStr = '2025-05-25T14:15:02.827Z';
+const date = new Date(dateStr);
+
+// Format options
+const options = {
+weekday: 'long',
+year: 'numeric',
+month: 'long',
+day: 'numeric',
+hour: 'numeric',
+minute: '2-digit',
+hour12: true,
+timeZone: 'Asia/Yangon' // Myanmar Standard Time
+};
+
+// Format the date
+const formatter = new Intl.DateTimeFormat('en-GB', options);
+// const formattedDate = formatter.format(date);
+
+// Output
+//console.log(`${formattedDate}\nMyanmar Standard Time`);
+// document.querySelector(".when").textContent = formattedDate;
+
+
+// gather data from session
+
+const noti_header = sessionStorage.getItem(`noti_topic_${user_id_type}`);
+const noti_time = sessionStorage.getItem(`noti_time_${user_id_type}`);
+const noti_body = sessionStorage.getItem(`noti_body_${user_id_type}`);
+const noti_id = sessionStorage.getItem(`noti_id_${user_id_type}`);
+
+let active = noti_id || '';
+
+// on page load data from clicked noti is inserted
+document.querySelector(".content").dataset.id = noti_id;
+document.querySelector(".header").textContent = noti_header;
+document.querySelector(".when > p").textContent = formatter.format(new Date(noti_time));
+document.querySelector(".topic").textContent = noti_header;
+document.querySelector(".detail").textContent = noti_body;
+
+
+
+
+
+
+
 const noti_types = {"message" : "📧", "event" : "🗓️", "system" : "🛠️"};
 
 ///// adding notifications // formatLocalISO(); // currrent time 
 function addNoti(data_id, title, body, time = new Date().toISOString(), read=false) {
-  const noti_container = document.getElementById("noti-entry");
+  const noti_container = document.getElementById("noti-entry-box");
 
   // create msg whole body
   const holder = document.createElement("div");
@@ -75,10 +118,18 @@ function addNoti(data_id, title, body, time = new Date().toISOString(), read=fal
   // add event
   holder.addEventListener('click', () => {
     read_noti(holder);
+    addDisplay(holder);
+    if (window.innerWidth < 765) {
+        slideInDiv();
+    }
   });
 
   noti_span.addEventListener('click', () => {
     read_noti(noti_span);
+    addDisplay(holder);
+    if (window.innerWidth < 765) {
+        slideInDiv();
+    }
   });
   noti_container.appendChild(holder);
 
@@ -132,26 +183,12 @@ fetch('./json/noti.json')
         }
       });
     }
+
+    // check active noti
+    check_active(active);
     
   })
   .catch(error => console.error('Error loading JSON:', error));
-
-
-// storing time as ISO format ( current by default) Tue May 20 2025 21:09:44 GMT+0630 (Myanmar Time)
-// function formatLocalISO(date = new Date()) {
-//   // console.log(date.toISOString()); //2025-05-21T07:46:29.628Z
-//   const twoDigits = num => num.toString().padStart(2, '0');
-
-//   const year = date.getFullYear();
-//   const month = twoDigits(date.getMonth() + 1);
-//   const day = twoDigits(date.getDate());
-//   const hours = twoDigits(date.getHours());
-//   const minutes = twoDigits(date.getMinutes());
-//   const seconds = twoDigits(date.getSeconds());
-
-//   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-// }
-
 
 // noti msg rendering from  <time datetime="2025-05-20T13:30:00" class="smart-time">Original Time</time> and shows 
 // 1. 24-hour format if today
@@ -206,10 +243,10 @@ function read_noti(elem) {
   // Add new ID if not already in the list
   if (!readIDs.includes(clicked_id)) {
     readIDs.push(clicked_id);
-    // console.log(readIDs);
+    console.log(readIDs);
     // reduce noti count
     localStorage.setItem(`noti_count_${user_id_type}`, Math.max(localStorage.getItem(`noti_count_${user_id_type}`) -1, 0));
-    document.getElementById("noti_count").textContent = document.getElementById("noti_count").textContent - 1;
+    // document.getElementById("noti_count").textContent = document.getElementById("noti_count").textContent - 1;
 
     elem.classList.add("bg-transparent", "hover:bg-blue-600");
     // elem.className = elem.className.replace(/\bbg-gray-200\/50\b/g, '').trim();
@@ -218,34 +255,106 @@ function read_noti(elem) {
   // Save updated list
   localStorage.setItem(key, JSON.stringify(readIDs));
 
+
   // if (elem.className.includes("bg-gray-200\/50")) {
   //   console.log("hello");
   //   elem.classList.remove("bg-gray-200/50");
   // }
 
-  //// open new page to display noti
-
-  // console.log("Stored id -", clicked_id, "Header -", elem.querySelector(".noti-msg-header > h2").textContent, 
-  // "Time -", elem.querySelector(".noti-msg-header > time").getAttribute('datetime'), "Body -", elem.querySelector(".noti-msg-body").textContent);
-
-  const topic = elem.querySelector(".noti-msg-header > h2").textContent;
-  const time = elem.querySelector(".noti-msg-header > time").getAttribute('datetime');
-  const body = elem.querySelector(".noti-msg-body").textContent;
-
-  sessionStorage.setItem('user', document.getElementById("user_id").textContent);
-
-  sessionStorage.setItem(`noti_topic_${user_id_type}`, topic);
-  sessionStorage.setItem(`noti_time_${user_id_type}`, time);
-  sessionStorage.setItem(`noti_body_${user_id_type}`, body);
-  sessionStorage.setItem(`noti_id_${user_id_type}`, clicked_id);
-
-  // sessionStorage.setItem(`active_noti_${user_id_type}`) || '';
-
-  window.location.href = "./notifications.html";
+  // open new page to display noti
   // New Page !
 }
 
 
-function showNotiDetail() {
-  // cretate div and display noti details
+function slideInDiv() {
+    document.getElementById("tab-2").classList.toggle("max-w-0");
+    document.getElementById("tab-2").classList.toggle("max-w-full");
+
 }
+
+
+function setupResponsiveClick() {
+
+    document.getElementById("back-noti").removeEventListener('click', slideInDiv);
+
+    if (window.innerWidth < 765) {
+        document.getElementById("back-noti").addEventListener('click', slideInDiv);
+    } else {
+        if (document.getElementById("tab-2").classList.contains("max-w-0")) {
+            document.getElementById("tab-2").classList.toggle("max-w-0");
+            document.getElementById("tab-2").classList.toggle("max-w-full");
+        }
+    }
+}
+
+window.addEventListener("load", setupResponsiveClick);
+window.addEventListener("resize", setupResponsiveClick);
+
+const when = document.querySelector(".when > p");
+const header = document.querySelector(".header");
+const topic = document.querySelector(".topic");
+const detail = document.querySelector(".detail");
+let activeNoti = ""; // retrieve from clicked noti dataset.id
+
+
+function addDisplay(noti) {
+    const topic = noti.querySelector("div > h2").textContent;
+    const date = new Date(noti.querySelector("div > time").getAttribute('datetime'));
+    const time = formatter.format(date);
+    const id = noti.dataset.id;
+    const content = noti.querySelector(".noti-msg-body").textContent;
+
+    active = id;
+
+    displayNoti(time, topic, topic, content, id);
+    check_active(active);
+    // display
+}
+
+function displayNoti(time, h, t, d, id) { // onload we insert data from user clicked noti, h === t
+
+    /* to mark noti as active
+    document.getElementById("noti-entry").forEach(noti => {
+        if (noti.dataset.id === activeNoti) {
+            noti.classList.add("active");
+        }
+    })
+        */
+    document.querySelector(".content").dataset.id = id;
+    when.textContent = time;
+    header.textContent = h;
+    topic.textContent = t;
+    detail.textContent = d;
+}
+
+function check_active (active) {
+    document.querySelectorAll("#noti-entry-box > div").forEach(div => {
+        if (div.dataset.id === active) {
+            div.classList.remove("bg-transparent");
+            div.classList.add("bg-blue-600/50", "text-white");
+            div.querySelector("span").classList.add("text-white");
+        } else {
+            if (div.classList.contains("bg-blue-600/50")) {
+                div.classList.add("bg-transparent");
+                div.classList.remove("bg-blue-600/50", "text-white");
+                div.querySelector("span").classList.remove("text-white");
+            }
+        }
+    });
+}
+
+
+// to navigate back to home
+document.querySelector(".back-home").addEventListener('click', () => {
+    if (window.history.length > 1) {
+      history.back();
+  } else {
+    if (user_id_type === "SID") {
+      window.location.href = "./system_page_std.html";
+    } else if (user_id_type === "TID") {
+      window.location.href = "./teacher_page.html";
+    } else {
+      window.location.href = "./class_teacher_pg.html"; // Redirect to a safe page
+    }
+  }
+})

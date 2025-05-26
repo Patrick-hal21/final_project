@@ -56,48 +56,48 @@ import { resSubjects, show_text_on_hover } from "./std_page_navbar.js"; // toolt
 let timetables = {};
 
 function updateTimetable (input, box, rm_btn) {
-    clearImage(document.getElementById(box), rm_btn);
-    document.getElementById(input).addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            // const img = document.createElement("img");
-            // img.src = URL.createObjectURL(file);
-            // img.onload = () => URL.revokeObjectURL(img.src); // Free memory
-            // document.getElementById(box).innerHTML = "";
-            // img.classList.add("w-full", "h-full");
-            // document.getElementById(box).appendChild(img);
+  clearImage(document.getElementById(box), rm_btn);
+  document.getElementById(input).addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          // const img = document.createElement("img");
+          // img.src = URL.createObjectURL(file);
+          // img.onload = () => URL.revokeObjectURL(img.src); // Free memory
+          // document.getElementById(box).innerHTML = "";
+          // img.classList.add("w-full", "h-full");
+          // document.getElementById(box).appendChild(img);
 
-            //for backend
-            // const formData = new FormData();
-            // formData.append("image", file); // "image" is the key the backend expects
+          //for backend
+          // const formData = new FormData();
+          // formData.append("image", file); // "image" is the key the backend expects
 
-            // to test 
-            const reader = new FileReader();
-            reader.onload = () => {
-              if (box === "stdBox") {
-                timetables['SID_timetable'] = reader.result;
-              } else {
-                timetables['TID_timetable'] = reader.result;
-              }
-              
-              // Store base64 string in localStorage
-              // localStorage.setItem("timetable_img", reader.result); // base64
+          // to test 
+          const reader = new FileReader();
+          reader.onload = () => {
+            if (box === "stdBox") {
+              timetables['SID_timetable'] = reader.result;
+            } else {
+              timetables['TID_timetable'] = reader.result;
+            }
+            
+            // Store base64 string in localStorage
+            // localStorage.setItem("timetable_img", reader.result); // base64
 
-              // Set image src to preview
-              const img = document.createElement("img");
-              img.src = reader.result;
-              document.getElementById(box).innerHTML = "";
-              img.classList.add("w-full", "h-full", "object-contain");
-              document.getElementById(box).appendChild(img);
-            };
-            reader.readAsDataURL(file);
+            // Set image src to preview
+            const img = document.createElement("img");
+            img.src = reader.result;
+            document.getElementById(box).innerHTML = "";
+            img.classList.add("w-full", "h-full", "object-contain");
+            document.getElementById(box).appendChild(img);
+          };
+          reader.readAsDataURL(file);
 
-            document.getElementById(box).classList.add("border"); // add border to div
+          document.getElementById(box).classList.add("border"); // add border to div
 
-            // some codes here to send image to backend
-            // here
-        }
-    });
+          // some codes here to send image to backend
+          // here
+      }
+  });
 }
 
 show_text_on_hover(remove_stdImage, std_img_tooltip);
