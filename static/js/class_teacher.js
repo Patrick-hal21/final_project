@@ -304,7 +304,7 @@ function updateChart(n) {
     document.getElementById("today_stats").textContent = n === 0 ? `Today (${getShiftedDate(n)})` : `(${getShiftedDate(n)})`;
     // create chart
     const ctx = document.getElementById("stdChart").getContext("2d");
-    document.getElementById("stdChart").classList.add("bg-gray-200");
+    document.getElementById("stdChart").classList.add("bg-cyan-900", "border-2");
 
     // data labels
     const labels = resSubjects;
@@ -336,7 +336,7 @@ function createCanvas() {
   div.className = 'pie-chart w-full h-full flex';
 
   const canvas = document.createElement("canvas");
-  canvas.className = "sm:flex-1 w-full h-full p-2 bg-gray-200 shadow-lg";
+  canvas.className = "sm:flex-1 w-full h-full p-2 bg-cyan-900 shadow-lg border-2";
 
   div.appendChild(canvas);
   return div;
@@ -347,6 +347,7 @@ function createBarChart(ctx, labels) {
       type: 'bar',
       data: {
         labels: labels,
+        textcolor: "white",
         datasets: [
           { label: 'Class A',
               data: [30, 25, 28, 22, 20, 18], // retrieve from backend
@@ -368,28 +369,58 @@ function createBarChart(ctx, labels) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        
+        plugins: {
+            legend: {
+              labels: {
+                color: 'white' // legend label text color
+              }
+            },
+            title: {
+              display: true,
+              text: 'Each Class Attendance By Subjects',
+              font: {
+                size: 20, // Title font size
+                weight: '' // Title font weight
+              },
+              color: 'white' // Title text color
+            }
+          },
         scales: { 
           y: {
                 max: totalStudents,
                 beginAtZero: true,
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines
+                },
+                ticks: {
+                  color: 'white', // Y-axis labels color
+                },
                 title: {
                     display: true,
                     text: 'Number of Students',
                     font: {
                       size : 16,
-                      weight : 'bold'
-                    }
+                      weight : 'bold',
+                      color: "white"
+                    },
+                    color:"white"
                 }
               },
           x: {
+              grid: {
+                color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines
+              },
+              ticks: {
+                  color: 'white', // Y-axis labels color
+              },
               title: {
                   display: true,
                   text: 'Subjects',
                   font: {
                       size : 16,
-                      weight : 'bold'
-                    }
+                      weight : 'bold',
+                    },
+                  color: 'white'
               }
           }
       },
@@ -419,7 +450,11 @@ function createPieChart(ctx, subject) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'right'
+          position: 'right',
+          color: 'white', // Legend text color
+          labels: {
+            color: 'white' // Legend label text color
+          }
         },
         datalabels: {
           color: '#fff',
@@ -439,7 +474,8 @@ function createPieChart(ctx, subject) {
           text: subject,
           font : {
             size: 16
-          }
+          },
+          color: 'white' // Title text color
         }
       }
     },

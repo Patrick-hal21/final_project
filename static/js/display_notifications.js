@@ -331,11 +331,11 @@ function check_active (active) {
     document.querySelectorAll("#noti-entry-box > div").forEach(div => {
         if (div.dataset.id === active) {
             div.classList.remove("bg-transparent");
-            div.classList.add("bg-blue-600/50", "text-white");
+            div.classList.add("bg-blue-600/50", "text-white", "hover:bg-blue-600");
             div.querySelector("span").classList.add("text-white");
         } else {
             if (div.classList.contains("bg-blue-600/50")) {
-                div.classList.add("bg-transparent");
+                div.classList.add("bg-transparent", "hover:bg-blue-600");
                 div.classList.remove("bg-blue-600/50", "text-white");
                 div.querySelector("span").classList.remove("text-white");
             }

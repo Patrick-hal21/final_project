@@ -181,7 +181,7 @@ function insertClickedData() {
       // Fill unclickedBody initially
       students.forEach(student => {
         const row = document.createElement("p");
-        row.className = "p-1";
+        row.className = "p-1 text-white font-semibold";
         row.innerHTML = student;
         unclickedBody.insertBefore(row, lastElemUnclick);
         // remainingRows.push({ student, row });
@@ -198,7 +198,7 @@ function insertClickedData() {
         students.splice(randomIndex, 1); // Remove the student from the array
 
         const row = document.createElement("p");
-        row.className = "p-1 ";
+        row.className = "p-1 text-white font-semibold";
         row.innerHTML = student;
 
         clickedBody.insertBefore(row, lastElemClick);
@@ -291,7 +291,7 @@ function updateChart(n) {
     document.getElementById("today_stats").textContent = n === 0 ? `Today (${getShiftedDate(n)})` : `(${getShiftedDate(n)})`;
     // create chart
     const ctx = document.getElementById("stdChart").getContext("2d");
-    document.getElementById("stdChart").classList.add("bg-gray-200");
+    document.getElementById("stdChart").classList.add("bg-cyan-900");
 
     // Destroy previous chart if it exists
     if (chartInstance) {
@@ -328,6 +328,15 @@ function updateChart(n) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                title: {
+                  display: true,
+                  text: 'Each Class Attendance',
+                  font: {
+                    size: 20, // Title font size
+                    weight: '' // Title font weight
+                  },
+                  color: 'white' // Title text color
+                },
                 legend: {
                     display: true,
                     position: legendPosition,
@@ -337,13 +346,15 @@ function updateChart(n) {
                                 text: `${label} - ${studentCounts[i]}/${totalStudents} students (${((studentCounts[i] / totalStudents) * 100).toFixed(1)}%)`,
                                 fillStyle: chart.data.datasets[0].backgroundColor[i],
                                 strokeStyle: chart.data.datasets[0].borderColor[i],
-                                lineWidth: chart.data.datasets[0].borderWidth
+                                lineWidth: chart.data.datasets[0].borderWidth,
+                                fontColor: 'white'
                             }));
                         }
                     }
                 },
                 tooltip: {
                     callbacks: {
+                        titleColor: 'white',
                         label: function (context) {
                             const value = context.raw;
                             const percent = ((value / totalStudents) * 100).toFixed(1);
@@ -356,15 +367,29 @@ function updateChart(n) {
                 y: {
                     max: totalStudents,
                     beginAtZero: true,
+                    grid: {
+                      color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines
+                    },
+                    ticks: {
+                      color: 'white' // X-axis tick labels
+                    },
                     title: {
                         display: true,
-                        text: 'Number of Students'
+                        text: 'Number of Students',
+                        color: 'white'
                     }
                 },
                 x: {
+                    grid: {
+                      color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines
+                    },
+                    ticks: {
+                      color: 'white' // X-axis tick labels
+                    },
                     title: {
                         display: true,
-                        text: 'Classes'
+                        text: 'Classes',
+                        color: 'white'
                     }
                 }
             },

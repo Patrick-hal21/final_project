@@ -10,7 +10,7 @@
     }
 
     .hover-linegrowth {
-      @apply relative after:absolute after:left-0 after:-bottom-5 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-200 hover:after:w-full
+      @apply relative after:absolute after:left-0 after:-bottom-5 after:w-0 after:h-[2px] after:bg-[#005275] after:transition-all after:duration-200 hover:after:w-full
     }
 
     .profile-box {
@@ -66,7 +66,7 @@
     }
 
     .lesson-div {
-      @apply flex w-full h-[130px] my-1 divide-x divide-x-[2px] divide-gray-500/50 p-3 overflow-hidden;
+      @apply flex w-full h-[150px] my-1 divide-x divide-x-[2px] divide-gray-500/50 p-3 overflow-hidden;
     }
 
     .del-lesson-btn {
@@ -136,5 +136,14 @@
       .grid-cols-xs-2 {
         @apply grid-cols-2;
       }
+    }
+
+
+    .del-file {
+      @apply opacity-50 hover:opacity-100 active:scale-90 transition-all duration-300 cursor-pointer;
+    }
+
+    .add-file {
+      @apply cursor-pointer;
     }
   }

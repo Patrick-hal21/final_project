@@ -263,19 +263,19 @@
                         <button type="button" class="normal-btn">Preview Report</button>
                     </div>
                     <button type="button" class="normal-btn">Send Report</button> -->
-                    <div class="flex w-full md:flex-1 bg-gray-300 after-generate hidden">
+                    <div class="flex w-full md:flex-1 bg-gray-700 after-generate hidden">
                         <div class="flex w-full h-full overflow-hidden">
                             <div class="flex w-full max-h-[300px] border items-start overflow-auto">
-                                <div class="w-[50%] h-full text-center divide-y divide-x">
-                                    <p class="sticky top-0 z-10 bg-gray-50 p-2">Not Clicked Yet (<span class="unclicked_count text-red-600">0</span>)</p>
-                                    <div class="flex flex-col divide-y unclicked">
+                                <div class="w-[50%] h-full text-center divide-y divide-x divide-amber-50">
+                                    <p class="sticky top-0 z-10 p-2 bg-cyan-900 text-white">Not Clicked Yet (<span class="unclicked_count text-red-400">0</span>)</p>
+                                    <div class="flex flex-col divide-y divide-white unclicked">
                                         <!-- here data -->
                                     </div>
                                     <p></p>
                                 </div>
                                 <div class="w-[50%] h-full text-center divide-y">
-                                    <p class="sticky top-0 z-10 bg-gray-50 p-2">Clicked (<span class="clicked_count text-green-600">0</span>)</p>
-                                    <div class="flex flex-col border-l divide-y clicked">
+                                    <p class="sticky top-0 z-10 bg-cyan-900 text-white p-2">Clicked (<span class="clicked_count text-green-400">0</span>)</p>
+                                    <div class="flex flex-col border-l divide-y border-white divide-white clicked">
                                         <!-- here data -->
                                     </div>
                                     <p></p>
@@ -329,7 +329,7 @@
                         </span>
                     </p> 
                     <div class="flex w-full h-[300px] my-3">
-                        <canvas id="stdChart" class="flex-1 w-full h-full"></canvas>
+                        <canvas id="stdChart" class="flex-1 w-full h-full rounded-sm"></canvas>
                     </div>
                 </div>
                 
@@ -524,7 +524,7 @@
                                         <p class="md:text-[20px] border px-2" contenteditable="true">Lesson-</p>
                                     </div>
                                     <!-- if edit state, add - divide-x-[2px] divide-gray-500/50-->
-                                    <div class="flex flex-col flex-1 max-h-full justify-center overflow-auto py-5 px-1 sm:py-0 sm:px-0 mx-3 space-y-1 space-y-4 divide-x-[2px] divide-x-gray-500/50] scroll-check editable">
+                                    <div class="flex flex-col flex-1 max-h-full justify-center overflow-auto py-5 px-1 sm:py-0 sm:px-0 mx-3 space-y-1 divide-x-[2px] divide-x-gray-500/50] scroll-check editable">
                                         <a href="" class=" mt-1 file-link text-[13px] sm:text-base p-2 border focus-link " target="_blank"></a>
                                         <input type="file" id="" accept=".pdf,.doc,.docx,.txt,.rtf,.odt" class="hidden">
 
