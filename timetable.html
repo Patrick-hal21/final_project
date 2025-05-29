@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Generator</title>
+    <link rel="stylesheet" href="./static/css/output.css">
+</head>
+<body class="relative">
+    <div class="flex w-screen h-full justify-center items-center py-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce]">
+        <div class="flex flex-col w-[90%] sm:w-[80%] md:w-[70%] h-full font-semibold bg-white rounded-sm shadow-lg ">
+            <div class="flex flex-col w-full h-full p-4 md:p-6 space-y-5"> <!-- hidden upon selecting -->
+                <h1 class="text-xl md:text-2xl">Timetable Generator</h1>
+
+                <!-- title -->
+                <div class="flex flex-col md:mx-6 space-y-5 rounded-md shadow-sm p-3">
+                    <h2 class="flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#005275" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                        </svg>
+
+                        <span>Timetable Name</span>
+                    </h2>
+                    <input type="text" class="title p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="eg. 2025/2026 Weekly Timetable">
+                </div>
+
+                <!-- Time Setting -->
+                <div class="flex flex-col md:mx-6 space-y-5 rounded-md shadow-sm p-3">
+                    <h2 class="flex space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#005275" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                        <span>Time Setting</span>
+                    </h2>
+                    <div class="flex space-x-4">
+                        <div class="flex flex-col space-y-2">
+                            <span>Start: </span>
+                            <input type="time" class="border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 start-time">
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <span>End: </span>
+                            <input type="time" class="border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 end-time">
+                        </div>
+                    </div>
+                    <div class="flex space-x-5">
+                        <div class="flex flex-1 flex-col space-y-2">
+                            <p>Periods Per Day</p>
+                            <input type="number" class="p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50">
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <p>Duration (minutes)</p>
+                            <input type="number" min="1" max="120" class="period-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-3 text-blue-600 justify-center">
+                        <div class="flex cursor-pointer opacity-70 hover:opacity-100 transition-all duration-300 add-break-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563EB" class="size-6 transition-transform duration-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                            </svg>
+                            <p class="user-select-none">Show Breaktime Setting</p>
+                        </div>
+                    </div>
+
+                    <div class="break-time space-x-5 hidden">
+                        <div class="flex relative">
+                            <div class="flex flex-col space-y-2">
+                                <h1>Period (after)</h1>
+                                <div tabindex="-1" class="cursor-pointer relative flex border border-black rounded-md p-2 md:p-3 focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 period-dropdown">
+                                    <input type="text" value="" class="pointer-events-none focus:outline-none" readonly>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute right-1 bg-white z-10 size-6 trainsition-transform duration-300">
+                                        <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd"/> <!-- pivot point is checked in "M12."-->
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-[151px] -translate-y-1 bg-white border w-full h-[150px] rounded-md overflow-auto shadow-md dropdown-list opacity-0 transition-all duration-300 pointer-events-none">
+                                <ul class="divide-y overflow-auto">
+                                    <!-- <li class="p-2 hover:bg-blue-300">After Period-2</li> -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <p>Duration (minutes)</p>
+                            <input type="number" min="1" max="120" class="break-time-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- next section -->
+                <div class="flex flex-col w-full h-full md:px-6 space-y-5">
+                    <!-- Teaching days -->
+                    <div class="flex flex-col space-y-5 rounded-md shadow-sm p-3">
+                        <h2 class="flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#005275" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                            </svg>
+                            <span>Days Configuration</span>
+                        </h2>
+                        <div class="w-full h-[70px] grid grid-cols-7 gap-x-4">
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-md items-center justify-center select-days">
+                                <p>Sat</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Mon</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Tue</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Wed</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Thu</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Fri</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                            <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-sm items-center justify-center select-days">
+                                <p>Sun</p>
+                                <img src="./static/images/days-off.png" class="size-7" alt="days-off">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="size-7 hidden">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+                                <input type="checkbox" hidden>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                    <div class="flex flex-col space-y-6 rounded-md shadow-sm p-3">
+                        <div class="flex justify-between">
+                            <h2 class="flex space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#005275" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                                </svg>
+
+                                <span>Subjects</span>
+                            </h2>
+                            <button type="button" class="cursor-pointer flex ml-4 p-2 add-subject bg-[#3c9ec9] rounded-md space-x-2 text-white hover:bg-[#328BB1]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                                </svg>
+
+                                <span>Add Subjects</span>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col space-y-2">
+                            <div id="subjects-box" class="flex flex-wrap gap-x-3 gap-y-3">
+                                <!-- <div class="flex justify-between p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm">
+                                    <p class="subject">Myanamr</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-50">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center pt-4">
+                        <button type="button" class="cursor-pinter flex p-2 space-x-2 bg-[#3c9ec9] rounded-md text-white hover:bg-[#328BB1] justify-center w-[130px] generate-timetable">
+                            <span>Generate</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom input box -->
+                <div id="add-subjects" class="fixed inset-0 bg-black/50 z-60 justify-center items-center hidden">
+                    <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex h-[350px] p-8 bg-white aspect-4/3 rounded-lg">
+                        <div class="flex flex-col space-y-4 w-full">
+                            <h2 class="md:text-2xl">Import Subjects/Courses</h2>
+                            <p class="font-normal opacity-80">Type a list of subjects (one per line).</p>
+
+                            <!-- input box -->
+                            <div class="relative flex w-full overflow-hidden p-1">
+                                <textarea id="subjects-input" class="w-full border border-gray-500/50 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5"></textarea>
+                                <p class="absolute top-0 left-0 p-5.5 pointer-events-none text-gray-800/50">Myanamr<br>English<br>Mathematics...</p>
+                            </div>
+                            
+                            <!-- buttons -->
+                            <div class="flex justify-end space-x-4">
+                                <button type="button" class="p-2 bg-gray-400/50 text-gray-700 hover:bg-gray-500/50 rounded-md w-[80px] cancel-add">Cancel</button>
+                                <button type="button" class="p-2 bg-[#3c9ec9] text-white hover:bg-[#328BB1] rounded-md w-[80px] confirm-add">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <template id="timetable-temp"> -->
+    <div class="fixed inset-0 bg-black/50 z-70 justify-center items-center hidden">
+        <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[900px] h-[450px] max-w-5xl mx-auto bg-gray-100 p-6 rounded-lg shadow-md">
+            <div class="flex flex-1 flex-col w-full h-full bg-white shadow-md rounded-md p-3">
+                <h1 class="text-2xl font-bold text-center text-blue-600 mb-4"></h1>
+
+                <!-- Timetable Container -->
+                <table class="w-full border-collapse border border-gray-300 text-center">
+                    <thead>
+                        <!--
+                        <tr class="bg-blue-600 text-white">
+
+                            <th class="p-2 border"></th>
+                            <th class="p-2 border">Period 1</th>
+                            <th class="p-2 border">Period 2</th>
+                            <th class="p-2 border">Period 3</th>
+                            <th class="p-2 border">Period 4</th>
+                            <th class="p-2 border bg-amber-600">Break</th>
+                            <th class="p-2 border">Period 5</th>
+                            <th class="p-2 border">Period 6</th>
+                            <th class="p-2 border">Period 7</th> 
+                        </tr>-->
+                    </thead>
+                    <tbody id="timetable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- </template> -->
+    
+    <script type="module" src="./timetable.js"></script>
+</body>
+</html>
