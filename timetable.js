@@ -24,9 +24,10 @@ document.querySelector("input[type='number']").addEventListener("input", functio
     if (isNaN(value) || value < 0) {
         this.value = 0; // Reset to minimum if invalid
     }
-    /* else if (value > 10) {
-        this.value = 10; // Reset to maximum if invalid
-    }*/
+    if (this.value !== "") {
+        this.value = String(Number(this.value));
+    }
+    
     periods = parseInt(this.value,0);
     console.log(periods);
 
@@ -196,7 +197,7 @@ function add_subject(holder, sub_name) {
 // test
 //let subjects = ["Math", "English", "Science", "History", "Art", "PE"];
 //let week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-let periodsPerDay = periods;
+let periodsPerDay;
 let minClassesPerSubject = school_days; // Each subject must appear at least once per day
 
 // generate button
@@ -205,37 +206,8 @@ document.querySelector(".generate-timetable").addEventListener('click', () => {
 }
 );
 
-function makeBest() {
-    // Initialize timetable structure
-    let timetable = {};
-    // sort weekdays with custom sortor which compares index with standard days arrays (daysOrder)
-    week_days.sort((a, b) => daysOrder.indexOf(a) - daysOrder.indexOf(b));
 
-    week_days.forEach(day => {
-        timetable[day] = Array(periodsPerDay).fill(null); // Empty slots
-    });
-    const result = generateTimetable(timetable); // generate subject lists (object)
-    if(Object.keys(result).length === 0) { // to check object is empty or not
-        console.log("Not enough facts to create timetable");
-        return;
-    }
-    console.log(result);
-    gatherInfo();
-
-}
-
-function gatherInfo() { // durations are in minutes
-    title = document.querySelector(".title").textContent || "Weekly School Timetable";
-    start_time = `2025-01-01T${document.querySelector(".start-time").value}:00`;
-    end_time = `2025-01-01T${document.querySelector(".end-time").value}:00`;
-    periods;
-    period_duration = document.querySelector(".period-duration").value;
-    break_time; //string
-    breaktime_duration = document.querySelector(".break-time-duration").value; 
-    console.log(title, start_time, end_time, periods, period_duration, break_time, breaktime_duration);
-}
-
-// Function to distribute subjects
+// Function to distribute subjects ( not generating timtable visually, but needed data)
 function generateTimetable(timetable) {
     let subjectCounts = {}; // Track how many times each subject appears
 
@@ -294,7 +266,8 @@ add_break_time.addEventListener("mousedown", (e) => {e.preventDefault});
 const period_dropdown = document.querySelector(".period-dropdown");
 const dropdown_list = document.querySelector(".dropdown-list");
 
-period_dropdown.addEventListener('click', () => {
+period_dropdown.addEventListener('click', (e) => {
+    e.stopPropagation();
     toggle_dropdown();
 });
 period_dropdown.addEventListener('mousedown', (e) => { e.preventDefault()});
@@ -309,6 +282,7 @@ function toggle_dropdown() {
         dropdown_list.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
         dropdown_list.classList.add("opacity-0", "-translate-y-1", "pointer-events-none");
     }
+
 }
 
 // to remove focus on input  (cus focus on input persists if another input is focused)
@@ -318,6 +292,9 @@ document.addEventListener("click", (event) => {
             elem.blur();
         }
     });
+    if(dropdown_list.classList.contains("opacity-100") && (event.target !== dropdown_list || document.activeElement !== dropdown_list)) {
+        toggle_dropdown();
+    }
 });
 /*
 Myanmar
@@ -326,96 +303,207 @@ Mathematics
 Physics
 Chemistry
 Biology
+*/
+// correct until now
 
+// not specific function, just to gather needed info
 function gatherInfo() { // durations are in minutes
     title = document.querySelector(".title").textContent || "Weekly School Timetable";
-    start_time = `2025-01-01T${document.querySelector(".start-time").value}:00`;
-    end_time = `2025-01-01T${document.querySelector(".end-time").value}:00`;
-    periods;
+    start_time = new Date(`2025-01-01T${document.querySelector(".start-time").value}:00`);
+    end_time = new Date(`2025-01-01T${document.querySelector(".end-time").value}:00`);
+    const num_periods = periods;
     period_duration = document.querySelector(".period-duration").value;
-    break_time;
+    const bt_after_period = break_time;
     breaktime_duration = document.querySelector(".break-time-duration").value; 
-    console.log(title, start_time, end_time, periods, period_duration, break_time, breaktime_duration);
+    return { title, start_time, end_time, num_periods, period_duration, bt_after_period, breaktime_duration };
 }
-*/
 
+
+// makeBest means make the best timetable :)
+function makeBest() {
+    periodsPerDay = periods;
+    // Initialize timetable structure
+    let timetable = {};
+    // sort weekdays with custom sortor which compares index with standard days arrays (daysOrder)
+    week_days.sort((a, b) => daysOrder.indexOf(a) - daysOrder.indexOf(b));
+
+    week_days.forEach(day => {
+        timetable[day] = Array(periodsPerDay).fill(null); // Empty slots
+    });
+    // console.log(periodsPerDay);
+    const days_subjects = generateTimetable(timetable); // generate subject lists (object)
+
+    if(Object.keys(days_subjects).length === 0) { // to check object is empty or not
+        console.log("Not enough facts to create timetable");
+        //we should alert user
+        return;
+    }
+    const {title, start_time, end_time, num_periods, period_duration, bt_after_period, breaktime_duration} = gatherInfo();
+
+    const timetable_holder = document.getElementById("timetable-temp");
+    timetable_holder.classList.toggle("hidden");
+
+    //set timetable title
+    document.querySelector("#timetable-image h1").textContent = title !== "" ? title : "Weekly School Timetable";
+
+    insertTableHeader(num_periods, bt_after_period, start_time, end_time, period_duration, breaktime_duration);
+    insertTableBody(num_periods, bt_after_period, days_subjects);
+
+}
 
 
 // draw timetable 
-function insertTableHeader(P = 7, bT="4", sT, eT, pD, btD) {
+function insertTableHeader(P, bT, sT, eT, pD, btD) {
     
     const thead = document.querySelector("thead");
-    thead.innerHTML = "";
-    let table_row = `<tr class="bg-blue-600 text-white">`;
-    let timeRow = `<tr class="border border-gray-300">
-                        <td class="p-2 border font-semibold">Time</td>`;
+    const tbody = document.querySelector("tbody");
 
-    // insert table header row
+    const start_time = new Date(sT);
+
+    thead.innerHTML = "";
+    // header
+    let table_row = `<tr class="bg-blue-600 text-white">`;
+    // time
+    let timeRow = `<tr class="border bg-blue-400 text-white">`;
+
+     // insert table header row
     const total_p = P + bT.length; // period + breaktime
-    
+
+    btD = parseInt(btD);
+    pD = parseInt(pD); // parse into interger
+
     for (let i=0; i < total_p + 1; i++) {
+        // Calculate start and end time
+        let startHour = start_time.getHours();
+        let startMin = start_time.getMinutes();
+
+        // for each period
+        let isBreaktime = i === parseInt(bT)+1 ? btD : pD;
+        let endTime = new Date(start_time.getTime() + isBreaktime * 60000);
+        let endHour = endTime.getHours();
+        let endMin = endTime.getMinutes();
+
         if (i == 0) {
-            table_row += `<th class="p-2 border"></th>`
-        } else if (i === parseInt(bT)) {
-            table_row += `<th class="p-2 border bg-amber-600">Break</th>`
+            table_row += `<th class="p-2 border"></th>`;
+            timeRow += `<td class="p-1 border">Time</td>`;
+
+        } else if (i === parseInt(bT)+1) {
+            table_row += `<th class="p-2 border bg-amber-600">Break</th>`;
+            timeRow += `<td class="p-1 py-2 border bg-amber-600">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
+            
+            // Move to next period time
+            start_time.setMinutes(start_time.getMinutes() + isBreaktime); 
+
         } else {
-            table_row += `<th class=p-2 border">Period-${i}</th>`
+            table_row += `<th class="p-2 border">Period-${i}</th>`;
+            timeRow += `<td class="p-1 py-2 border">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
+
+            // Move to next period time
+            start_time.setMinutes(start_time.getMinutes() + isBreaktime); 
+            
         } 
+        
     }
+
     table_row += `</th>`;
+    timeRow += `</tr>`;
 
     thead.innerHTML += table_row;
+    tbody.innerHTML += timeRow;
+}
+
+
+// 13:00 -> 01:00 PM
+function timeConverter(hour, minute) {
+    // let period = hour >= 12 ? 'PM' : 'AM';
+    let hour12 = hour % 12 || 12; // Converts 0 to 12
+    let paddedMin = minute.toString().padStart(2, '0');
+    return `${hour12}:${paddedMin}`;
 }
 
 //insertTableHeader();
 
-function insertTableBody(title, sT, eT, P = 7, pD, bT="4", btD, sub_day_map, object) {
-    const object_demo = {
-        "Mon": [
-            "Mathematics",
-            "English",
-            "Chemistry",
-            "Myanmar",
-            "Biology",
-            "Physics"
-        ],
-        "Tue": [
-            "Physics",
-            "Myanmar",
-            "Biology",
-            "English",
-            "Chemistry",
-            "Mathematics"
-        ],
-        "Wed": [
-            "Myanmar",
-            "Biology",
-            "Physics",
-            "English",
-            "Mathematics",
-            "Chemistry"
-        ],
-        "Thu": [
-            "Myanmar",
-            "Physics",
-            "Chemistry",
-            "Biology",
-            "English",
-            "Mathematics"
-        ],
-        "Fri": [
-            "Myanmar",
-            "Biology",
-            "Physics",
-            "Mathematics",
-            "English",
-            "Chemistry"
-        ]
-    };
+function insertTableBody(P, bT, object) {
+    const dates_map = {"Mon" : "Monday", "Tue": "Tuesday", "Wed":"Wednesday", "Thu":"Thursday", "Fri":"Friday", "Sat":"Saturday", "Sun":"Sunday"};
+    const tbody = document.querySelector("tbody");
 
     Object.keys(object).forEach(day => {
         let row = `<tr class="border border-gray-300">
-                        <td class="p-2 border font-semibold">${day}</td>`;
-    
+                        <td class="p-2 font-semibold">${dates_map[day]}</td>`;
+        
+        let periodIndex = 0;
+        
+        // total periods
+        const total_p = P + bT.length; // period + breaktime
+        for (let i=0; i < total_p; i++) {
+            if ( i === parseInt(bT)) {
+                row += `<td class="p-2 border bg-amber-600 text-white">Lunch</td>`;
+            } else {
+                row += `<td class="p-2 border border-gray-300">${object[day][periodIndex]}</td>`;
+                periodIndex ++;
+            }
+        }
+        row += `</tr>`;
+        tbody.innerHTML += row;
     })
 }
+
+// insertTableHeader();
+// insertTableBody();
+
+const cancel_timetable = document.querySelector(".cancel-timetable")
+const get_timetable_img = document.querySelector(".get-timetable");
+
+cancel_timetable.addEventListener('click', () => {
+    const thead = document.querySelector("thead");
+    const tbody = document.querySelector("tbody");
+
+    // clear table header section
+    Array.from(thead.children).forEach(child => {
+        if (child) {
+            child.remove();
+        }
+    });
+    // clear table body section
+    Array.from(tbody.children).forEach(child => {
+        if (child) {
+            child.remove();
+        }
+    });
+
+    // hide
+    const timetable_holder = document.getElementById("timetable-temp");
+    timetable_holder.classList.toggle("hidden");
+});
+
+// to download timetable
+get_timetable_img.addEventListener('click', () => {
+    const timetable = document.getElementById("timetable-image");
+    const img_name = timetable.querySelector("h1").textContent.trim();
+    
+    // Clone the element to avoid affecting the real UI ( to keep image in high pixels)
+    const clone = timetable.cloneNode(true);
+    clone.style.width = "1000px"; // Set fixed width
+    clone.style.height = "600px"; // Optional
+    clone.style.transform = "scale(1)";
+    clone.style.position = "absolute";
+    clone.style.top = "-9999px"; // Off-screen
+    document.body.appendChild(clone);
+    
+    html2canvas(timetable, {
+        useCORS: true,
+        backgroundColor: null,
+    })
+    .then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = imgData;
+        link.download = `${filename}.png`;
+        link.click();
+    })
+    .catch(error => {
+        console.error("html2canvas failed:", error);
+        alert("Export failed due to unsupported styles (e.g., oklch). Try using RGB or HSL colors instead");
+    });
+    
+});

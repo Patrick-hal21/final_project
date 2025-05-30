@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timetable Generator</title>
     <link rel="stylesheet" href="./static/css/output.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- to download timetable-->
+
 </head>
 <body class="relative">
     <div class="flex w-screen h-full justify-center items-center py-12 bg-gradient-to-t from-[#DDEEFB] to-[#45a2ce]">
@@ -33,24 +35,24 @@
 
                         <span>Time Setting</span>
                     </h2>
-                    <div class="flex space-x-4">
+                    <div class="flex flex-col sm:flex-row space-x-4">
                         <div class="flex flex-col space-y-2">
-                            <span>Start: </span>
-                            <input type="time" class="border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 start-time">
+                            <span>Start time</span>
+                            <input type="time" class="w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 start-time">
                         </div>
                         <div class="flex flex-col space-y-2">
-                            <span>End: </span>
-                            <input type="time" class="border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 end-time">
+                            <span>End time <span class="text-13 font-normal italic text-gray-500">(optional)</span></span>
+                            <input type="time" min="1" max="12"  class="w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 end-time">
                         </div>
                     </div>
-                    <div class="flex space-x-5">
-                        <div class="flex flex-1 flex-col space-y-2">
+                    <div class="flex flex-col sm:flex-row sm:space-x-5">
+                        <div class="flex sm:flex-1 flex-col space-y-2">
                             <p>Periods Per Day</p>
-                            <input type="number" class="p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50">
+                            <input type="number" min="1" max="120" class="w-fit sm:w-full p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="1 - 12">
                         </div>
                         <div class="flex flex-col space-y-2">
                             <p>Duration (minutes)</p>
-                            <input type="number" min="1" max="120" class="period-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
+                            <input type="number" min="1" max="120" class="w-fit sm:w-full period-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
                         </div>
                     </div>
 
@@ -63,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="break-time space-x-5 hidden">
+                    <div class="flex-col sm:flex-row break-time space-x-5 space-y-2 sm:space-y-0 hidden">
                         <div class="flex relative">
                             <div class="flex flex-col space-y-2">
                                 <h1>Period (after)</h1>
@@ -74,7 +76,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="absolute -bottom-[151px] -translate-y-1 bg-white border w-full h-[150px] rounded-md overflow-auto shadow-md dropdown-list opacity-0 transition-all duration-300 pointer-events-none">
+                            <div class="absolute -bottom-[151px] -translate-y-1 bg-white font-normal border w-full h-[150px] rounded-md overflow-auto shadow-md dropdown-list opacity-0 transition-all duration-300 pointer-events-none">
                                 <ul class="divide-y overflow-auto">
                                     <!-- <li class="p-2 hover:bg-blue-300">After Period-2</li> -->
                                 </ul>
@@ -82,7 +84,7 @@
                         </div>
                         <div class="flex flex-col space-y-2">
                             <p>Duration (minutes)</p>
-                            <input type="number" min="1" max="120" class="break-time-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
+                            <input type="number" min="1" max="120" class="w-fit sm:w-full break-time-duration p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="Minutes">
                         </div>
                         
                     </div>
@@ -98,7 +100,7 @@
                             </svg>
                             <span>Days Configuration</span>
                         </h2>
-                        <div class="w-full h-[70px] grid grid-cols-7 gap-x-4">
+                        <div class="w-full h-auto sm:h-[70px] grid grid-cols-4 sm:grid-cols-7 gap-y-3 sm:gap-y-0 gap-x-4">
                             <div class="cursor-pointer flex flex-col bg-gray-200 border border-gray-300/50 shadow-sm rounded-md items-center justify-center select-days">
                                 <p>Sat</p>
                                 <img src="./static/images/days-off.png" class="size-7" alt="days-off">
@@ -175,7 +177,7 @@
 
                                 <span>Subjects</span>
                             </h2>
-                            <button type="button" class="cursor-pointer flex ml-4 p-2 add-subject bg-[#3c9ec9] rounded-md space-x-2 text-white hover:bg-[#328BB1]">
+                            <button type="button" class="cursor-pointer flex ml-4 p-2 add-subject bg-[#3c9ec9] rounded-md space-x-2 text-white hover:bg-[#328BB1] active:scale-98">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                     <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
                                 </svg>
@@ -196,7 +198,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center pt-4">
-                        <button type="button" class="cursor-pinter flex p-2 space-x-2 bg-[#3c9ec9] rounded-md text-white hover:bg-[#328BB1] justify-center w-[130px] generate-timetable">
+                        <button type="button" class="cursor-pinter flex p-2 space-x-2 bg-[#3c9ec9] rounded-md text-white hover:bg-[#328BB1] active:scale-98 justify-center w-[130px] generate-timetable">
                             <span>Generate</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                 <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
@@ -207,21 +209,21 @@
 
                 <!-- Custom input box -->
                 <div id="add-subjects" class="fixed inset-0 bg-black/50 z-60 justify-center items-center hidden">
-                    <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex h-[350px] p-8 bg-white aspect-4/3 rounded-lg">
+                    <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex w-[250px] sm:w-auto sm:h-[350px] p-8 bg-white aspect-[1/1.5] sm:aspect-4/3 rounded-lg">
                         <div class="flex flex-col space-y-4 w-full">
                             <h2 class="md:text-2xl">Import Subjects/Courses</h2>
                             <p class="font-normal opacity-80">Type a list of subjects (one per line).</p>
 
                             <!-- input box -->
                             <div class="relative flex w-full overflow-hidden p-1">
-                                <textarea id="subjects-input" class="w-full border border-gray-500/50 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5"></textarea>
+                                <textarea id="subjects-input" class="w-full border border-gray-500/50 font-normal rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5"></textarea>
                                 <p class="absolute top-0 left-0 p-5.5 pointer-events-none text-gray-800/50">Myanamr<br>English<br>Mathematics...</p>
                             </div>
                             
                             <!-- buttons -->
                             <div class="flex justify-end space-x-4">
-                                <button type="button" class="p-2 bg-gray-400/50 text-gray-700 hover:bg-gray-500/50 rounded-md w-[80px] cancel-add">Cancel</button>
-                                <button type="button" class="p-2 bg-[#3c9ec9] text-white hover:bg-[#328BB1] rounded-md w-[80px] confirm-add">Add</button>
+                                <button type="button" class="p-2 bg-gray-400/50 text-gray-700 hover:bg-gray-500/50 active:scale-98 rounded-md w-[80px] cancel-add">Cancel</button>
+                                <button type="button" class="p-2 bg-[#3c9ec9] text-white hover:bg-[#328BB1] active:scale-98 rounded-md w-[80px] confirm-add">Add</button>
                             </div>
                         </div>
                     </div>
@@ -230,36 +232,48 @@
         </div>
     </div>
 
-    <!-- <template id="timetable-temp"> -->
-    <div class="fixed inset-0 bg-black/50 z-70 justify-center items-center hidden">
-        <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[900px] h-[450px] max-w-5xl mx-auto bg-gray-100 p-6 rounded-lg shadow-md">
-            <div class="flex flex-1 flex-col w-full h-full bg-white shadow-md rounded-md p-3">
-                <h1 class="text-2xl font-bold text-center text-blue-600 mb-4"></h1>
+    <!-- <template id="timetable-temp">  tried rotate-90 sm:rotate-0 -->
+    <div id="timetable-temp" class="fixed inset-0 bg-black/50 z-70 justify-center items-center hidden">
+        <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[90%] sm:w-[80%] md:w-[75%] h-[500px] mx-auto bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+            <div id="timetable-image" class="flex flex-1 flex-col w-full h-full bg-white shadow-md rounded-md p-3 items-center">
+                <h1 class="text-2xl font-bold text-center text-blue-600 mb-2"></h1>
 
                 <!-- Timetable Container -->
-                <table class="w-full border-collapse border border-gray-300 text-center">
-                    <thead>
-                        <!--
-                        <tr class="bg-blue-600 text-white">
+                <div class="overflow-hidden rounded-md border border-gray-300">
+                    <table class="w-full table-fixed border-collapse border border-gray-300 text-center">
+                        <thead>
+                            <!--
+                            <tr class="bg-blue-600 text-white">
 
-                            <th class="p-2 border"></th>
-                            <th class="p-2 border">Period 1</th>
-                            <th class="p-2 border">Period 2</th>
-                            <th class="p-2 border">Period 3</th>
-                            <th class="p-2 border">Period 4</th>
-                            <th class="p-2 border bg-amber-600">Break</th>
-                            <th class="p-2 border">Period 5</th>
-                            <th class="p-2 border">Period 6</th>
-                            <th class="p-2 border">Period 7</th> 
-                        </tr>-->
-                    </thead>
-                    <tbody id="timetable"></tbody>
-                </table>
+                                <th class="p-2 border"></th>
+                                <th class="p-2 border">Period 1</th>
+                                <th class="p-2 border">Period 2</th>
+                                <th class="p-2 border">Period 3</th>
+                                <th class="p-2 border">Period 4</th>
+                                <th class="p-2 border bg-amber-600">Break</th>
+                                <th class="p-2 border">Period 5</th>
+                                <th class="p-2 border">Period 6</th>
+                                <th class="p-2 border">Period 7</th> 
+                            </tr>-->
+                        </thead>
+                        <tbody id="timetable"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="flex justify-between">
+                <button type="button" class="cancel-timetable w-[80px] sm:w-[100px] text-[15px] sm:text-normal font-semibold p-2 bg-gray-400/50 rounded-md text-gray-700 hover:bg-gray-400 hover:shadow-sm hover:text-gray-100 active:scale-98">Cancel</button>
+                <button type="button" class="get-timetable flex space-x-2 items-center w-[80px] sm:w-[120px] text-[15px] sm:text-normal font-semibold p-2 bg-[#3c9ec9] text-white rounded-md hover:shadow-sm hover:bg-[#328BB1] active:scale-98">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 sm:size-6">
+                        <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="flex">Get<span class="hidden sm:flex pl-1">Image</span></p>
+                </button>
             </div>
         </div>
     </div>
     <!-- </template> -->
     
     <script type="module" src="./timetable.js"></script>
+    
 </body>
 </html>
