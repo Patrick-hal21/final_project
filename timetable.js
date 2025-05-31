@@ -108,6 +108,11 @@ const textarea = document.querySelector("textarea");
 
 // for placeholder functionality
 textarea.addEventListener("input", () => {
+    ///remove whitespaces
+    if (textarea.value.trim() === "") {
+        textarea.value = "";
+    }
+
     if (textarea.value.length > 0) {
         if (!textarea.nextElementSibling.classList.contains("hidden")) {
             textarea.nextElementSibling.classList.add("hidden");
@@ -159,7 +164,6 @@ function addInputList() {
     }
 }
 
-
 const sub_holder = document.getElementById("subjects-box");
 // if user confirm, hide overlaid box ,and add input courses
 confirm_add.addEventListener('click', () => {
@@ -173,13 +177,25 @@ confirm_add.addEventListener('click', () => {
         child.remove();
     });
 
+    // to color settings(subjects) 6/1/25
+    const subjects_color_holder = document.querySelector(".subject-colors");
+    // clear holder to readd subjects to avoid duplicates
+    Array.from(subjects_color_holder.children).forEach(sub_div => {
+        sub_div.remove();
+    })
+
     const textarea = document.getElementById("subjects-input");
     textarea.value.split("\n").forEach(val => {
         let trim_val = val.trim();
         // to capitalize text using custom func
-        trim_val = smartCapitalize(trim_val);
-        add_subject(sub_holder, trim_val);
-        subjects.push(trim_val);
+        if (trim_val != "") {
+            trim_val = smartCapitalize(trim_val);
+            add_subject(sub_holder, trim_val);
+            subjects.push(trim_val);
+
+            // to color settings(subjects) 6/1/25
+            addToSubjectsColor(subjects_color_holder, trim_val);
+        }
     }); 
     //console.log(textarea.value.split("\n").length);
     //console.log(subjects)
@@ -191,7 +207,7 @@ let sub_colors = {};
 
 function add_subject(holder, sub_name) {
     const div = document.createElement("div");
-    div.className = "flex justify-between items-center w-[150px] p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm";
+    div.className = "flex justify-between items-center w-[150px] p-2 space-x-2 border border-gray-400/50 rounded-full shadow-md";
 
     const new_name = sub_name.length > 7 ? sub_name.slice(0, 4) + "..." : sub_name;
 
@@ -237,6 +253,46 @@ function add_subject(holder, sub_name) {
 
     holder.appendChild(div);
 
+}
+
+/// for color setting (subject colors) // 6/1/25
+function addToSubjectsColor(holder, sub_name) {
+
+    const div = document.createElement("div");
+    div.innerHTML = `<div class="flex justify-between md:items-center">
+                        <div class="flex">
+                            <p class="w-[200px] text-center font-normal border border-gray-300 rounded-sm p-2 demo-sub">${sub_name}</p>
+                        </div>
+
+                        <div class="flex space-x-4">
+                            <div class="flex space-x-1">
+                                <p class="font-normal">Bg-color:</p>
+                                <input type="color" class="sub-bg-color w-5 aspect-square" value="#ffffff">
+                            </div>
+                            <div class="flex space-x-1">
+                                <p class="font-normal">Text-color:</p>
+                                <input type="color" class="sub-text-color w-5 aspect-square" value="#000000">
+                            </div>
+                        </div>
+                    </div>`;
+
+    const demo_div = div.querySelector(".demo-sub");
+    const bg_color = div.querySelector(".sub-bg-color");
+    const text_color = div.querySelector(".sub-text-color");
+        
+    // in above sub_colors div is stored like => {"Myanamr" : {"bg":"#ffffff", "text":"#000000"}, {},..}
+
+    bg_color.addEventListener("input", () => {demo_div.style.backgroundColor = bg_color.value});
+    bg_color.addEventListener("change", () => {
+        sub_colors[sub_name]['bg'] = bg_color.value;
+    });
+
+    text_color.addEventListener("input", () => {demo_div.style.color = text_color.value});
+    text_color.addEventListener("change", () => {
+        sub_colors[sub_name]['text'] = text_color.value;
+    });
+
+    holder.appendChild(div);
 }
 
 // for easy capitalizing text inputs
@@ -412,9 +468,9 @@ function makeBest() {
 
     //set timetable title
     const title_text = document.querySelector("#timetable-image h1");
-    console.log(title);
+    // console.log(title);
     title_text.textContent = title !== "" ? title : "Weekly School Timetable";
-    console.log(title_text.textContent)
+    // console.log(title_text.textContent)
 
     // set title style from stored object
     if (title_style["text"]) title_text.style.color = title_style["text"];
@@ -428,6 +484,23 @@ function makeBest() {
 
 }
 
+// display period or not
+let displayPeriod = false;
+
+// switch
+const toggle_btn = document.querySelector(".toggle");
+// for whole div .parentElement is used, else remove it
+toggle_btn.parentElement.addEventListener('click', () => {
+    // toggle position
+    toggle_btn.classList.toggle("translate-x-0");
+    toggle_btn.classList.toggle("translate-x-[155%]");
+    // toggle paren color
+    toggle_btn.parentElement.classList.toggle("bg-red-400");
+    toggle_btn.parentElement.classList.toggle("bg-green-400");
+    
+    // toggle boolean value
+    displayPeriod = !displayPeriod;
+})
 
 // draw timetable 
 function insertTableHeader(P, bT, sT, eT, pD, btD) {
@@ -438,7 +511,7 @@ function insertTableHeader(P, bT, sT, eT, pD, btD) {
     const start_time = new Date(sT);
 
     thead.innerHTML = "";
-    // header
+    // header (period)
     let table_row = `<tr class="bg-blue-600 text-white">`;
     // time
     let timeRow = `<tr class="border bg-blue-400 text-white">`;
@@ -464,8 +537,8 @@ function insertTableHeader(P, bT, sT, eT, pD, btD) {
             table_row += `<th class="p-2 border"></th>`;
             timeRow += `<td class="p-1 border">Time</td>`;
 
-        } else if (i === parseInt(bT)+1) {
-            table_row += `<th class="p-2 border bg-amber-600">Break</th>`;
+        } else if (i === parseInt(bT)+1 && bT !== "") {
+            table_row += `<th class="p-2 border bg-amber-600">Break Time</th>`;
             timeRow += `<td class="p-1 py-2 border bg-amber-600">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
             
             // Move to next period time
@@ -485,7 +558,9 @@ function insertTableHeader(P, bT, sT, eT, pD, btD) {
     table_row += `</th>`;
     timeRow += `</tr>`;
 
-    thead.innerHTML += table_row;
+    if (displayPeriod) {
+        thead.innerHTML += table_row;
+    }
     tbody.innerHTML += timeRow;
 }
 
@@ -513,7 +588,7 @@ function insertTableBody(P, bT, object) {
         // total periods
         const total_p = P + bT.length; // period + breaktime
         for (let i=0; i < total_p; i++) {
-            if ( i === parseInt(bT)) {
+            if ( i === parseInt(bT) && bT !== "") {
                 row += `<td class="p-2 border bg-amber-600 text-white">Lunch</td>`;
             } else {
 
@@ -525,7 +600,9 @@ function insertTableBody(P, bT, object) {
                     // console.log(sub_colors[key]);
                     // console.log(sub_colors[key]["bg"]);
 
-                    row += `<td class="p-2 border border-gray-300" style="background-color: ${sub_colors[key]["bg"]};">${object[day][periodIndex]}</td>`;
+                    row += `<td class="p-2 border border-gray-300" 
+                        style="background-color: ${sub_colors[key]["bg"]}; color: ${sub_colors[key]["text"]}">
+                        ${object[day][periodIndex]}</td>`;
                 } else {
                     row += `<td class="p-2 border border-gray-300">${object[day][periodIndex]}</td>`;
                 }
@@ -689,3 +766,104 @@ title_italic_div.addEventListener('click', () => {
     title_style['italic'] = title_text.classList.contains("italic");
 });
 title_italic_div.addEventListener('mousedown', (e) => {e.preventDefault()}); // to prevent selecting text if many clicks triggered
+
+
+// for time setting color
+//// period bg-color
+document.querySelector(".period-bg-color").addEventListener("input", () => {
+    document.querySelector(".period-color-demo").style.backgroundColor = document.querySelector(".period-bg-color").value;
+});
+document.querySelector(".period-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+// period text-color
+document.querySelector(".period-text-color").addEventListener("input", () => {
+    document.querySelector(".period-color-demo").style.color = document.querySelector(".period-text-color").value;
+});
+document.querySelector(".period-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+//// time bg-color
+document.querySelector(".time-bg-color").addEventListener("input", () => {
+    document.querySelector(".time-color-demo").style.backgroundColor = document.querySelector(".time-bg-color").value;
+});
+document.querySelector(".time-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+// time text-color
+document.querySelector(".time-text-color").addEventListener("input", () => {
+    document.querySelector(".time-color-demo").style.color = document.querySelector(".time-text-color").value;
+});
+document.querySelector(".time-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+
+//// breaktime bg-color
+document.querySelector(".breaktime-bg-color").addEventListener("input", () => {
+    document.querySelector(".breaktime-color-demo").style.backgroundColor = document.querySelector(".breaktime-bg-color").value;
+});
+document.querySelector(".breaktime-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+// time text-color
+document.querySelector(".breaktime-text-color").addEventListener("input", () => {
+    document.querySelector(".breaktime-color-demo").style.color = document.querySelector(".breaktime-text-color").value;
+});
+document.querySelector(".breaktime-bg-color").addEventListener("change", () => {
+    // for color mapping to use in timetable
+});
+
+
+
+
+const fyi = document.querySelector(".fyi");
+const fyi_box = document.querySelector(".fyi-div");
+
+let showTimeout;
+let hideTimeout;
+let inDiv = false;
+
+// Show the box after hovering .fyi
+fyi.addEventListener("mouseenter", () => {
+  showTimeout = setTimeout(() => {
+    fyi_box.classList.remove("hidden");
+    fyi_box.classList.add("flex");
+  }, 800);
+});
+
+// Cancel show if leaving early, and possibly hide
+fyi.addEventListener("mouseleave", () => {
+  clearTimeout(showTimeout);
+  hideTimeout = setTimeout(() => {
+    if (!inDiv) {
+      fyi_box.classList.remove("flex");
+      fyi_box.classList.add("hidden");
+    }
+  }, 500);
+});
+
+// Track mouse entering the box
+fyi_box.addEventListener("mouseenter", () => {
+  inDiv = true;
+  clearTimeout(hideTimeout);
+});
+
+// Hide when mouse leaves the box
+fyi_box.addEventListener("mouseleave", () => {
+  inDiv = false;
+  hideTimeout = setTimeout(() => {
+    if (!inDiv) {
+      fyi_box.classList.remove("flex");
+      fyi_box.classList.add("hidden");
+    }
+  }, 200);
+});
+
+
+
+///// Period, Time, Brreaktime is left to do
