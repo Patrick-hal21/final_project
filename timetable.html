@@ -21,8 +21,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                         </svg>
 
-                        <span>Timetable Name</span>
+                        <span>Timetable Title</span>
                     </h2>
+                    
                     <input type="text" class="title p-2 md:p-3 border rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50" placeholder="eg. 2025/2026 Weekly Timetable">
                 </div>
 
@@ -58,10 +59,10 @@
 
                     <div class="flex space-x-3 text-blue-600 justify-center">
                         <div class="flex cursor-pointer opacity-70 hover:opacity-100 transition-all duration-300 add-break-time">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2563EB" class="size-6 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="#2563EB" class="size-6 transition-transform duration-300">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
                             </svg>
-                            <p class="user-select-none">Show Breaktime Setting</p>
+                            <p class="pointer-events-none">Show Breaktime Setting</p>
                         </div>
                     </div>
 
@@ -76,7 +77,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="absolute -bottom-[151px] -translate-y-1 bg-white font-normal border w-full h-[150px] rounded-md overflow-auto shadow-md dropdown-list opacity-0 transition-all duration-300 pointer-events-none">
+                            <div class="absolute -bottom-[151px] -translate-y-1 p-1 bg-white font-normal border w-full h-[150px] rounded-md overflow-auto shadow-md dropdown-list opacity-0 transition-all duration-300 pointer-events-none">
                                 <ul class="divide-y overflow-auto">
                                     <!-- <li class="p-2 hover:bg-blue-300">After Period-2</li> -->
                                 </ul>
@@ -188,15 +189,71 @@
 
                         <div class="flex flex-col space-y-2">
                             <div id="subjects-box" class="flex flex-wrap gap-x-3 gap-y-3">
-                                <!-- <div class="flex justify-between p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm">
-                                    <p class="subject">Myanamr</p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-50">
+                                <!-- <div class="flex justify-between w-[150px] p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm">
+                                    <div class="flex space-x-1">
+                                        <p class="subject">Myanamr</p>
+                                        <input type="color" class="w-6 h-6 rounded-full aspect-square" value="#ffffff">
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 opacity-50">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
                                 </div> -->
+                            </div>    
+                        </div>
+                    </div>
+
+
+                    <!-- Color setting (optional) -->
+                    <div class="flex flex-col space-y-6 rounded-md shadow-sm p-3 color-setting">
+                        <h2 class="flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" fill="#005275" d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" clip-rule="evenodd" />
+                                <path fill="#FF7300" d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z" />
+                            </svg>
+                            <span>Color Setting</span>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="#2563EB" class="size-6 opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer toggle-color-setting">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                            </svg>
+                        </h2>
+
+                        <!-- toggle flex and hidden-->
+                        <div class="flex-col space-y-5 hidden"> 
+                            <div class="flex flex-col space-y-3 p-2 rounded-md shadow-sm">
+                                <h2 class="flex space-x-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#005275" class="size-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.243 4.493v7.5m0 0v7.502m0-7.501h10.5m0-7.5v7.5m0 0v7.501m4.501-8.627 2.25-1.5v10.126m0 0h-2.25m2.25 0h2.25" />
+                                    </svg>
+                                    <span>Title</span>
+                                </h2>
+                                <div class="flex space-x-2 sm:space-x-6">
+                                    <p class="flex space-x-2 w-[70%] title-color">Weekly School Timetable</p>
+                                    
+                                    <div class="flex flex-wrap space-y-2 sm:space-x-2">
+                                        <div class="relative self-start flex flex-col px-2 border rounded-sm space-y-1 title-color cursor-pointer">
+                                            <p class="flex font-bold text-xl pointer-events-none">A</p>
+                                            <input type="color" class="absolute -bottom-0.5 left-0 w-full h-3 rounded-full border-none appearance-none">
+                                        </div>
+
+                                        <div class="flex flex-col h-[34px] px-2 border rounded-sm space-y-1 title-bold cursor-pointer items-center justify-center">
+                                            <p class="flex font-bold text-xl pointer-events-none">B</p>
+                                        </div>
+
+                                        <div class="flex flex-col h-[34px] px-2 border rounded-sm space-y-1 title-underline cursor-pointer items-center justify-center">
+                                            <p class="flex font-bold text-xl pointer-events-none">U</p>
+                                        </div>
+
+                                        <div class="flex flex-col h-[34px] px-2.5 border rounded-sm space-y-1 title-italic cursor-pointer items-center justify-center">
+                                            <p class="flex font-bold text-xl pointer-events-none font-serif">I</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Generate Timetable Button -->
                     <div class="flex justify-center pt-4">
                         <button type="button" class="cursor-pinter flex p-2 space-x-2 bg-[#3c9ec9] rounded-md text-white hover:bg-[#328BB1] active:scale-98 justify-center w-[130px] generate-timetable">
                             <span>Generate</span>

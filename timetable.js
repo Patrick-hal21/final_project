@@ -29,8 +29,14 @@ document.querySelector("input[type='number']").addEventListener("input", functio
     }
     
     periods = parseInt(this.value,0);
-    console.log(periods);
+    // console.log(periods);
 
+    // add inputs to dropdown list
+    // addInputList(); // line - 325
+});
+
+// add inputs in change event to consume less resourse
+document.querySelector("input[type='number']").addEventListener("change", function () {
     // add inputs to dropdown list
     addInputList(); // line - 325
 });
@@ -129,7 +135,7 @@ function addInputList() {
         for (let i=1; i <= periods; i++) {
             
             const new_li = document.createElement("li");
-            new_li.className = "p-2 hover:bg-blue-300";
+            new_li.className = "p-2 hover:bg-blue-300 rounded-sm";
             new_li.textContent = `After Period-${i}`;
 
             
@@ -169,30 +175,89 @@ confirm_add.addEventListener('click', () => {
 
     const textarea = document.getElementById("subjects-input");
     textarea.value.split("\n").forEach(val => {
-        const trim_val = val.trim();
+        let trim_val = val.trim();
+        // to capitalize text using custom func
+        trim_val = smartCapitalize(trim_val);
         add_subject(sub_holder, trim_val);
-        subjects.push(val);
+        subjects.push(trim_val);
     }); 
     //console.log(textarea.value.split("\n").length);
     //console.log(subjects)
     
 }); 
 
+// subject and color mapping
+let sub_colors = {};
+
 function add_subject(holder, sub_name) {
     const div = document.createElement("div");
-    div.className = "flex justify-between w-[150px] p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm";
+    div.className = "flex justify-between items-center w-[150px] p-2 space-x-2 border border-gray-500/50 rounded-full shadow-sm";
 
-    div.innerHTML = `<p class="flex flex-1 subject">${sub_name}</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>`
+    const new_name = sub_name.length > 7 ? sub_name.slice(0, 4) + "..." : sub_name;
+
+    div.innerHTML = `<div class="flex space-x-1">
+                        <p class="flex flex-1 subject">${new_name}</p>
+                        <input type="color" class="w-6 h-6 rounded-full aspect-square" value="#ffffff">
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>`;
+
+    // set bg color and text color to subject colors mapping
+    if (!sub_colors[sub_name]) {
+        sub_colors[sub_name] = {};
+    }
+    // default values
+    sub_colors[sub_name]["bg"] = "#ffffff";
+    sub_colors[sub_name]["text"] = "#000000";
+
     const svg = div.querySelector("svg");
     svg.addEventListener('click', () => {
         // may be display alert box before div is destroyed
         div.remove();
+        if (sub_colors[sub_name]) {
+            delete sub_colors[sub_name];
+        }
+        // console.log(sub_colors);
     })
+
+    div.querySelectorAll("input").forEach(elem => {
+        // apply chosen color to bg
+        elem.addEventListener("input", () => {
+            div.style.backgroundColor = elem.value;
+        });
+
+        // if this is used in input, it will render too many times if drag and set
+        elem.addEventListener('change', () => {
+            // add color to respective sub
+            sub_colors[sub_name]["bg"] = elem.value;
+            // console.log(sub_colors);
+        });
+    });
+
     holder.appendChild(div);
+
 }
+
+// for easy capitalizing text inputs
+function smartCapitalize(str) {
+    if (str.includes(" ")) {
+        return str
+            .split(" ")
+            .map(word => {
+            // Leave symbols like & unchanged
+            return /^[a-zA-Z]/.test(word)
+                ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                : word;
+            })
+            .join(" ");
+    } else {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+}
+// console.log(smartCapitalize("moRal & civicS"));
+// console.log(smartCapitalize("aPplied sCience"));
+// console.log(smartCapitalize("myanamr"));
 
 // test
 //let subjects = ["Math", "English", "Science", "History", "Art", "PE"];
@@ -208,7 +273,7 @@ document.querySelector(".generate-timetable").addEventListener('click', () => {
 
 
 // Function to distribute subjects ( not generating timtable visually, but needed data)
-function generateTimetable(timetable) {
+function generateTimetableData(timetable) {
     let subjectCounts = {}; // Track how many times each subject appears
 
     subjects.forEach(sub => subjectCounts[sub] = 0); // Start count at 0
@@ -260,7 +325,7 @@ add_break_time.addEventListener("click", () => {
     add_break_time.querySelector("svg").classList.toggle("rotate-180");
     
 });
-add_break_time.addEventListener("mousedown", (e) => {e.preventDefault});
+add_break_time.addEventListener("mousedown", (e) => {e.preventDefault()});
 
 // Breaktime Dropdown
 const period_dropdown = document.querySelector(".period-dropdown");
@@ -308,7 +373,7 @@ Biology
 
 // not specific function, just to gather needed info
 function gatherInfo() { // durations are in minutes
-    title = document.querySelector(".title").textContent || "Weekly School Timetable";
+    title = smartCapitalize(document.querySelector(".title").value)|| "Weekly School Timetable";
     start_time = new Date(`2025-01-01T${document.querySelector(".start-time").value}:00`);
     end_time = new Date(`2025-01-01T${document.querySelector(".end-time").value}:00`);
     const num_periods = periods;
@@ -321,6 +386,8 @@ function gatherInfo() { // durations are in minutes
 
 // makeBest means make the best timetable :)
 function makeBest() {
+    // console.log(sub_colors);
+
     periodsPerDay = periods;
     // Initialize timetable structure
     let timetable = {};
@@ -331,7 +398,7 @@ function makeBest() {
         timetable[day] = Array(periodsPerDay).fill(null); // Empty slots
     });
     // console.log(periodsPerDay);
-    const days_subjects = generateTimetable(timetable); // generate subject lists (object)
+    const days_subjects = generateTimetableData(timetable); // generate subject lists (object)
 
     if(Object.keys(days_subjects).length === 0) { // to check object is empty or not
         console.log("Not enough facts to create timetable");
@@ -344,7 +411,17 @@ function makeBest() {
     timetable_holder.classList.toggle("hidden");
 
     //set timetable title
-    document.querySelector("#timetable-image h1").textContent = title !== "" ? title : "Weekly School Timetable";
+    const title_text = document.querySelector("#timetable-image h1");
+    console.log(title);
+    title_text.textContent = title !== "" ? title : "Weekly School Timetable";
+    console.log(title_text.textContent)
+
+    // set title style from stored object
+    if (title_style["text"]) title_text.style.color = title_style["text"];
+    if (title_style["bold"]) title_text.classList.add("font-bold");
+    if (title_style["underline"]) title_text.classList.add("underline");
+    if (title_style["italic"]) title_text.classList.add("italic");
+    
 
     insertTableHeader(num_periods, bt_after_period, start_time, end_time, period_duration, breaktime_duration);
     insertTableBody(num_periods, bt_after_period, days_subjects);
@@ -439,7 +516,19 @@ function insertTableBody(P, bT, object) {
             if ( i === parseInt(bT)) {
                 row += `<td class="p-2 border bg-amber-600 text-white">Lunch</td>`;
             } else {
-                row += `<td class="p-2 border border-gray-300">${object[day][periodIndex]}</td>`;
+
+                //applied border color via style
+                if(Object.keys(sub_colors).length !== 0) {
+                    const key = object[day][periodIndex];
+                    // console.log(sub_colors);
+                    // console.log(key);
+                    // console.log(sub_colors[key]);
+                    // console.log(sub_colors[key]["bg"]);
+
+                    row += `<td class="p-2 border border-gray-300" style="background-color: ${sub_colors[key]["bg"]};">${object[day][periodIndex]}</td>`;
+                } else {
+                    row += `<td class="p-2 border border-gray-300">${object[day][periodIndex]}</td>`;
+                }
                 periodIndex ++;
             }
         }
@@ -507,3 +596,96 @@ get_timetable_img.addEventListener('click', () => {
     });
     
 });
+
+
+
+//// for color setting (just for visual currently)
+const toggle_color_setting = document.querySelector(".toggle-color-setting");
+
+// toggle color-setting
+toggle_color_setting.addEventListener('click', () => {
+    toggle_color_setting.classList.toggle("rotate-180");
+
+    const child_divs = document.querySelectorAll(".color-setting > div");
+    // toggle setting's divs display
+    child_divs.forEach(div => {
+        div.classList.toggle("hidden");
+        div.classList.toggle("flex");
+    })
+});
+toggle_color_setting.addEventListener('mousedown', (e) => {e.preventDefault()});
+
+
+// timetable title change event to chage title in color setting
+document.querySelector(".title").addEventListener("change", () => {
+    title_text.textContent = smartCapitalize(document.querySelector(".title").value);
+})
+
+// for Title setting
+const title_style = {'text':'#000000', 'bold':false, 'underline':false, 'italic':false};
+
+const title_color_div = document.querySelector("div.title-color");
+const title_text = document.querySelector("p.title-color");
+
+// to open color input
+title_color_div.addEventListener('click', () => {
+    title_color_div.querySelector("input").click();
+});
+
+// to change title text color
+title_color_div.querySelector("input").addEventListener("input", () => {
+    title_text.style.color = title_color_div.querySelector("input").value;
+
+    // store to title style obj
+    title_style['text'] = title_color_div.querySelector("input").value;
+});
+
+// to make title bold
+const title_bold_div = document.querySelector("div.title-bold");
+title_bold_div.addEventListener('click', () => {
+    title_bold_div.classList.toggle("bg-gray-300")
+    title_bold_div.classList.toggle("border-purple-700");
+    title_bold_div.firstElementChild.classList.toggle("text-purple-700");
+
+    // change text style
+    title_text.classList.toggle("font-bold");
+
+    // store to title style obj
+    title_style['bold'] = title_text.classList.contains("font-bold");
+});
+title_bold_div.addEventListener('mousedown', (e) => {e.preventDefault()}); // to prevent selecting text if many clicks triggered
+
+// title underline
+const title_underline_div = document.querySelector("div.title-underline");
+title_underline_div.addEventListener('click', () => {
+    title_underline_div.classList.toggle("bg-gray-300")
+    title_underline_div.classList.toggle("border-purple-700");
+    // clickable div's text style
+    title_underline_div.firstElementChild.classList.toggle("text-purple-700");
+    title_underline_div.firstElementChild.classList.toggle("underline");
+
+    // change text style
+    title_text.classList.toggle("underline");
+
+    // store to title style obj
+    title_style['underline'] = title_text.classList.contains("underline");
+    console.log(title_style);
+});
+title_underline_div.addEventListener('mousedown', (e) => {e.preventDefault()}); // to prevent selecting text if many clicks triggered
+
+// title italic
+const title_italic_div = document.querySelector("div.title-italic");
+title_italic_div.addEventListener('click', () => {
+    title_italic_div.classList.toggle("bg-gray-300")
+    title_italic_div.classList.toggle("border-purple-700");
+    // clickable div's text style
+    title_italic_div.firstElementChild.classList.toggle("text-purple-700");
+    title_italic_div.firstElementChild.classList.toggle("italic");
+
+    // change text style
+    title_text.classList.toggle("italic");
+
+    // store to title style obj
+    title_style['italic'] = title_text.classList.contains("italic");
+});
+title_italic_div.addEventListener('mousedown', (e) => {e.preventDefault()}); // to prevent selecting text if many clicks triggered
