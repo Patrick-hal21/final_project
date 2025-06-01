@@ -511,10 +511,15 @@ function insertTableHeader(P, bT, sT, eT, pD, btD) {
     const start_time = new Date(sT);
 
     thead.innerHTML = "";
-    // header (period)
-    let table_row = `<tr class="bg-blue-600 text-white">`;
+    
+    // header (period) // colormap => {"bg":"#..", "text":"#ffffff"}
+    // let table_row = `<tr class="bg-blue-600 text-white">`;
+    let table_row = `<tr class="bg-blue-600 text-white" 
+    style="background-color:${period_colors["bg"]}; color:${period_colors["text"]};">`;
+
     // time
-    let timeRow = `<tr class="border bg-blue-400 text-white">`;
+    let timeRow = `<tr class="border border-gray-300 bg-blue-400 text-white"
+    style="background-color:${time_days_colors["bg"]}; color:${time_days_colors["text"]};">`;
 
      // insert table header row
     const total_p = P + bT.length; // period + breaktime
@@ -534,19 +539,26 @@ function insertTableHeader(P, bT, sT, eT, pD, btD) {
         let endMin = endTime.getMinutes();
 
         if (i == 0) {
-            table_row += `<th class="p-2 border"></th>`;
-            timeRow += `<td class="p-1 border">Time</td>`;
+            table_row += `<th class="p-2 border border-gray-300"></th>`;
+            timeRow += `<td class="p-1 border border-gray-300">Time</td>`;
 
         } else if (i === parseInt(bT)+1 && bT !== "") {
-            table_row += `<th class="p-2 border bg-amber-600">Break Time</th>`;
-            timeRow += `<td class="p-1 py-2 border bg-amber-600">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
+            const bg_value = break_time_colors["bg"];
+            const text_value= break_time_colors["text"];
+            // tailwind class style will be overrided
+            table_row += `<th class="p-2 border border-gray-300 bg-amber-600"
+            style="background-color:${bg_value}; color:${text_value};">Break Time</th>`;
+
+            timeRow += `<td class="p-1 py-2 border border-gray-300 bg-amber-600"
+            style="background-color:${bg_value}; color:${text_value};">
+            ${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
             
             // Move to next period time
             start_time.setMinutes(start_time.getMinutes() + isBreaktime); 
 
         } else {
-            table_row += `<th class="p-2 border">Period-${i}</th>`;
-            timeRow += `<td class="p-1 py-2 border">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
+            table_row += `<th class="p-2 border border-gray-300">Period-${i}</th>`;
+            timeRow += `<td class="p-1 py-2 border border-gray-300">${timeConverter(startHour, startMin)} - ${timeConverter(endHour, endMin)}</td>`;
 
             // Move to next period time
             start_time.setMinutes(start_time.getMinutes() + isBreaktime); 
@@ -580,7 +592,9 @@ function insertTableBody(P, bT, object) {
     const tbody = document.querySelector("tbody");
 
     Object.keys(object).forEach(day => {
-        let row = `<tr class="border border-gray-300">
+        let row = `<tr class="border border-gray-300"
+                        style="background-color:${time_days_colors["bg"]}; color:${time_days_colors["text"]};">
+
                         <td class="p-2 font-semibold">${dates_map[day]}</td>`;
         
         let periodIndex = 0;
@@ -589,7 +603,10 @@ function insertTableBody(P, bT, object) {
         const total_p = P + bT.length; // period + breaktime
         for (let i=0; i < total_p; i++) {
             if ( i === parseInt(bT) && bT !== "") {
-                row += `<td class="p-2 border bg-amber-600 text-white">Lunch</td>`;
+                row += `<td class="p-2 border border-gray-300 bg-amber-600 text-white"
+                        style="background-color:${break_time_colors["bg"]}; color:${break_time_colors["text"]};">
+                        Lunch
+                        </td>`;
             } else {
 
                 //applied border color via style
@@ -601,7 +618,7 @@ function insertTableBody(P, bT, object) {
                     // console.log(sub_colors[key]["bg"]);
 
                     row += `<td class="p-2 border border-gray-300" 
-                        style="background-color: ${sub_colors[key]["bg"]}; color: ${sub_colors[key]["text"]}">
+                        style="background-color: ${sub_colors[key]["bg"]}; color: ${sub_colors[key]["text"]};">
                         ${object[day][periodIndex]}</td>`;
                 } else {
                     row += `<td class="p-2 border border-gray-300">${object[day][periodIndex]}</td>`;
@@ -769,20 +786,26 @@ title_italic_div.addEventListener('mousedown', (e) => {e.preventDefault()}); // 
 
 
 // for time setting color
+const period_colors = {"bg":"#2563EB", "text":"#ffffff"};
+const time_days_colors = {"bg":"#60A5FA", "text":"#ffffff"};
+const break_time_colors = {"bg":"#D97706", "text":"#ffffff"};
+
 //// period bg-color
 document.querySelector(".period-bg-color").addEventListener("input", () => {
     document.querySelector(".period-color-demo").style.backgroundColor = document.querySelector(".period-bg-color").value;
 });
 document.querySelector(".period-bg-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    period_colors["bg"] = document.querySelector(".period-bg-color").value;
 });
 
 // period text-color
 document.querySelector(".period-text-color").addEventListener("input", () => {
     document.querySelector(".period-color-demo").style.color = document.querySelector(".period-text-color").value;
 });
-document.querySelector(".period-bg-color").addEventListener("change", () => {
+document.querySelector(".period-text-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    period_colors["text"] = document.querySelector(".period-text-color").value;
 });
 
 //// time bg-color
@@ -791,14 +814,16 @@ document.querySelector(".time-bg-color").addEventListener("input", () => {
 });
 document.querySelector(".time-bg-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    time_days_colors["bg"] = document.querySelector(".time-bg-color").value;
 });
 
 // time text-color
 document.querySelector(".time-text-color").addEventListener("input", () => {
     document.querySelector(".time-color-demo").style.color = document.querySelector(".time-text-color").value;
 });
-document.querySelector(".time-bg-color").addEventListener("change", () => {
+document.querySelector(".time-text-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    time_days_colors["text"] = document.querySelector(".time-text-color").value;
 });
 
 
@@ -808,19 +833,21 @@ document.querySelector(".breaktime-bg-color").addEventListener("input", () => {
 });
 document.querySelector(".breaktime-bg-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    break_time_colors["bg"] = document.querySelector(".breaktime-bg-color").value;
 });
 
 // time text-color
 document.querySelector(".breaktime-text-color").addEventListener("input", () => {
     document.querySelector(".breaktime-color-demo").style.color = document.querySelector(".breaktime-text-color").value;
 });
-document.querySelector(".breaktime-bg-color").addEventListener("change", () => {
+document.querySelector(".breaktime-text-color").addEventListener("change", () => {
     // for color mapping to use in timetable
+    break_time_colors["text"] = document.querySelector(".breaktime-text-color").value;
 });
 
 
 
-
+/// Info box from generate button beside
 const fyi = document.querySelector(".fyi");
 const fyi_box = document.querySelector(".fyi-div");
 
