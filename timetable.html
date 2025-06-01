@@ -39,11 +39,11 @@
                     <div class="flex flex-col sm:flex-row space-x-4">
                         <div class="flex flex-col space-y-2">
                             <span>Start time</span>
-                            <input type="time" class="w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 start-time">
+                            <input type="time" value="08:00" class="text-gray-900 w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 start-time">
                         </div>
                         <div class="flex flex-col space-y-2">
                             <span>End time <span class="text-13 font-normal italic text-gray-500">(optional)</span></span>
-                            <input type="time" min="1" max="12"  class="w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 end-time">
+                            <input type="time" value="14:00" class="text-gray-900 w-fit border p-2 rounded-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500/50 end-time">
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:space-x-5">
@@ -417,7 +417,7 @@
 
     <!-- <template id="timetable-temp">  tried rotate-90 sm:rotate-0 -->
     <div id="timetable-temp" class="fixed inset-0 bg-black/50 z-70 justify-center items-center hidden">
-        <div class="fixed inset-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[90%] sm:w-[80%] md:w-[75%] h-[450px] mx-auto bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[90%] sm:w-[80%] mx-auto bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
             <div id="timetable-image" class="flex flex-1 flex-col w-full h-full bg-white shadow-md rounded-md p-3 items-center">
                 <h1 class="text-2xl font-bold text-center text-blue-600 mb-2"></h1>
 
