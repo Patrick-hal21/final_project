@@ -1,3 +1,7 @@
+ //// For passcode => line-96 to 189
+
+
+
 // email-showcase dropdown
 const group = document.getElementById("combogroup");
 const input = document.getElementById("combobox");
@@ -88,7 +92,13 @@ document.querySelectorAll("#dropdown li").forEach(item => {
 
 
 
-// for passcode //
+//////////////                 FOR PASSCODE                     /////
+// 96 to 189 ( optional - to remove 109-114, 137-141)
+
+//// bro, if you checked this, I think you can use this
+// const otpSlots = [...document.querySelectorAll("[id]")].filter(el => el.id.startsWith("passcode-"));  <======
+
+// instead of this
 const otpSlots = document.querySelectorAll(".pc-slot");
 
 function moveFocus(current) {
@@ -99,7 +109,7 @@ function moveFocus(current) {
         if (otpSlots[index].classList.contains("focus:border-red-500")) {
             otpSlots[index].classList.remove("focus:border-red-500"); 
         } 
-        // Clear error message if present
+        // Clear error message if present /// as this error msg, you can remove this
         if (document.getElementById("passErrorMsg").innerText) {
             document.getElementById("passErrorMsg").innerText = ""; 
         }
@@ -166,22 +176,9 @@ otpSlots.forEach((slot) => {
                 //this is only for Enter press ( there is an submit button "Click" event above)
                 console.log("form submitted");
                 event.preventDefault();
-                window.location.href = "./system_page_std.html";
 
-                // const form = document.querySelector("form");
-                // if (form) {
-
-                //     // this must be remove for further useages
-                //     event.preventDefault(); // Prevent default form submission
-                //     window.location.reload(); // load current page
-                    
-
-                //     // form.action = "#"; // Set action URL
-                //     // form.method = "POST"; // Set method
-                //     // form.submit(); // Explicitly submit the form
-                // } 
+                window.location.href = "./system_page_std.html"; //// you dont have to use this <=======
             }
-
             /*else {
                 console.log("Invalid input: Must be a digit");
             }
@@ -191,6 +188,10 @@ otpSlots.forEach((slot) => {
     });
 });
 
+
+
+
+/// you won't need this bro
 function toggleVisbile() {
     //
     const otpSlots = document.querySelectorAll(".pc-slot");
